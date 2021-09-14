@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     public static CameraController instance;
 
     public Transform followTransform;
-    public Transform cameraTransform ;
+    public Transform cameraTransform;
 
     public float normalSpeed;
     public float fastSpeed;
