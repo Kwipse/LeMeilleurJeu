@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
 
 public class COnstruction : StateMachineBehaviour
 {
@@ -10,9 +9,9 @@ public class COnstruction : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetBool("IsSelecting",false);
+        
         GameObject go = Instantiate(barracks_blueprint);
-        go.GetComponent<NetworkObject>().Spawn();
+       
         
     
     }

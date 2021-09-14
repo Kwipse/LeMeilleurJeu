@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
+
 
 public class Building_Blueprint : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class Building_Blueprint : MonoBehaviour
     RaycastHit hit;
     Vector3 movePoint;
     public GameObject prefab;
+    public Animator RTSPlayrAnimator;
 
     
     void Start()
@@ -24,6 +27,7 @@ public class Building_Blueprint : MonoBehaviour
         {
             transform.position= hit.point;
         }
+        RTSPlayrAnimator = GameObject.Find("RTSPlayer(Clone)").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -39,7 +43,15 @@ public class Building_Blueprint : MonoBehaviour
         if(Input.GetMouseButton(0))
         {
             GameObject go = Instantiate(prefab, hit.point, transform.rotation);
-            GameObject.Find("RTSPlayer/").GetComponent<Animator>().SetBool("IsConstructed", true);
+            go.GetComponent<NetworkObject>().Spawn();
+            if (RTSPlayrAnimator !=null)
+            {
+                RTSPlayrAnimator.SetBool("IsConstructed", true);
+            }
+            else
+            {
+                Debug.Log("RTS Animator not detected");
+            }
             Destroy(gameObject);
         }
     }
