@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class Building_Blueprint : MonoBehaviour
 {
+    /*
+    A attacher à un blueprint de batiment
+
+    le batiment de reste sous le curseur que sur un objet contenant un collider et sur le layer 8
+    ce script maintient le blueprint sous la souris et detruit le blueprint pour mettre le batiment correspondant
+    */
    
     RaycastHit hit;
     Vector3 movePoint;
     public GameObject prefab;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow);
 
         if(Physics.Raycast(ray, out hit, 50000.0f, (1<<8)))
         {
             transform.position= hit.point;
-            Debug.Log("hitpoint_start: "+ hit.point);
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow);
         }
     }
 
@@ -27,19 +30,16 @@ public class Building_Blueprint : MonoBehaviour
     void Update()
     {
          Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-       
-        // Debug.DrawRay(ray.origin, ray.direction * 100, Color.blue);
 
         if(Physics.Raycast(ray, out hit, 50000.0f, (1<<8)))
         {
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow);
-            transform.position= hit.point;
-            Debug.Log("hitpoint: "+ hit.point);
+            transform.position= hit.point; 
 
         }
         if(Input.GetMouseButton(0))
         {
             GameObject go = Instantiate(prefab, hit.point, transform.rotation);
+            GameObject.Find("RTSPlayer/").GetComponent<Animator>().SetBool("IsConstructed", true);
             Destroy(gameObject);
         }
     }
