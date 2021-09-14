@@ -13,6 +13,8 @@ namespace LeMeilleurJeu
         public Camera RTSCameraPrefab;
         Camera rcam;
 
+        public GameObject prefab;
+
 
 
         void Start()
@@ -26,11 +28,25 @@ namespace LeMeilleurJeu
                                                                                                                                                                      
         void Update()
         {
+            if(Input.GetMouseButtonDown(0))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+            
+                if(Physics.Raycast(ray, out hit, 100.0f))
+                {
+                    //creer le prefab au point de collision.
+                    GameObject go = Instantiate(prefab, hit.point, Quaternion.identity );
+                    Debug.Log("trtsplayer_ownership: "+go.GetComponent<NetworkObject>().IsOwner );
+                    //si c'est lhote fait un spawn
+                    go.GetComponent<NetworkObject>().Spawn();  
+                    //si cest le client fait une demande à l'hote
+
+                }
+            }
+
 
         }
-
-
-
     }
 }
 
