@@ -39,9 +39,15 @@ namespace LeMeilleurJeu
                     GameObject go = Instantiate(prefab, hit.point, Quaternion.identity );
                     Debug.Log("trtsplayer_ownership: "+go.GetComponent<NetworkObject>().IsOwner );
                     //si c'est lhote fait un spawn
-                    go.GetComponent<NetworkObject>().Spawn();  
+                    if (NetworkManager.Singleton.IsServer)
+                    {
+                        go.GetComponent<NetworkObject>().Spawn();  
+                    }
                     //si cest le client fait une demande à l'hote
-
+                    else
+                    {
+                        
+                    }
                 }
             }
 
