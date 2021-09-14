@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 552385441}
   - component: {fileID: 552385442}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: InterfaceManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -299,7 +299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e524be469f72de44978a1c669313281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FPSMode: 1
 --- !u!1 &587235817
 GameObject:
   m_ObjectHideFlags: 0

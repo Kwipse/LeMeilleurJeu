@@ -32,12 +32,13 @@ namespace LeMeilleurJeu
             FPSMode = true;
             RTSMode = false;
 
-           Camera.main.enabled = false; //disable current camera
+           
 
             if (NetworkManager.Singleton.IsClient)
             {
                 if (IsOwner)
                 {
+                    Camera.main.enabled = false; //disable current camera
                     if (FPSMode)
                     {
                         FPSPlayerInstance = Instantiate(FPSPlayerPrefab, Vector3.zero, Quaternion.identity);

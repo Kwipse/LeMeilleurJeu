@@ -7,7 +7,6 @@ namespace LeMeilleurJeu
     public class GameManager : MonoBehaviour
     {
 
-        public bool FPSMode = true; // true:FPS / false:RTS
 
 
 
