@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -5419150225490746579}
   - component: {fileID: -3181902887744652081}
   - component: {fileID: 4500964350484597968}
+  - component: {fileID: 2021695606}
   m_Layer: 0
   m_Name: RTSPlayer
   m_TagString: Player
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RTSCameraPrefab: {fileID: 4272657580101837657, guid: f7a12d7e8ee6ade419503274ffefe311, type: 3}
   prefab: {fileID: 4036793368903305870, guid: 2394db2bb9b8aa242aca43f3d4f4d476, type: 3}
+  anim: {fileID: 0}
 --- !u!114 &-3181902887744652081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,3 +109,22 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!95 &2021695606
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672819253296030723}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 76da16628d1399441bf05fa9f22f7263, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

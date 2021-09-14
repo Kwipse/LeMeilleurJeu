@@ -46,7 +46,7 @@ namespace LeMeilleurJeu
                     if (RTSMode)
                     {
                         RTSPlayerInstance = Instantiate(RTSPlayerPrefab, Vector3.zero, Quaternion.identity);
-                        //Initialize the rts player
+                       
                     }
                 }
             }
