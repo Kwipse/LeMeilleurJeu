@@ -16,7 +16,7 @@ public class Building_Blueprint : MonoBehaviour
     RaycastHit hit;
     Vector3 movePoint;
     public GameObject prefab;
-    public Animator RTSPlayrAnimator;
+    public Animator RTSPlayerAnimator;
 
     
     void Start()
@@ -27,7 +27,7 @@ public class Building_Blueprint : MonoBehaviour
         {
             transform.position= hit.point;
         }
-        RTSPlayrAnimator = GameObject.Find("RTSPlayer(Clone)").GetComponent<Animator>();
+        RTSPlayerAnimator = GameObject.Find("RTSPlayer(Clone)").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -40,13 +40,14 @@ public class Building_Blueprint : MonoBehaviour
             transform.position= hit.point; 
 
         }
+        
         if(Input.GetMouseButton(0))
         {
             GameObject go = Instantiate(prefab, hit.point, transform.rotation);
             go.GetComponent<NetworkObject>().Spawn();
-            if (RTSPlayrAnimator !=null)
+            if (RTSPlayerAnimator !=null)
             {
-                RTSPlayrAnimator.SetBool("IsConstructed", true);
+                RTSPlayerAnimator.SetBool("IsConstructed", true);
             }
             else
             {

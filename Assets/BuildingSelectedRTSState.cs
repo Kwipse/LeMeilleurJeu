@@ -2,44 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleRTSState : StateMachineBehaviour
-{   
-
-/*
-        Le layer 9 doit etre dédié aux clickables
-        mettre les tag building sur les batiments 
-*/
-/*
-    Cet état est le nexus entre les different etat de controle du joueur RTS
-*/
-    RaycastHit hit;
-
+public class BuildingSelectedRTSState : StateMachineBehaviour
+{
+    /*
+    actions : appuyer echap pour sortir
+    */
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //on reset les variables internes de l'état précedent
-        animator.SetBool("IsConstructed",false);
-        animator.SetBool("endSelection",false);
+        //reset des variables
+        animator.SetBool("BuildingSelection",false );
+            
+           
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //on défini la capacité à clické sur un batiment ou une unité
-
-        if(Input.GetMouseButton(0))
+        Debug.Log("building selected");
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if(Physics.Raycast(ray, out hit, 400.0f, (1<<9)))
-            {
-    
-                if( hit.collider.tag ==" Building")
-                {
-                    Debug.Log("rest = "+hit.point );
-                    animator.SetBool("BuildingSelection", true);
-                }
-            }
+            animator.SetBool("endSelection",true);
         }
         
     }

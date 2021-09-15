@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1943647471032613116}
   - component: {fileID: 412430920342573771}
   - component: {fileID: 8505776686219389745}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,9 +105,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7595067803483125650}
   - component: {fileID: 8968364583333316700}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barracks
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -9,7 +9,9 @@ public class COnstruction : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        // on reset la variable interne de l'état précedent
+        animator.SetBool("ConstructionParam",false);
+        //on affiche le batiment sélectionner en vue rts collé à la souris
         GameObject go = Instantiate(barracks_blueprint);
        
         

@@ -34,8 +34,8 @@ namespace LeMeilleurJeu
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("test input");
-                anim.SetBool("IsSelecting", true );
+                // on se met en mode construction
+                anim.SetBool("ConstructionParam", true );
 
             }
 
