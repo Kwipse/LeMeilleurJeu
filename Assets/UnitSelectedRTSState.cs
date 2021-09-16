@@ -2,21 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingSelectedRTSState : StateMachineBehaviour
+public class UnitSelectedRTSState : StateMachineBehaviour
 {
-    /*
-    actions : appuyer echap pour sortir
-    */
+    private RaycastHit hit;
     public GameObject cible;
-
-
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        Debug.Log("unitselected");
         //reset des variables
-        animator.SetBool("BuildingSelection",false );
-            
-           
+        animator.SetBool("UnitSelection",false );
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -28,22 +23,26 @@ public class BuildingSelectedRTSState : StateMachineBehaviour
         {
             animator.SetBool("endSelection",true);
         }
-        //oon peut créer une unité
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            
-            //on appele le building manager
-            cible.GetComponent<Building_manager>().CreateMob();
 
+        //on peut donner un ordre de déplacement
+        if(Input.GetMouseButton(1))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if(Physics.Raycast(ray, out hit, 400.0f, (1<<8)))
+            {
+                Debug.Log("hit.transform = "+ hit.point);
+                cible.GetComponent<Unit>().MoveToPosition(hit.point);
+            }
         }
         
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        cible = null ;
-    }
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
