@@ -33,10 +33,15 @@ public class IdleRTSState : StateMachineBehaviour
 
             if(Physics.Raycast(ray, out hit, 400.0f, (1<<9)))
             {
-    
-                if( hit.collider.tag ==" Building")
+    Debug.Log("test = "+hit.transform.parent.tag ); 
+     
+
+                if( hit.transform.parent.CompareTag("Building"))
                 {
-                    Debug.Log("rest = "+hit.point );
+                    //on click sur un batiment
+                    // on envoie la cible puis on passe a building selected state
+                    animator.GetBehaviour<BuildingSelectedRTSState>().GetTarget(hit.transform.parent.gameObject);
+                    Debug.Log("reusite");
                     animator.SetBool("BuildingSelection", true);
                 }
             }

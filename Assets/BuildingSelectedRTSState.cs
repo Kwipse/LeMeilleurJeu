@@ -7,6 +7,9 @@ public class BuildingSelectedRTSState : StateMachineBehaviour
     /*
     actions : appuyer echap pour sortir
     */
+    public GameObject cible;
+
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -19,19 +22,28 @@ public class BuildingSelectedRTSState : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        //on peut revenir en idle
         Debug.Log("building selected");
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.A))
         {
             animator.SetBool("endSelection",true);
+        }
+        //oon peut créer une unité
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            Debug.Log("mob");
+            //on appele le building manager
+            cible.GetComponent<Building_manager>().CreateMob();
+
         }
         
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        cible = null ;
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -44,4 +56,10 @@ public class BuildingSelectedRTSState : StateMachineBehaviour
     //{
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
+
+    public void GetTarget(GameObject go)
+    {
+        cible=go;
+        Debug.Log("cible = "+cible);
+    }
 }
