@@ -11,25 +11,37 @@ namespace LeMeilleurJeu
     {
         //Declarations
         public Camera RTSCameraPrefab;
-        Camera rcam;
+        Camera cam;
 
         public GameObject prefab;
         public Animator anim;
 
+        void Awake()
+        {
+            Debug.Log("RTS Player Awake");
+            cam = Instantiate(RTSCameraPrefab, transform); //Parenting cam to the FPSPlayer
 
+        }
 
         void Start()
         {
             //Init RTS Camera
-            rcam = Instantiate(RTSCameraPrefab,transform); //Parenting rcam to the RTSPlayer
-            rcam.transform.position = new Vector3(0, 100, -20);
+            if (!IsOwner) { cam.enabled = false; }
+            cam.transform.position = new Vector3(0, 30, -30);
 
             anim = GetComponent<Animator>();
 
-        }                     
+        }
 
+        void OnEnable()
+        {
 
-                                                                                                                                                                     
+        }
+        void OnDisable()
+        {
+
+        }
+
         void Update()
         {
             if(Input.GetKeyDown(KeyCode.Space))

@@ -21,7 +21,7 @@ namespace LeMeilleurJeu
 
         //Declarations
         public Camera FPSCameraPrefab;
-        Camera fcam;
+        Camera cam;
 
         Vector3 translation;
         Vector3 localTranslation;
@@ -29,12 +29,20 @@ namespace LeMeilleurJeu
         Quaternion localRotation;
 
        
-
+        void Awake()
+        {
+            Debug.Log("FPS Player Awake");
+            cam = Instantiate(FPSCameraPrefab, transform); //Parenting cam to the FPSPlayer
+        }
 
         void Start()
         {
-            //Init FPS Camera
-            fcam = Instantiate(FPSCameraPrefab,transform); //Parenting fcam to the FPSPlayer
+            if (!IsOwner) { cam.enabled = false; }
+            Debug.Log("FPS Player Start");
+            moveSpeed *= 0.1f;
+
+
+
 
             //Init Transform Variables
             translation = transform.position;
@@ -43,11 +51,19 @@ namespace LeMeilleurJeu
             localRotation = transform.localRotation;
         }
 
+        void OnEnable()
+        {
+
+        }
+        void OnDisable()
+        {
+
+        }
 
 
         void Update()
         {
-       
+            KeyboardInputs();
             MoveFPSPlayer();
         }
 

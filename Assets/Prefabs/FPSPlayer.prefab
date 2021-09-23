@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1611950780681416988}
   - component: {fileID: -8025811945367908906}
-  - component: {fileID: -4284172120491590424}
+  - component: {fileID: -7323799183703917936}
   - component: {fileID: 6537851868888677263}
   - component: {fileID: 6908754503896902764}
   - component: {fileID: 9219968391731135445}
@@ -54,7 +54,7 @@ MonoBehaviour:
   PrefabHashGenerator: FPSPlayer
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
---- !u!114 &-4284172120491590424
+--- !u!114 &-7323799183703917936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99fa98eebe7fe89489cc8dfd37448374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 2
   FPSCameraPrefab: {fileID: 103006630930759098, guid: 000a146389fa19f4bbb176c3ffcaa977, type: 3}
 --- !u!33 &6537851868888677263
 MeshFilter:

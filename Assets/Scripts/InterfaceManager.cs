@@ -4,17 +4,12 @@ using UnityEngine;
 
 namespace LeMeilleurJeu
 {
-    public class GameManager : MonoBehaviour
+    public class InterfaceManager : MonoBehaviour
     {
-
-
-
 
         // UI
         void OnGUI()
         {
-
-
 
             GUILayout.BeginArea(new Rect(10, 10, 300, 300));//Basic automated UI
             if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
@@ -24,7 +19,7 @@ namespace LeMeilleurJeu
             else
             {
                 ChooseMode();
-                SendInfoToConsole();
+                SendInfoToHud();
             }
             GUILayout.EndArea();
         }
@@ -40,31 +35,35 @@ namespace LeMeilleurJeu
 
         static void ChooseMode()
         {
-            
+
             if (GUILayout.Button("Switch Mode"))
             {
+                var localId = NetworkManager.Singleton.LocalClientId;
+                Debug.Log("Client " + localId + " hit the switch button");
 
-                if (NetworkManager.Singleton.ConnectedClients.TryGetValue(NetworkManager.Singleton.LocalClientId, out var networkedClient))
+                if (NetworkManager.Singleton.ConnectedClients.TryGetValue(localId, out var localClient))
                 {
-          
-                    var playerCTRL = networkedClient.PlayerObject.GetComponent<PlayerController>();
+                    Debug.Log("LocalClient : " + localClient);
 
+                    var localPlayerController = localClient.PlayerObject;
+                    Debug.Log("LocalPlayerController : " + localPlayerController);
 
-                    if (playerCTRL)
+                    if (localPlayerController)
                     {
-                        playerCTRL.SwitchMode();
+                        localPlayerController.GetComponent<PlayerController>().SwitchMode();
                     }
                 }
+
+
             }
         }
 
-        static void SendInfoToConsole()
+        static void SendInfoToHud()
         {
-                GUILayout.Label("Host : " + NetworkManager.Singleton.IsHost);
-                GUILayout.Label("Local Client ID : " + NetworkManager.Singleton.LocalClientId);
-                GUILayout.Label("Camera : " + Camera.current);
-               
-
+            GUILayout.Label("Host : " + NetworkManager.Singleton.IsHost);
+            GUILayout.Label("Local Client ID : " + NetworkManager.Singleton.LocalClientId);
+            GUILayout.Label("Camera : " + Camera.current);
+           
         }
 
     }

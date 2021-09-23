@@ -9,86 +9,135 @@ namespace LeMeilleurJeu
 {
     public class PlayerController : NetworkBehaviour
     {
-        bool FPSMode ;
-        bool RTSMode ;
+        bool PlayMode;
+        ulong localId;
 
-
-
-        //Prefabs
+        //Import Prefabs
         public GameObject FPSPlayerPrefab;
         public GameObject RTSPlayerPrefab;
 
-        GameObject FPSPlayerInstance;
-        GameObject RTSPlayerInstance;
-        
+        GameObject[] ClientPlayer = new GameObject[10];
 
 
 
-
-        // Start is called before the first frame update
-        void Start()
+        public override void NetworkStart()
         {
-
-            FPSMode = true;
-            RTSMode = false;
-
-           
-
-            if (NetworkManager.Singleton.IsClient)
+            if (IsOwner)
             {
-                if (IsOwner)
-                {
-                    Camera.main.enabled = false; //disable current camera
-                    if (FPSMode)
-                    {
-                        FPSPlayerInstance = Instantiate(FPSPlayerPrefab, Vector3.zero, Quaternion.identity);
-                    }
-                    if (RTSMode)
-                    {
-                        RTSPlayerInstance = Instantiate(RTSPlayerPrefab, Vector3.zero, Quaternion.identity);
-                       
-                    }
-                }
+                Debug.Log("PLAYER CONTROLLER : NETWORKSTART ");
+
+                // Get Local ID
+                localId = NetworkManager.Singleton.LocalClientId;
+
+                // Init Mode
+                PlayMode = true;
+
+                //Disable current camera
+                Camera.main.enabled = false;
+
+
+                SpawnPlayer(localId, PlayMode);
+
             }
-
         }
 
-
-
-        // Update is called once per frame
-        void Update()
-        {
-         
-        }
-
-
-
+        //PlayMode Switcher
         public void SwitchMode()
         {
-         
-            if (NetworkManager.Singleton.IsClient)
+            if (IsOwner)
             {
-                if (IsOwner)
-                {
-                    FPSMode = !FPSMode;
-                    RTSMode = !RTSMode;
 
-                    if (FPSMode)
-                    {
-                        Destroy(RTSPlayerInstance);
-                        FPSPlayerInstance = Instantiate(FPSPlayerPrefab, Vector3.zero, Quaternion.identity);
-                    }
+                PlayMode = !PlayMode;
 
-
-                    if (RTSMode)
-                    {
-                        Destroy(FPSPlayerInstance);
-                        RTSPlayerInstance = Instantiate(RTSPlayerPrefab, Vector3.zero, Quaternion.identity);
-                    }
-
-                }
+                DestroyPlayer(localId);
+                SpawnPlayer(localId, PlayMode);
             }
         }
 
+
+
+        //SPAWN
+
+        void SpawnPlayer(ulong targetId, bool mode)
+        {
+            if (NetworkManager.Singleton.IsServer) { ServerSpawnPlayer(targetId, mode); }
+            else                                   { RequestSpawnPlayerServerRPC(targetId, mode); }           
+        }
+
+        void ServerSpawnPlayer(ulong targetId, bool mode)
+        {
+            Debug.Log("Spawning with PlayMode = " + mode + " for Client " + targetId);
+
+            //Instantiate
+            if (mode)
+            {
+                ClientPlayer[targetId] = Instantiate(FPSPlayerPrefab, Vector3.up, Quaternion.identity);
+                Debug.Log("ClientPlayer[" + targetId + "] = FPS");
+            }
+            else
+            {
+                ClientPlayer[targetId] = Instantiate(RTSPlayerPrefab, Vector3.up, Quaternion.identity);
+                Debug.Log("ClientPlayer[" + targetId + "] = RTS");
+            }
+            
+            //Spawn
+            ClientPlayer[targetId].GetComponent<NetworkObject>().SpawnWithOwnership(targetId); 
+        }
+
+        [ServerRpc]
+        public void RequestSpawnPlayerServerRPC(ulong clientId, bool mode)
+        {
+            Debug.Log("SpawnRPC from Client " + clientId);
+            ServerSpawnPlayer(clientId, mode);
+        }
+
+
+
+
+        //DESPAWN
+
+        void DespawnPlayer(ulong playerId)
+        {
+            if (NetworkManager.Singleton.IsServer) { ServerDespawnPlayer(playerId); }
+            else                                   { RequestDespawnPlayerServerRPC(playerId); }
+         
+        }
+        void ServerDespawnPlayer(ulong playerId)
+        {
+            ClientPlayer[playerId].GetComponent<NetworkObject>().Despawn(); Debug.Log("Despawned Player " + playerId);
+        }
+
+        [ServerRpc]
+        public void RequestDespawnPlayerServerRPC(ulong clientId)
+        {
+            Debug.Log("DespawnRPC from Client " + clientId);
+            ServerDespawnPlayer(clientId);
+        }
+
+
+
+
+        //DESTROY
+
+        void DestroyPlayer(ulong playerId)
+        {
+            if (NetworkManager.Singleton.IsServer) { ServerDestroyPlayer(playerId); }
+            else                                   { RequestDestroyPlayerServerRPC(playerId); }
+        }
+
+        void ServerDestroyPlayer(ulong playerId)
+        {
+            Destroy(ClientPlayer[playerId]); Debug.Log("Destroyed Player " + playerId);
+        }
+
+        [ServerRpc]
+        public void RequestDestroyPlayerServerRPC(ulong clientId)
+        {
+            Debug.Log("DestroyRPC from Client " + clientId);
+            ServerDestroyPlayer(clientId);
+        }
+
+
     }
+
 }

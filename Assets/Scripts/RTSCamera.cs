@@ -53,13 +53,11 @@ namespace LeMeilleurJeu
         void Update()
         {
             
-
             KeyboardInputs();
 
             MouseInputs();
 
             UpdateCamera();
-
 
         }
 
@@ -130,10 +128,7 @@ namespace LeMeilleurJeu
 
         }
 
-        void OnDestroy()
-        {
-            Debug.Log("Camera successfully destroyed");
-        }
+        
     }
 }
 
