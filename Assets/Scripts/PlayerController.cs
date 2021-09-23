@@ -35,6 +35,10 @@ namespace LeMeilleurJeu
                 //Disable current camera
                 Camera.main.enabled = false;
 
+                //Load prefabs on the server
+                if (NetworkManager.Singleton.IsServer) { PrefabManager.LoadAllPrefabs("Prefabs"); }
+
+
 
                 SpawnPlayer(localId, PlayMode);
 
