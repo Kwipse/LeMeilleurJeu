@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 9fd67754829dccf46b6db5bb2971497a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - FPSPlayerPrefab: {fileID: 8821403406996378611, guid: 5ef8874047d44fb4e968b48416aa5dbb, type: 3}
+  - RTSPlayerPrefab: {fileID: 6672819253296030723, guid: 7b80cb8afd4f3fc48886ea140579e161, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
