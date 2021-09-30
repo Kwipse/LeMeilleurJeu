@@ -31,7 +31,6 @@ public class UnitSelectedRTSState : StateMachineBehaviour
 
             if(Physics.Raycast(ray, out hit, 400.0f, (1<<8)))
             {
-                Debug.Log("hit.transform = "+ hit.point);
                 cible.GetComponent<Unit>().MoveToPosition(hit.point);
             }
         }

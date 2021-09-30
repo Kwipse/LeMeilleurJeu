@@ -47,8 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RTSCameraPrefab: {fileID: 4272657580101837657, guid: f7a12d7e8ee6ade419503274ffefe311, type: 3}
   Mob: {fileID: 4036793368903305870, guid: 2394db2bb9b8aa242aca43f3d4f4d476, type: 3}
-  prefab: {fileID: 0}
-  anim: {fileID: 0}
+  prefab: {fileID: 3364219387010327098, guid: 5439a296db403fa4f8646c9112ae9984, type: 3}
+  anim: {fileID: 2021695606}
 --- !u!114 &-3181902887744652081
 MonoBehaviour:
   m_ObjectHideFlags: 0
