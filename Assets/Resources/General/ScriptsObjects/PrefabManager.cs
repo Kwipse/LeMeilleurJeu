@@ -9,15 +9,14 @@ public class PrefabManager : ScriptableObject
 	public static Dictionary<int, GameObject> gameObjectList = new Dictionary<int, GameObject>();
 
 
-
-	
 	public static void LoadAllPrefabs()
 	{
 		LoadPrefabs("Player/FPS");
 		LoadPrefabs("Player/RTS/ControllerAndCamera");
 		LoadPrefabs("Player/RTS/Sbires");
 		LoadPrefabs("Player/RTS/Batiments");
-
+		LoadPrefabs("Player/RTS/MapProps");
+		
 		Debug.Log("PREFABS ARE LOADED");
 	}
 	
@@ -40,7 +39,7 @@ public class PrefabManager : ScriptableObject
 			return obj;
 		else
 		{
-			Debug.Log("Object not found");
+			Debug.Log(objName + " not found");
 			return null;
 		}
 	}

@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
 
 
 namespace LeMeilleurJeu
 {
-    public class RTSCamera : MonoBehaviour
+    public class RTSCamera : NetworkBehaviour
     {
-
-
+		// Init Prefabs
+		public Camera camPrefab;
+		public Vector3 InitialCameraPosition;
+		Camera cam;
+		
         //Init Sensibilités
         //float msensitivity = 2f; //Sensibilité Souris
         float ksensitivity = 2f; //Sensibilité Clavier
@@ -21,22 +25,32 @@ namespace LeMeilleurJeu
         Quaternion localRotation;
 
 
+		
 
-
-        void Start()
+        public override void NetworkStart()
         {
-            translation = transform.position;
-            rotation = transform.rotation;
-        }
-
-        void OnEnable()
-        {
-            Cursor.lockState = CursorLockMode.Confined; //Limite la souris à la fenêtre
+			if (!IsOwner) {enabled=false;}
+			else
+			{
+				//Spawn Camera
+				cam = Instantiate(camPrefab);
+				cam.transform.parent = transform;
+				cam.transform.position = InitialCameraPosition;
+				Debug.Log("Current Camera : " + cam);
+								
+				//Lock cursor in window
+				Cursor.lockState = CursorLockMode.Confined;
+				
+				//Init things
+				translation = cam.transform.position;
+				rotation = cam.transform.rotation;
+				
+			}
         }
 
         void OnDisable()
         {
-            Cursor.lockState = CursorLockMode.None; //Débloque la souris
+            if (IsOwner) {Cursor.lockState = CursorLockMode.None;} //Débloque la souris
         }
 
 
@@ -109,11 +123,11 @@ namespace LeMeilleurJeu
         {
 
             //Apply Translations
-            transform.position = translation;
+            cam.transform.position = translation;
 
 
             //Apply Rotations
-            transform.rotation = rotation;
+            cam.transform.rotation = rotation;
 
 
         }

@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
 
-public class FPSJump : MonoBehaviour
+public class FPSJump : NetworkBehaviour
 {
-    //Declarations physique
+	
+	
+    //Declarations privees
     Rigidbody RBody;
     Vector3 velocity;
-
-    //Declaration Animation
-    Animator anim;
-
+	FPSAnim anim;
+	
     //Declarations jump basique
     float jumpForce;
     bool jumpKey;
@@ -26,30 +27,33 @@ public class FPSJump : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    public override void NetworkStart()
     {
-        //Init Misc
-        RBody = GetComponent<Rigidbody>(); //Get Rigidbody
-        anim = GetComponent<Animator>(); //Get Animator Controller
+			
+		RBody = GetComponent<Rigidbody>(); //Get Rigidbody
+		anim = GetComponent<FPSAnim>(); //Get Animation Script
+		
+		//Init Basic Jump
+		jumpForce = 5f;
+		jumpKey = false;
 
-        //Init Basic Jump
-        jumpForce = 5f;
-        jumpKey = false;
 
-
-        //Init MultiJump
-        nbJumpMax = 3;
-        nbJump = 0;
+		//Init MultiJump
+		nbJumpMax = 3;
+		nbJump = 0;
+		
     }
 
 
     void Update()
     {
-        //Intention de saut
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            jumpKey = true;
-        }
+	
+			//Intention de saut
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				jumpKey = true;
+			}
+		
     }
 
     void FixedUpdate() // FixedUpdate pour la physique du rigidbody
@@ -61,7 +65,7 @@ public class FPSJump : MonoBehaviour
             velocity.y = jumpForce;
             RBody.velocity = velocity;
             jumpKey = false;
-            anim.SetBool("IsGrounded", false);
+            anim.JumpEvent();
 
             //Multisaut
             nbJump += 1;
@@ -73,7 +77,6 @@ public class FPSJump : MonoBehaviour
         //Reset le saut
         nbJump = 0;
         jumpKey = false;
-        anim.SetBool("IsGrounded", true);
     }
 
 

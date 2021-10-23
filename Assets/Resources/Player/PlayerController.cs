@@ -2,114 +2,88 @@ using System.Collections;
 using System.Collections.Generic;
 using MLAPI;
 using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
 using UnityEngine;
 
-namespace LeMeilleurJeu
+    
+public class PlayerController : NetworkBehaviour
 {
-    public class PlayerController : NetworkBehaviour
-    {
-        bool PlayMode;
-        ulong localId;
+	//Declarations
+	PlayerManager PM;
+	ulong localId;
+	bool PlayMode;
+	
 
-        GameObject[] ClientPlayer = new GameObject[10];
-
-
-		
-        public override void NetworkStart()
-        {
-
-            if (IsOwner)
-            {
-				if (NetworkManager.Singleton.IsServer) { PrefabManager.LoadAllPrefabs(); } //Init PrefabManager
-				
-                localId = NetworkManager.Singleton.LocalClientId;
-                PlayMode = true; //True : FPS  -   False : RTS
-
-                //Disable the main camera, just in case
-                Camera.main.enabled = false;
-
-                SpawnPlayer(localId, PlayMode);
-            }
-        }
-
-
-        void Update()
-        {
-            KeyBoardInput();            
-        }
-
-
-        void KeyBoardInput()
-        {
-            if(Input.GetKeyDown(KeyCode.Tab)) { SwitchMode(); }
-        }
-
-
-        //PlayMode Switcher
-        public void SwitchMode()
-        {
-            if (IsOwner)
-            {
-
-                PlayMode = !PlayMode;
-
-                DestroyPlayer(localId);
-                SpawnPlayer(localId, PlayMode);
-            }
-        }
+	//Init Strings names for PrefabManager
+	string FPS = "FPSPlayer";
+	string RTS = "RTSPlayer";
+	string toSpawn ;
 
 
 
-        //SPAWN
+	
+	public override void NetworkStart()
+	{
 
-        void SpawnPlayer(ulong targetId, bool mode)
-        {
-            if (NetworkManager.Singleton.IsServer) { ServerSpawnPlayer(targetId, mode); }
-            else                                   { RequestSpawnPlayerServerRPC(targetId, mode); }           
-        }
+		if (!IsOwner) {enabled=false;}
+		else
+		{
+			//Init the prefab manager 
+			if (NetworkManager.Singleton.IsServer) { PrefabManager.LoadAllPrefabs(); }
 
-        void ServerSpawnPlayer(ulong targetId, bool mode)
-        {
-Debug.Log("Ohélskdfmqskdj");
-            //Instantiate
-            if (mode) { ClientPlayer[targetId] = Instantiate(PrefabManager.GetPrefab("FPSPlayer"), Vector3.zero, Quaternion.identity); }
-            else      { ClientPlayer[targetId] = Instantiate(PrefabManager.GetPrefab("RTSPlayer"), Vector3.zero, Quaternion.identity); }
-            
-            //Spawn
-            ClientPlayer[targetId].GetComponent<NetworkObject>().SpawnWithOwnership(targetId); 
-        }
+			//Init the player manager
+			PM = GetComponent<PlayerManager>();
+			
+			//Disable the main camera, just in case
+			Camera.main.enabled = false;
+			
+			//Get ClientID
+			localId = NetworkManager.Singleton.LocalClientId;
+						
+			//Spawn Player
+			PlayMode = true;
+			SpawnPlayer();
+		}
+	}
 
-        [ServerRpc]
-        public void RequestSpawnPlayerServerRPC(ulong clientId, bool mode)
-        {
-            Debug.Log("SpawnRPC from Client " + clientId);
-            ServerSpawnPlayer(clientId, mode);
-        }
+
+	void Update()
+	{
+		if (IsOwner) 
+		{ 
+			KeyBoardInput();   
+		}         
+	}
+
+
+	void KeyBoardInput()
+	{
+		if(Input.GetKeyDown(KeyCode.Tab)) { SwitchMode(); }
+	}
 
 
 
 
-        //DESTROY
 
-        void DestroyPlayer(ulong playerId)
-        {
-            if (NetworkManager.Singleton.IsServer) { ServerDestroyPlayer(playerId); }
-            else                                   { RequestDestroyPlayerServerRPC(playerId); }
-        }
+	//PlayMode Switcher
+	public void SwitchMode()
+	{
+		if (IsOwner)
+		{
+			PlayMode = !PlayMode;
+			SpawnPlayer();
+		}
+	}
 
-        void ServerDestroyPlayer(ulong playerId)
-        {
-            Destroy(ClientPlayer[playerId]);
-        }
-
-        [ServerRpc]
-        public void RequestDestroyPlayerServerRPC(ulong clientId)
-        {
-            ServerDestroyPlayer(clientId);
-        }
-
-
-    }
-
+	
+	void SpawnPlayer()
+	{
+		if (IsOwner)
+		{
+			if (PlayMode) {toSpawn = FPS;}				
+			else 	  	  {toSpawn = RTS;}
+			PM.Spawn(toSpawn,Vector3.zero, localId);
+		}
+	}
 }
+
+

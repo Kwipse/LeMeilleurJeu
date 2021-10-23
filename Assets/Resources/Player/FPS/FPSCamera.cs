@@ -5,33 +5,38 @@ using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
 using UnityEngine;
 
-namespace LeMeilleurJeu
-{
+
     public class FPSCamera : NetworkBehaviour
     {
-        //Init 
-        GameObject player;
-        Camera cam ;
-
-        float sensitivity = 2f;
-
-
+        //Init Public
+		public Camera camPrefab ;
+		public float sensitivity ;
+		public Vector3 InitialCameraPosition ;
+		
+		//Init Private
         Vector2 rotation = Vector2.zero;
-        const string xAxis = "Mouse X"; //Strings in direct code generate garbage, storing and re-using them creates no garbage
+        const string xAxis = "Mouse X"; 
         const string yAxis = "Mouse Y";
+		Camera cam;
 
-        void Awake()
-        {
-            
-            cam = GetComponent<Camera>(); //Get FPSCamera
-            player = transform.parent.gameObject; // Get FPSPlayer
-
-
-			Cursor.lockState = CursorLockMode.Locked; //Bloque la souris au centre
-			Cursor.visible = false; // Fait disparaitre le curseur de la souris
-
-        }
-
+		
+		public override void NetworkStart()
+		{
+			if (!IsOwner) {enabled=false;}
+			else
+			{
+				//Spawn camera
+				cam = Instantiate(camPrefab);
+				cam.transform.parent = transform;
+				cam.transform.position = InitialCameraPosition;
+				Debug.Log("Current Camera : " + cam);
+				
+				
+				Cursor.lockState = CursorLockMode.Locked; //Bloque la souris au centre
+				Cursor.visible = false; // Fait disparaitre le curseur de la souris
+			}
+		}
+		
 
 
         void OnDisable()
@@ -43,7 +48,7 @@ namespace LeMeilleurJeu
             }
         }
 
-        // Update is called once per frame
+
         void Update()
         {
             if (IsOwner)
@@ -56,10 +61,10 @@ namespace LeMeilleurJeu
                
 
                 cam.transform.localRotation = yQuat;
-                player.transform.rotation = xQuat;
+                transform.rotation = xQuat;
             }
         }
 
 
     }
-}
+

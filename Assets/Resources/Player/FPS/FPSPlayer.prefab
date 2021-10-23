@@ -9,16 +9,20 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 946748174892701596}
-  - component: {fileID: 2779934080056357329}
+  - component: {fileID: -5253891889440433863}
+  - component: {fileID: 6755854563512652133}
   - component: {fileID: -8064888894442085301}
   - component: {fileID: 4775172282635403786}
-  - component: {fileID: -5039423630508932927}
+  - component: {fileID: 9217229356026742520}
+  - component: {fileID: 2170701393772319652}
+  - component: {fileID: -7087016986273575220}
+  - component: {fileID: -7219716995855650963}
+  - component: {fileID: 8465990389623669823}
   - component: {fileID: -3235684912358560550}
-  - component: {fileID: -5253891889440433863}
-  - component: {fileID: -3247352206815748231}
+  - component: {fileID: 6842901276005354989}
   m_Layer: 0
   m_Name: FPSPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39,25 +43,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2779934080056357329
-Animator:
-  serializedVersion: 3
+--- !u!54 &-5253891889440433863
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461714475075685670}
+  serializedVersion: 2
+  m_Mass: 60
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &6755854563512652133
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461714475075685670}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0490d75d30c302744b0f7947f71830c6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  serializedVersion: 2
+  m_Size: {x: 2.0175338, y: 5.423755, z: 0.52908176}
+  m_Center: {x: 0, y: 2.7118776, z: 0}
 --- !u!114 &-8064888894442085301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +137,22 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-5039423630508932927
+--- !u!114 &9217229356026742520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461714475075685670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SendRate: 0.1
+  m_Animator: {fileID: -7087016986273575220}
+  m_TrackedParamFlags: 1
+--- !u!114 &2170701393772319652
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,7 +164,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99fa98eebe7fe89489cc8dfd37448374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FPSCameraPrefab: {fileID: 103006630930759098, guid: 000a146389fa19f4bbb176c3ffcaa977, type: 3}
+--- !u!95 &-7087016986273575220
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461714475075685670}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0490d75d30c302744b0f7947f71830c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-7219716995855650963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461714475075685670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32bb30da5e2eaf24abd372e2f93831e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsGrounded: 0
+  IsMoving: 0
+--- !u!114 &8465990389623669823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461714475075685670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9cb43eef58855347a90ae9435afa7cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.1
 --- !u!114 &-3235684912358560550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,36 +222,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6b722d788cfb54587b9b34a130a7d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &-5253891889440433863
-Rigidbody:
+--- !u!114 &6842901276005354989
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461714475075685670}
-  serializedVersion: 2
-  m_Mass: 60
-  m_Drag: 0
-  m_AngularDrag: 100
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!136 &-3247352206815748231
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 461714475075685670}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 6
-  m_Direction: 1
-  m_Center: {x: 0, y: 3, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14671d2dfe7b7234d9fb7931fd88a3ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camPrefab: {fileID: 103006630930759098, guid: 000a146389fa19f4bbb176c3ffcaa977, type: 3}
+  sensitivity: 1
+  InitialCameraPosition: {x: 0, y: 5, z: 0}
 --- !u!1 &628852257493769497
 GameObject:
   m_ObjectHideFlags: 0
