@@ -24,6 +24,7 @@ public class HealthSystem : MonoBehaviour
 
     public void LoosePv(int dmg)
     {
+		Debug.Log("hit");
         pv -= dmg;
     }
 }

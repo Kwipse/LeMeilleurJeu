@@ -8,6 +8,7 @@ public class PlayerList : ScriptableObject
 	
 	public static void AddPlayerObject(ulong clientId, GameObject go)
 	{
+		Debug.Log("Player " + clientId + "has join");
 		ClientPlayer[clientId] = go;
 	}
 	
@@ -18,6 +19,7 @@ public class PlayerList : ScriptableObject
 	
 	public static GameObject GetPlayerObject(ulong clientId)
 	{
+		
 		GameObject go = ClientPlayer[clientId];
 		return go;
 	}

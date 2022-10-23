@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MLAPI;
 using MLAPI.Messaging;
+using MLAPI.NetworkVariable;
 
 public class SpawnManager : NetworkBehaviour
 {
@@ -33,6 +34,7 @@ public class SpawnManager : NetworkBehaviour
 			GameObject go = Instantiate(PrefabManager.GetPrefab(PrefabName), SpawnLocation, Quaternion.identity);
 			go.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
 		}
+
 	}
 	
 }

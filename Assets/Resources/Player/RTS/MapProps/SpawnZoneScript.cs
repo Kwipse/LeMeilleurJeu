@@ -25,7 +25,7 @@ public class SpawnZoneScript : MonoBehaviour
 
 // et appeler pour chaque collider dans le trigger
     private void OnTriggerStay(Collider other) {
-        Debug.Log("colider stay " +other);
+     
         if(other.CompareTag("Player") )
         {
             heroscapture = true ;

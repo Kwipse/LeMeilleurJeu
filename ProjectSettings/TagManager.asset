@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Building
   - Unit
+  - Bullet
+  - ground
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - 
   - Constructable
   - Selectable
-  - 
+  - FPSBullet
   - 
   - 
   - 
