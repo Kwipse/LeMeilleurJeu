@@ -58,7 +58,7 @@ public class RTSPlayer : NetworkBehaviour
 
 			if (plane.Raycast(ray, out float entry))
 			{
-			   SM.Spawn("HumanBox", ray.GetPoint(entry), localId);
+			   SM.Spawn("HumanBox", ray.GetPoint(entry), localId, Quaternion.identity);
 			}
 		}
 	}
