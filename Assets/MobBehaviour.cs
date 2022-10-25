@@ -41,7 +41,7 @@ public class MobBehaviour : NetworkBehaviour
 			try{
 				target = PlayerList.GetPlayerObject(0).transform;
 			}catch{}	
-			//Debug.Log("playerObjectName: "+ PlayerList.GetPlayerObject(1)+"fin");
+			Debug.Log("playerObjectName: "+ PlayerList.GetPlayerObject(0)+"fin");
 			//Debug.Log("mobbehaviour:"+ target);
 		}
 		

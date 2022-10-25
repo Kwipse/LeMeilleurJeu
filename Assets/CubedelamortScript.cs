@@ -13,7 +13,7 @@ public class CubedelamortScript : NetworkBehaviour
     // Start is called before the first frame update
 	public override void NetworkStart()
     {
-		if (IsOwner) {enabled=false;}
+		if (IsServer) {enabled=false;}
 		else
 		{
 			rb= GetComponent<Rigidbody>();

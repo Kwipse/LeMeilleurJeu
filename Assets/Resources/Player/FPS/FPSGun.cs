@@ -14,11 +14,9 @@ public class FPSGun : NetworkBehaviour
 
 	ulong localId;
 	SpawnManager SM;
-	Animator Anim;	
+
 	Rigidbody RBody;	
 	
-	Vector3 translation;
-    Vector3 velocity;
 	Vector3 shootPositionCorrection = new Vector3(0,1,1);
 
 	GameObject go;
@@ -33,12 +31,9 @@ public class FPSGun : NetworkBehaviour
 			localId = NetworkManager.Singleton.LocalClientId;
 			
 			//Init Things
-			Anim = GetComponent<Animator>();
 			SM = GetComponent<SpawnManager>();
 			
-			//Init PEWPEW
-			go = Instantiate(cube);
-			
+		
 			
 		}
 	}
@@ -51,7 +46,7 @@ public class FPSGun : NetworkBehaviour
 		if (Input.GetMouseButtonDown(0)) {
 		CreateBullet();
 		}
-		//SM.Spawn("HumanBox",Vector3.zero,localId);
+		
 	}
 	
 	public void CreateBullet()
