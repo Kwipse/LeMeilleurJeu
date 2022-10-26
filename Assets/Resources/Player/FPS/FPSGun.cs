@@ -31,12 +31,8 @@ public class FPSGun : NetworkBehaviour
 		{
 			//Init Client ID
 			localId = NetworkManager.Singleton.LocalClientId;
-			
 			//Init Things
 			SM = GetComponent<SpawnManager>();
-			
-		
-			
 		}
 	}
 	
@@ -51,7 +47,6 @@ public class FPSGun : NetworkBehaviour
 		if (Input.GetMouseButtonDown(01)) {
 		Shoot();
 		}
-		
 	}
 	
 	public void CreateBullet()

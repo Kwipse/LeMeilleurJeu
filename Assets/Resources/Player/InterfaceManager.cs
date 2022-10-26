@@ -1,12 +1,13 @@
 using MLAPI;
 using UnityEngine;
-
+using UnityEngine.Networking;
 
 namespace LeMeilleurJeu
 {
     public class InterfaceManager : MonoBehaviour
     {
-
+		
+		
         // UI
         void OnGUI()
         {
@@ -26,8 +27,9 @@ namespace LeMeilleurJeu
 
 
 
-        static void NetworkButtons()
+         static void NetworkButtons()
         {
+		
             if (GUILayout.Button("Host")) NetworkManager.Singleton.StartHost();
             if (GUILayout.Button("Client")) NetworkManager.Singleton.StartClient();
             if (GUILayout.Button("Server")) NetworkManager.Singleton.StartServer();

@@ -11,7 +11,12 @@ public class PrefabManager : ScriptableObject
 
 	public static void LoadAllPrefabs()
 	{
+		// attention a ne pas load deux fois
+		// appeler un dossier puis appeler un sous-dossier fait appelerr deu fois
 		LoadPrefabs("Player/FPS");
+		
+	
+		LoadPrefabs("Player/RTS");
 		LoadPrefabs("Player/RTS/ControllerAndCamera");
 		LoadPrefabs("Player/RTS/Sbires");
 		LoadPrefabs("Player/RTS/Batiments");
@@ -25,9 +30,20 @@ public class PrefabManager : ScriptableObject
 	public static void LoadPrefabs(string PrefabPath)
 	{
 		Object[] ObjectArray = Resources.LoadAll(PrefabPath,typeof(GameObject));
-
+		Debug.Log("obectarraysize :"+ObjectArray.Length);
+		
 		foreach (Object o in ObjectArray)
-			gameObjectList.Add(o.name.GetHashCode(),(GameObject) o);
+		{
+			if(!gameObjectList.ContainsKey(o.name.GetHashCode()))
+			{
+				Debug.Log("loadprefab :"+o.name);
+				gameObjectList.Add(o.name.GetHashCode(),(GameObject) o);
+			}
+			else
+			{
+				Debug.Log("redundant key :"+o.name);
+			}
+		}
 	}
 
 

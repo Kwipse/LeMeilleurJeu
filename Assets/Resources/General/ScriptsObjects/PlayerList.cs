@@ -2,9 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerList : ScriptableObject
+public class Singleton : MonoBehaviour
 {
+	
 	public static GameObject[] ClientPlayer = new GameObject[10];	
+	
+	//WakeUp Mr. Singleton
+	public static Singleton PlayerList { get; private set; }	
+	private void Awake() 
+	{ 
+		// If there is an PlayerList, and it's not me, delete myself.
+		
+		if (PlayerList != null && PlayerList != this) 
+		{ 
+			Destroy(this); 
+		} 
+		else 
+		{ 
+			PlayerList = this; 
+		} 
+	}
+	
+
+	
 	
 	public static void AddPlayerObject(ulong clientId, GameObject go)
 	{

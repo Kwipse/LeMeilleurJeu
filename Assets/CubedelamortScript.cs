@@ -7,7 +7,7 @@ using MLAPI.NetworkVariable;
 
 public class CubedelamortScript : NetworkBehaviour
 {
-	Vector3 push = new Vector3(0,0,2000);
+	Vector3 push = new Vector3(0,0,500);
 	Rigidbody rb ;
 	
     // Start is called before the first frame update
@@ -35,7 +35,15 @@ public class CubedelamortScript : NetworkBehaviour
 				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
 				Destroy(gameObject);
 			}
-        
-        
+			if(collision.gameObject.tag == "Building")
+			{
+				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
+				Destroy(gameObject);
+			}
+			if(collision.gameObject.tag == "Player")
+			{
+				collision.collider.GetComponent<HealthSystem>().LoosePv(25);
+				Destroy(gameObject);
+			}
     }
 }

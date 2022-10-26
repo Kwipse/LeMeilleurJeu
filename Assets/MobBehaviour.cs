@@ -13,17 +13,18 @@ public class MobBehaviour : NetworkBehaviour
 	Transform target;
     Vector3 destination;
 	NavMeshAgent agent;
+	
+	
     // Start is called before the first frame update
 	public override void NetworkStart()
     {
+		
 		agent = GetComponent<NavMeshAgent>();
         destination = agent.destination;   
 	
     }
 	
-	
-	
-	
+
 	
 	
     // Update is called once per frame
@@ -39,10 +40,9 @@ public class MobBehaviour : NetworkBehaviour
 			//Debug.Log(PlayerList.GetPlayerObject(1).transform);
 			//TODO : checker si c'est GetPlayerObject(0) ou (1) ????
 			try{
-				target = PlayerList.GetPlayerObject(0).transform;
+				target = Singleton.PlayerList.GetPlayerObject(0).transform;
 			}catch{}	
-			Debug.Log("playerObjectName: "+ PlayerList.GetPlayerObject(0)+"fin");
-			//Debug.Log("mobbehaviour:"+ target);
+		
 		}
 		
 		if(target!=null && Vector3.Distance(transform.position, target.position) < 2.50f)

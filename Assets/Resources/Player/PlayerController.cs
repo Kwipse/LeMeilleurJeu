@@ -17,13 +17,10 @@ public class PlayerController : NetworkBehaviour
 	string FPS = "FPSPlayer";
 	string RTS = "RTSPlayer";
 	string toSpawn ;
-
-
-
+	
 	
 	public override void NetworkStart()
 	{
-
 		if (!IsOwner) {enabled=false;}
 		else
 		{
@@ -62,8 +59,6 @@ public class PlayerController : NetworkBehaviour
 
 
 
-
-
 	//PlayMode Switcher
 	public void SwitchMode()
 	{
@@ -85,5 +80,3 @@ public class PlayerController : NetworkBehaviour
 		}
 	}
 }
-
-

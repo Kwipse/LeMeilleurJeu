@@ -16,7 +16,9 @@ GameObject:
   - component: {fileID: -2553348302583567940}
   - component: {fileID: -6165174734040666833}
   - component: {fileID: -2577537663839646389}
-  - component: {fileID: 6144321026639862343}
+  - component: {fileID: -2400505807627575635}
+  - component: {fileID: 670259694732076245}
+  - component: {fileID: 8049443066172758147}
   m_Layer: 9
   m_Name: HumanBox
   m_TagString: Unit
@@ -207,8 +209,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 711416458826522534}
   m_Mesh: {fileID: -8524781615669338677, guid: 87b00cc176ca68a498e679b3da8c3c79, type: 3}
---- !u!64 &6144321026639862343
-MeshCollider:
+--- !u!114 &-2400505807627575635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711416458826522534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1766f1cfabccfb44f94c6479c807d186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pv: 300
+--- !u!65 &670259694732076245
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -217,10 +232,21 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -8524781615669338677, guid: 87b00cc176ca68a498e679b3da8c3c79, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1.4898528, y: 5.350789, z: 0.4170599}
+  m_Center: {x: 0, y: 2.1753955, z: 0.020658731}
+--- !u!114 &8049443066172758147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711416458826522534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19c46d1c6dcc809479a72c8132067856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &925663330573292634
 GameObject:
   m_ObjectHideFlags: 0

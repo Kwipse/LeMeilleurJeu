@@ -30,11 +30,11 @@ public class PlayerManager : NetworkBehaviour
 	void SpawnPlayer(string PlayerPrefabName, Vector3 SpawnLocation, ulong clientId)
 	{
 		//Destroy current player if it exist
-		GameObject go = PlayerList.GetPlayerObject(clientId);
+		GameObject go = Singleton.PlayerList.GetPlayerObject(clientId);
 		if (go != null)
 		{
 			Destroy(go);
-			PlayerList.RemovePlayerObject(clientId);
+			Singleton.PlayerList.RemovePlayerObject(clientId);
 			Debug.Log("Player " + clientId + " has been destroyed");
 		}
 		
@@ -43,7 +43,7 @@ public class PlayerManager : NetworkBehaviour
 		go.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
 		
 		//Register in Player List
-		PlayerList.AddPlayerObject(clientId,go);
+		Singleton.PlayerList.AddPlayerObject(clientId,go);
 	}
 	
 	
@@ -69,7 +69,9 @@ public class PlayerManager : NetworkBehaviour
 	//Destroy
 	void DestroyObject(ulong clientId)
 	{
-		Destroy(PlayerList.GetPlayerObject(clientId));
+		if (NetworkManager.Singleton.IsServer)
+			{Destroy(Singleton.PlayerList.GetPlayerObject(clientId));}
+		
 	}
 	
 }
