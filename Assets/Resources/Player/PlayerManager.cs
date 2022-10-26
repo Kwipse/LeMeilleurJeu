@@ -5,7 +5,7 @@ using MLAPI;
 using MLAPI.Messaging;
 
 
-public class PlayerManager : NetworkBehaviour
+public class PlayerManager : MonoBehaviour
 {
 	
 
@@ -29,8 +29,10 @@ public class PlayerManager : NetworkBehaviour
 	//Spawn 
 	void SpawnPlayer(string PlayerPrefabName, Vector3 SpawnLocation, ulong clientId)
 	{
+		Debug.Log("go test");
 		//Destroy current player if it exist
 		GameObject go = Singleton.PlayerList.GetPlayerObject(clientId);
+		Debug.Log("go :"+go);
 		if (go != null)
 		{
 			Destroy(go);

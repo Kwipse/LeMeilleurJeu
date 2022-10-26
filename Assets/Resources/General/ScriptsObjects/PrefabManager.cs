@@ -15,8 +15,6 @@ public class PrefabManager : ScriptableObject
 		// appeler un dossier puis appeler un sous-dossier fait appelerr deu fois
 		LoadPrefabs("Player/FPS");
 		
-	
-		LoadPrefabs("Player/RTS");
 		LoadPrefabs("Player/RTS/ControllerAndCamera");
 		LoadPrefabs("Player/RTS/Sbires");
 		LoadPrefabs("Player/RTS/Batiments");
@@ -30,7 +28,6 @@ public class PrefabManager : ScriptableObject
 	public static void LoadPrefabs(string PrefabPath)
 	{
 		Object[] ObjectArray = Resources.LoadAll(PrefabPath,typeof(GameObject));
-		Debug.Log("obectarraysize :"+ObjectArray.Length);
 		
 		foreach (Object o in ObjectArray)
 		{

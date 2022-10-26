@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-	public GameObject cv;
+	public GameObject CanvasEnd;
     public void FPSWinTrigger()
 	{
 		Debug.Log("Victoire des FPS");
-		cv.SetActive(true);
+		CanvasEnd.SetActive(true);
 	}
 
 }
