@@ -33,7 +33,6 @@ public class PrefabManager : ScriptableObject
 		{
 			if(!gameObjectList.ContainsKey(o.name.GetHashCode()))
 			{
-				Debug.Log("loadprefab :"+o.name);
 				gameObjectList.Add(o.name.GetHashCode(),(GameObject) o);
 			}
 			else

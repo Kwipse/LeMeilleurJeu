@@ -1,28 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
+using MLAPI.Messaging;
 
 
-public class Singleton : MonoBehaviour
+
+public class PlayerList : MonoBehaviour// NetworkBehaviour
 {
 	
 	public  GameObject[] ClientPlayer = new GameObject[10];	
 	
-	//WakeUp Mr. Singleton
-	public static Singleton PlayerList { get; private set; }	
+	//WakeUp Mr. PlayerList
+	public static PlayerList PlayerListinstance { get; private set; }	
 	private void Awake() 
 	{ 
-		// If there is an PlayerList, and it's not me, delete myself.
+
+		// If there is an PlayerListinstance, and it's not me, delete myself.
 		
-		if (PlayerList != null && PlayerList != this) 
+		if (PlayerListinstance != null && PlayerListinstance != this) 
 		{ 
 			Destroy(this); 
 		} 
 		else 
 		{ 
-			PlayerList = this; 
+			PlayerListinstance = this; 
 		} 
 	}
+	
+	/*public override void NetworkStart()
+	{
+		if (!NetworkManager.Singleton.IsServer) {Destroy(this); }
+		
+	}*/
 	
 
 	
@@ -41,7 +51,7 @@ public class Singleton : MonoBehaviour
 	
 	public  GameObject GetPlayerObject(ulong clientId)
 	{
-		Debug.Log("Player " + clientId + " gameObject has been found");
+		//Debug.Log("Player " + clientId + " gameObject has been found");
 		GameObject go = ClientPlayer[clientId];
 		return go;
 	}

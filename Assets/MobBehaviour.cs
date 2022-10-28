@@ -40,7 +40,7 @@ public class MobBehaviour : NetworkBehaviour
 			//Debug.Log(PlayerList.GetPlayerObject(1).transform);
 			//TODO : checker si c'est GetPlayerObject(0) ou (1) ????
 			try{
-				target = Singleton.PlayerList.GetPlayerObject(0).transform;
+				target = PlayerList.PlayerListinstance.GetPlayerObject(0).transform;
 			}catch{}	
 		
 		}
