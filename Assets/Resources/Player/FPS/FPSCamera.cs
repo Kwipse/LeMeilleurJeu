@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
+using Unity.Netcode;
+
+
 using UnityEngine;
 
 
@@ -20,7 +20,7 @@ using UnityEngine;
 		Camera cam;
 
 		
-		public override void NetworkStart()
+		public override void OnNetworkSpawn()
 		{
 			if (!IsOwner) {enabled=false;}
 			else

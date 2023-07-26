@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
-using MLAPI.Messaging;
+using Unity.Netcode;
+
 
 
 
@@ -28,7 +28,7 @@ public class PlayerList : MonoBehaviour// NetworkBehaviour
 		} 
 	}
 	
-	/*public override void NetworkStart()
+	/*public override void OnNetworkSpawn()
 	{
 		if (!NetworkManager.Singleton.IsServer) {Destroy(this); }
 		

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
+using Unity.Netcode;
 
 
 public class FPSMovement : NetworkBehaviour
@@ -18,7 +18,7 @@ public class FPSMovement : NetworkBehaviour
 	Animator Anim;
 	
 
-	public override void NetworkStart()
+	public override void OnNetworkSpawn()
 	{
 		RBody = GetComponent<Rigidbody>();
 		Anim = GetComponent<Animator>();

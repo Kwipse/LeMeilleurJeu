@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
+using Unity.Netcode;
 using UnityEngine;
 
 public class RTSPlayer : NetworkBehaviour
@@ -14,7 +12,7 @@ public class RTSPlayer : NetworkBehaviour
 	SpawnManager SM;
 	
 
-	public override void NetworkStart()
+	public override void OnNetworkSpawn()
 	{
 		
 		if (!IsOwner) {enabled = false; } //Disable for non-owner

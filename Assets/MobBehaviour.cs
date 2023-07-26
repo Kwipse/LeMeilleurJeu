@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
+using Unity.Netcode;
+
+
 
 
 public class MobBehaviour : NetworkBehaviour
@@ -16,7 +16,7 @@ public class MobBehaviour : NetworkBehaviour
 	
 	
     // Start is called before the first frame update
-	public override void NetworkStart()
+	public override void OnNetworkSpawn()
     {
 		
 		agent = GetComponent<NavMeshAgent>();

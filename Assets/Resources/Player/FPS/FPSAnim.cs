@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
+using Unity.Netcode;
 
 public class FPSAnim : NetworkBehaviour
 {
@@ -15,7 +15,7 @@ public class FPSAnim : NetworkBehaviour
 	Vector3 position;
 	
 	
-	public override void NetworkStart()
+	public override void OnNetworkSpawn()
     {
 		Anim = GetComponent<Animator>();
 		RBody = GetComponent<Rigidbody>();	

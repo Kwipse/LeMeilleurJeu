@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
+using Unity.Netcode;
 
 
 namespace LeMeilleurJeu
@@ -13,10 +13,10 @@ namespace LeMeilleurJeu
 		public Vector3 InitialCameraPosition;
 		Camera cam;
 		
-        //Init Sensibilités
-        //float msensitivity = 2f; //Sensibilité Souris
-        float ksensitivity = 2f; //Sensibilité Clavier
-        float zsensitivity = 2f; //Sensibilité Zoom
+        //Init Sensibilitï¿½s
+        //float msensitivity = 2f; //Sensibilitï¿½ Souris
+        float ksensitivity = 2f; //Sensibilitï¿½ Clavier
+        float zsensitivity = 2f; //Sensibilitï¿½ Zoom
 
 
         Vector3 translation;
@@ -27,7 +27,7 @@ namespace LeMeilleurJeu
 
 		
 
-        public override void NetworkStart()
+        public override void OnNetworkSpawn()
         {
 			if (!IsOwner) {enabled=false;}
 			else
@@ -50,7 +50,7 @@ namespace LeMeilleurJeu
 
         void OnDisable()
         {
-            if (IsOwner) {Cursor.lockState = CursorLockMode.None;} //Débloque la souris
+            if (IsOwner) {Cursor.lockState = CursorLockMode.None;} //Dï¿½bloque la souris
         }
 
 

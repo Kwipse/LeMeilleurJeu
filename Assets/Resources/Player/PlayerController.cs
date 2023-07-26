@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using MLAPI;
-using MLAPI.Messaging;
+using Unity.Netcode;
+
 using UnityEngine;
 
     
@@ -19,7 +19,7 @@ public class PlayerController : NetworkBehaviour
 	string toSpawn ;
 	
 	
-	public override void NetworkStart()
+	public override void OnNetworkSpawn()
 	{
 		if (!IsOwner) {enabled=false;}
 		else
