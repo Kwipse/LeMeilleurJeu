@@ -38,9 +38,10 @@ public class FPSMovement : NetworkBehaviour
 	void KeyboardInputs()
 	{
 		translation = Vector3.zero;
-		
-		// ZQSD or Arrow keys
-		if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.UpArrow)) { translation += transform.forward;}
+
+        // ZQSD or Arrow keys
+
+        if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.UpArrow)) { translation += transform.forward;}
 		if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) { translation -= transform.forward;}
 		if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) { translation += transform.right;}
 		if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.LeftArrow)) { translation -= transform.right;}
