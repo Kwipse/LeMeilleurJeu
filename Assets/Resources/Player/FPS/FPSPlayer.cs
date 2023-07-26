@@ -7,20 +7,22 @@ using UnityEngine;
 
     public class FPSPlayer : NetworkBehaviour
     {
-
-
-
-       public override void OnNetworkSpawn()
-       {
+		
+		
+		
+		public override void OnNetworkSpawn()
+		{
 
             if (!IsOwner)
             {
-			
+				this.enabled = false;
+				GetComponent<Camera>().enabled = false;
+				GetComponent<FPSCamera>().enabled = false;
 				GetComponent<FPSMovement>().enabled = false;
 				GetComponent<FPSJump>().enabled = false;
 				GetComponent<FPSGun>().enabled=false;
 
             }
             
-       }
+		}
     }

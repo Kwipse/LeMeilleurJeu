@@ -6,10 +6,12 @@ using Unity.Netcode;
 using UnityEngine;
 
 
-    public class FPSCamera : NetworkBehaviour
+    public class FPSCamera : MonoBehaviour
     {
+		
+		SpawnManager SM;
+		
         //Init Public
-		public Camera camPrefab ;
 		public float sensitivity ;
 		public Vector3 InitialCameraPosition ;
 		
@@ -20,13 +22,11 @@ using UnityEngine;
 		Camera cam;
 
 		
-		public override void OnNetworkSpawn()
+		void Awake()
 		{
-			if (!IsOwner) {enabled=false;}
-			else
-			{
-				//Spawn camera
-				cam = Instantiate(camPrefab);
+
+				cam = GetComponent<Camera>();
+
 				cam.transform.parent = transform;
 				cam.transform.position = InitialCameraPosition;
 				Debug.Log("Current Camera : " + cam);
@@ -34,25 +34,23 @@ using UnityEngine;
 				
 				Cursor.lockState = CursorLockMode.Locked; //Bloque la souris au centre
 				Cursor.visible = false; // Fait disparaitre le curseur de la souris
-			}
+			
 		}
 		
 
 
         void OnDisable()
         {
-            if (IsOwner)
-            {
+
                 Cursor.lockState = CursorLockMode.None; // Débloque la souris
                 Cursor.visible = true; // Rend visible le curseur
-            }
+				
         }
 
 
         void Update()
         {
-            if (IsOwner)
-            {
+
                 rotation.x += Input.GetAxis(xAxis) * sensitivity;
                 rotation.y += Input.GetAxis(yAxis) * sensitivity;
                 rotation.y = Mathf.Clamp(rotation.y, -90, 90);
@@ -61,8 +59,8 @@ using UnityEngine;
                
 
                 cam.transform.localRotation = yQuat;
-                transform.rotation = xQuat;
-            }
+                cam.transform.rotation = xQuat;
+
         }
 
 
