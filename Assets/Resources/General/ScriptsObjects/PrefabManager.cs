@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;   //Required for Dictionary
+using UnityEngine;
+
 
 public class PrefabManager : ScriptableObject
 {
@@ -12,9 +13,8 @@ public class PrefabManager : ScriptableObject
 	public static void LoadAllPrefabs()
 	{
 		// attention a ne pas load deux fois
-		// appeler un dossier puis appeler un sous-dossier fait appelerr deu fois
+		// appeler un dossier puis appeler un sous-dossier fait appeler deux fois
 		LoadPrefabs("Player/FPS");
-		
 		LoadPrefabs("Player/RTS/ControllerAndCamera");
 		LoadPrefabs("Player/RTS/Sbires");
 		LoadPrefabs("Player/RTS/Batiments");

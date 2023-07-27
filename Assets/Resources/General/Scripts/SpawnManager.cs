@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 
 
-public class SpawnManager : NetworkBehaviour
+public class SpawnManager : MonoBehaviour
 {
 
 	

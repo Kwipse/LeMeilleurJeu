@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
-
 using UnityEngine;
+using Unity.Netcode;
 
     
 public class PlayerController : NetworkBehaviour
 {
 	//Declarations
-	PlayerManager PM;
+	PlayerSpawner PM;
 	ulong localId;
 	bool PlayMode;
 	
@@ -24,11 +23,9 @@ public class PlayerController : NetworkBehaviour
 		if (!IsOwner) {enabled=false;}
 		else
 		{
-			//Init the prefab manager 
-			if (NetworkManager.Singleton.IsServer) { PrefabManager.LoadAllPrefabs(); }
 
 			//Init the player manager
-			PM = GetComponent<PlayerManager>();
+			PM = GetComponent<PlayerSpawner>();
 			
 			//Disable the main camera, just in case
 			Camera.main.enabled = false;
