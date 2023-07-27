@@ -8,7 +8,6 @@ using UnityEngine;
 
     public class FPSCamera : MonoBehaviour
     {
-		
 		SpawnManager SM;
 		
         //Init Public
@@ -25,10 +24,10 @@ using UnityEngine;
 		void Awake()
 		{
 
-				cam = GetComponent<Camera>();
+				cam =  GetComponentInChildren<Camera>();
+				
+				cam.transform.parent = this.transform; //Parent player to camera
 
-				cam.transform.parent = transform;
-				cam.transform.position = InitialCameraPosition;
 				Debug.Log("Current Camera : " + cam);
 				
 				
@@ -58,9 +57,13 @@ using UnityEngine;
                 var yQuat = Quaternion.AngleAxis(rotation.y, Vector3.left);
                
 
-                cam.transform.localRotation = yQuat;
-                cam.transform.rotation = xQuat;
 
+
+				//Axe horizontal - FPSPlayer rotationne
+                transform.rotation = xQuat;
+				
+				//Axe vertical - FPSPlayer ne rotationne pas
+                cam.transform.localRotation = yQuat;
         }
 
 

@@ -9,6 +9,8 @@ using UnityEngine;
 public class FPSGun : NetworkBehaviour
 
 {
+	Camera playerCam;
+	
 	int layerMask = 1 << 9;
 	RaycastHit hit;
 
@@ -33,6 +35,7 @@ public class FPSGun : NetworkBehaviour
 			localId = NetworkManager.Singleton.LocalClientId;
 			//Init Things
 			SM = GetComponent<SpawnManager>();
+			playerCam = GetComponentInChildren<Camera>();
 		}
 	}
 	
@@ -52,8 +55,8 @@ public class FPSGun : NetworkBehaviour
 	public void CreateBullet()
     {
         //GameObject go = Instantiate(cube,Camera.main.transform.Find("GunPoint").position,Camera.main.transform.rotation);
-        Debug.Log("cubeDeLaMort : " + Camera.main.transform.Find("GunPoint").position + " - localId : "+localId);
-		SM.Spawn("LeCubeDeLaMort",Camera.main.transform.Find("GunPoint").position, localId, Camera.main.transform.Find("GunPoint").rotation);
+        Debug.Log("cubeDeLaMort : " + playerCam.transform.Find("GunPoint").position + " - localId : "+localId);
+		SM.Spawn("LeCubeDeLaMort",playerCam.transform.Find("GunPoint").position, localId, playerCam.transform.Find("GunPoint").rotation);
     }
 	
 	public void Shoot()

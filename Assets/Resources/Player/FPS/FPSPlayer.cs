@@ -15,8 +15,8 @@ using UnityEngine;
 
             if (!IsOwner)
             {
-				this.enabled = false;
-				GetComponent<Camera>().enabled = false;
+				//this.enabled = false;
+				GetComponentInChildren<Camera>().enabled = false;
 				GetComponent<FPSCamera>().enabled = false;
 				GetComponent<FPSMovement>().enabled = false;
 				GetComponent<FPSJump>().enabled = false;

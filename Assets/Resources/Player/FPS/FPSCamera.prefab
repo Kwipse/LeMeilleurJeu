@@ -119,9 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14671d2dfe7b7234d9fb7931fd88a3ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camPrefab: {fileID: 0}
-  sensitivity: 0
-  InitialCameraPosition: {x: 0, y: 0, z: 0}
+  sensitivity: 10
+  InitialCameraPosition: {x: 0, y: 5, z: 0}
 --- !u!1 &3681664113715375488
 GameObject:
   m_ObjectHideFlags: 0
