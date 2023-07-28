@@ -41,11 +41,28 @@ public class SpawnManager : NetworkBehaviour
 	
 	
 	
+
+	
+
+	[ServerRpc(RequireOwnership =false)]
+	public void DestroyCubeServerRpc(int dureeOuiNon =0 )
+	{
+		//GetComponent<Netw>
+		if (dureeOuiNon == 0)
+		{
+			Destroy(gameObject);
+		}else
+			Destroy(gameObject,10);
+
+    }
+	
+	
+	/*/
 	//Destroy
 	public void Destroy(NetworkObject no)
 	{
 		if (NetworkManager.Singleton.IsServer) 
-			{/*ServerDestroy(GameObject go);*/
+			{
 				no.Despawn();
 			}
 		else
@@ -56,14 +73,5 @@ public class SpawnManager : NetworkBehaviour
 	[ServerRpc]
 	void RequestDestroyServerRPC(NetworkObjectReference no)	{Destroy(no);}
 	
-	
-	/*/ServerDestroy
-	void ServerDestroy(GameObject go)
-	{
-		if (NetworkManager.Singleton.IsServer) 
-		{
-			go.Despawn();
-		}
-	}
-	/*/
+	//*/
 }

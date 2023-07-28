@@ -24,7 +24,8 @@ public class CubedelamortScript : NetworkBehaviour
 			localId = NetworkManager.Singleton.LocalClientId;
 			
 			rb.AddRelativeForce(push);
-			//Destroy(gameObject,10);
+			SM.DestroyCubeServerRpc(1);
+			
 			Debug.Log("POUNNNNLMMM : "+localId);
 		}
     }
@@ -41,34 +42,24 @@ public class CubedelamortScript : NetworkBehaviour
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
 				//Destroy(gameObject);
-				DestroyCubeServerRpc();
+				SM.DestroyCubeServerRpc();
 
         }
         if (collision.gameObject.tag == "Building")
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
 				//Destroy(gameObject);
-				DestroyCubeServerRpc();
+				SM.DestroyCubeServerRpc();
 
             }
 			if(collision.gameObject.tag == "Player")
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(25);
 				//Destroy(gameObject);
-				DestroyCubeServerRpc();
+				SM.DestroyCubeServerRpc();
 
         }
     }
 
-	[ServerRpc(RequireOwnership =false)]
-	private void DestroyCubeServerRpc(int dureeOuiNon =0 )
-	{
-		//GetComponent<Netw>
-		if (dureeOuiNon == 0)
-		{
-			Destroy(gameObject);
-		}else
-			Destroy(gameObject,10);
-
-    }
+	
 }

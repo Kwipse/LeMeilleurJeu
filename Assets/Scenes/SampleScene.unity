@@ -911,6 +911,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitsList: []
+  sbire: []
+  mob: []
 --- !u!114 &1659595839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -938,6 +940,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bankedGold: 500
+  goldCap: 2000
+  actualPop: 1
+  popCap: 20
+  storedEnergy: 0
+  energyCap: 100
 --- !u!1001 &1680792921
 PrefabInstance:
   m_ObjectHideFlags: 0
