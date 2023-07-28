@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class HealthSystem : MonoBehaviour
+public class HealthSystem : NetworkBehaviour
 {
     public float pv=100;
 	public bool isNexus;
@@ -25,7 +26,21 @@ public class HealthSystem : MonoBehaviour
 		}
 		else
 		{
-			Destroy(gameObject);
-		}
+            DestroyObjectServerRpc();
+        }
 	}
+
+    [ServerRpc(RequireOwnership =false)]
+    private void DestroyObjectServerRpc(int dureeOuiNon = 0)
+    {
+        //GetComponent<Netw>
+        if (dureeOuiNon == 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+            Destroy(gameObject, 10);
+
+    }
+
 }

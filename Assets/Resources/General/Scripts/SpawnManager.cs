@@ -14,13 +14,13 @@ public class SpawnManager : NetworkBehaviour
 		if (NetworkManager.Singleton.IsServer) 
 			{ServerSpawn(PrefabName, SpawnLocation, clientId, SpawnRotation);}
 		else
-			{RequestSpawnServerRPC(PrefabName, SpawnLocation, clientId, SpawnRotation);}
+			{RequestSpawnServerRpc(PrefabName, SpawnLocation, clientId, SpawnRotation);}
 	}
 	
 	
 	//Spawn RPC
 	[ServerRpc]
-	void RequestSpawnServerRPC(string PrefabName, Vector3 SpawnLocation, ulong clientId, Quaternion SpawnRotation)
+	void RequestSpawnServerRpc(string PrefabName, Vector3 SpawnLocation, ulong clientId, Quaternion SpawnRotation)
 	{
 			{ServerSpawn(PrefabName, SpawnLocation, clientId, SpawnRotation);}
 	}

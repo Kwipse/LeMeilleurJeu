@@ -11,11 +11,13 @@ public class Unit : MonoBehaviour
     //run to a point
     //necesitte un navmeshagent
     private NavMeshAgent nav;
+	public string type;
 
     private void Start() 
     {
         nav = GetComponent<NavMeshAgent>();
         GameObject.Find("RTSManager").GetComponent<UnitList>().AddUnit(gameObject);
+		type = gameObject.name;
     }    
 
     public void MoveToPosition(Vector3 pos)

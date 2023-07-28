@@ -7,9 +7,10 @@ using Unity.Netcode;
 public class Building_Blueprint : MonoBehaviour
 {
     /*
+	en cours blueprint chantier batiment ruine
     A attacher à un blueprint de batiment
 
-    le batiment de reste sous le curseur que sur un objet contenant un collider et sur le layer 8
+    le blueprint de reste sous le curseur que sur un objet contenant un collider et sur le layer 8
     ce script maintient le blueprint sous la souris et detruit le blueprint pour mettre le batiment correspondant
     */
     /*a faire
@@ -19,7 +20,7 @@ public class Building_Blueprint : MonoBehaviour
    
     RaycastHit hit;
     Vector3 movePoint;
-    public GameObject prefab;
+    public GameObject chantierPrefab;
     public Animator RTSPlayerAnimator;
     public Material prebuild, notAllowed;
     public bool isAllowed=false;
@@ -78,7 +79,7 @@ public class Building_Blueprint : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             //le joueur essaye de creer le batiment
-            GameObject go = Instantiate(prefab, new Vector3(hit.point.x, 0, hit.point.z), transform.rotation);
+            GameObject go = Instantiate(chantierPrefab, new Vector3(hit.point.x, 0, hit.point.z), transform.rotation);
             go.GetComponent<NetworkObject>().Spawn();
 
             if (RTSPlayerAnimator != null)
