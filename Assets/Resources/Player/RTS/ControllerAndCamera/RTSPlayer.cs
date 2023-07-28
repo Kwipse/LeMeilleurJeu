@@ -37,17 +37,17 @@ public class RTSPlayer : NetworkBehaviour
 
 
 	void KeyboardInputs()
-	{
+	{/*
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			// on se met en mode construction
 			anim.SetBool("ConstructionParam", true);
-		}
+		}*/
 	}
 
 	void MouseInputs()
 	{
-		if (Input.GetMouseButtonDown(0))
+		/*if (Input.GetMouseButtonDown(0))
 		{
 			Plane plane = new Plane(Vector3.up, Vector3.zero);
 
@@ -58,7 +58,7 @@ public class RTSPlayer : NetworkBehaviour
 			{
 			   SM.Spawn("HumanBox", ray.GetPoint(entry), localId, Quaternion.identity);
 			}
-		}
+		}*/
 	}
 	
 	
