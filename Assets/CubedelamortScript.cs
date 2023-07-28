@@ -34,16 +34,31 @@ public class CubedelamortScript : NetworkBehaviour
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
 				Destroy(gameObject);
-			}
-			if(collision.gameObject.tag == "Building")
+            DestroyCubeServerRpc();
+
+        }
+        if (collision.gameObject.tag == "Building")
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
-				Destroy(gameObject);
-			}
+				//Destroy(gameObject);
+				DestroyCubeServerRpc();
+
+            }
 			if(collision.gameObject.tag == "Player")
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(25);
 				Destroy(gameObject);
-			}
+            DestroyCubeServerRpc();
+
+        }
     }
+
+	[ServerRpc]
+	private void DestroyCubeServerRpc( )
+	{
+		//GetComponent<Netw>
+
+		Destroy(gameObject);
+
+	}
 }
