@@ -18,7 +18,9 @@ public class CubedelamortScript : NetworkBehaviour
 		{
 			rb= GetComponent<Rigidbody>();
 			rb.AddRelativeForce(push);
-			Destroy(gameObject,10);
+			DestroyCubeServerRpc(1); //destroy with 10s delay ?
+
+            //Destroy(gameObject,10);
 		}
     }
 
@@ -54,11 +56,14 @@ public class CubedelamortScript : NetworkBehaviour
     }
 
 	[ServerRpc]
-	private void DestroyCubeServerRpc( )
+	private void DestroyCubeServerRpc(int dureeOuiNon =0 )
 	{
 		//GetComponent<Netw>
+		if (dureeOuiNon == 0)
+		{
+			Destroy(gameObject);
+		}else
+			Destroy(gameObject,10);
 
-		Destroy(gameObject);
-
-	}
+    }
 }
