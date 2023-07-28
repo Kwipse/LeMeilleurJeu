@@ -2,27 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-
-
+using Unity.Netcode.Components;
 
 public class CubedelamortScript : NetworkBehaviour
 {
 	Vector3 push = new Vector3(0,0,500);
 	Rigidbody rb ;
-	
-    // Start is called before the first frame update
-	public override void OnNetworkSpawn()
+	NetworkRigidbody networkRigidbody;
+
+    public void Start()
     {
-		if (!IsOwner) {enabled=false;}
-		else
+        networkRigidbody = GetComponent<NetworkRigidbody>();
+
+    }
+
+    // Start is called before the first frame update
+    public override void OnNetworkSpawn()
+    {
+		if (!IsOwner) {enabled=false;
+			//Debug.Log("is Owner : " + IsOwner);
+            addRelativeForceServerRpc(push); //destroy with 10s delay ?
+			Debug.Log("LocalId non owner: " + NetworkManager.Singleton.LocalClientId);
+        }
+        else
 		{
-			rb= GetComponent<Rigidbody>();
-			rb.AddRelativeForce(push);
-			DestroyCubeServerRpc(1); //destroy with 10s delay ?
+            Debug.Log("LocalId owner: " + NetworkManager.Singleton.LocalClientId);
+
+            rb = GetComponent<Rigidbody>();
+			//rb.AddRelativeForce(push);
+            Debug.Log(rb);
+
+            addRelativeForceServerRpc( push); //destroy with 10s delay ?
 
             //Destroy(gameObject,10);
 		}
     }
+
+	[ServerRpc(RequireOwnership =false)]
+	private void addRelativeForceServerRpc( Vector3 push)
+	{
+        Rigidbody rigidBody = GetComponent<Rigidbody>();
+        rigidBody.AddRelativeForce(push);
+
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -35,8 +58,8 @@ public class CubedelamortScript : NetworkBehaviour
             if(collision.gameObject.tag == "Unit")
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
-				Destroy(gameObject);
-            DestroyCubeServerRpc();
+				//Destroy(gameObject);
+				DestroyCubeServerRpc();
 
         }
         if (collision.gameObject.tag == "Building")
@@ -49,13 +72,13 @@ public class CubedelamortScript : NetworkBehaviour
 			if(collision.gameObject.tag == "Player")
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(25);
-				Destroy(gameObject);
-            DestroyCubeServerRpc();
+				//Destroy(gameObject);
+				DestroyCubeServerRpc();
 
         }
     }
 
-	[ServerRpc]
+	[ServerRpc(RequireOwnership =false)]
 	private void DestroyCubeServerRpc(int dureeOuiNon =0 )
 	{
 		//GetComponent<Netw>

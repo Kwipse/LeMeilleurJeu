@@ -26,7 +26,21 @@ public class HealthSystem : NetworkBehaviour
 		}
 		else
 		{
-			Destroy(gameObject);
-		}
+            DestroyObjectServerRpc();
+        }
 	}
+
+    [ServerRpc(RequireOwnership =false)]
+    private void DestroyObjectServerRpc(int dureeOuiNon = 0)
+    {
+        //GetComponent<Netw>
+        if (dureeOuiNon == 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+            Destroy(gameObject, 10);
+
+    }
+
 }
