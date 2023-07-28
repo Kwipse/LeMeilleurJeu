@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnitSelectedRTSState : StateMachineBehaviour
 {
     private RaycastHit hit;
-    public GameObject cible;
+    public List<GameObject> cible = new List<GameObject>();
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -18,12 +18,12 @@ public class UnitSelectedRTSState : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //on peut revenir en idle
-        
-        if(Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            animator.SetBool("endSelection",true);
-        }
+            animator.SetBool("endSelection", true);
 
+        }
+     
         //on peut donner un ordre de déplacement
         if(Input.GetMouseButton(1))
         {
@@ -31,17 +31,21 @@ public class UnitSelectedRTSState : StateMachineBehaviour
 
             if(Physics.Raycast(ray, out hit, 400.0f, (1<<8)))
             {
-                cible.GetComponent<Unit>().MoveToPosition(hit.point);
+                foreach(GameObject unit in cible)
+                {
+                    unit.GetComponent<Unit>().MoveToPosition(hit.point);
+                }
+                
             }
         }
         
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        cible = new List<GameObject>();
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -54,10 +58,10 @@ public class UnitSelectedRTSState : StateMachineBehaviour
     //{
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
-
-    public void GetTarget(GameObject go)
-    {
+    /*
+    public void GetTargets(List<GameObject> go)
+    { foreach(GameObject unit in cible)
         cible=go;
         Debug.Log("cible = "+cible);
-    }
+    }*/
 }

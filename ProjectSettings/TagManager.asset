@@ -8,6 +8,7 @@ TagManager:
   - Unit
   - Bullet
   - ground
+  - Minerai
   layers:
   - Default
   - TransparentFX
