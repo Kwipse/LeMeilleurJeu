@@ -11,7 +11,7 @@ public class Unit : MonoBehaviour
     //run to a point
     //necesitte un navmeshagent
     private NavMeshAgent nav;
-	private string type;
+	public string type;
 
     private void Start() 
     {

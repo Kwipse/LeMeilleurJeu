@@ -7,6 +7,6 @@ public class HouseScript : MonoBehaviour
 {
     void Start()
 	{
-		transform.Find("RTSManager").GetComponent<RTSManager>().AddPopCap(10);
+		transform.Find("RTSManager").GetComponent<RTSRessourceManager>().AddPopCap(10);
 	}
 }

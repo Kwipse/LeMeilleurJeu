@@ -25,7 +25,8 @@ public class RTSRessourceManager : MonoBehaviour
         {
             _instance = this;
         }
-		actualPop = GetComponent<UnitList>().
+		//a faire
+		//actualPop = GetComponent<UnitList>().
     }
 
     public void AddGold(int amount)
