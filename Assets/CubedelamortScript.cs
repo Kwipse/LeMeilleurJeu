@@ -9,16 +9,24 @@ public class CubedelamortScript : NetworkBehaviour
 {
 	Vector3 push = new Vector3(0,0,500);
 	Rigidbody rb ;
+	SpawnManager SM;
+	NetworkObject no;
+	ulong localId;
 	
-    // Start is called before the first frame update
 	public override void OnNetworkSpawn()
     {
 		if (!IsOwner) {enabled=false;}
 		else
 		{
+			
+			SM = GetComponent<SpawnManager>();
+			no = GetComponent<NetworkObject>();
 			rb= GetComponent<Rigidbody>();
+			localId = NetworkManager.Singleton.LocalClientId;
+			
 			rb.AddRelativeForce(push);
-			Destroy(gameObject,10);
+			//Destroy(gameObject,10);
+			Debug.Log("POUNNNNLMMM : "+localId);
 		}
     }
 
@@ -33,17 +41,17 @@ public class CubedelamortScript : NetworkBehaviour
             if(collision.gameObject.tag == "Unit")
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
-				Destroy(gameObject);
+				SM.Destroy(no);
 			}
 			if(collision.gameObject.tag == "Building")
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
-				Destroy(gameObject);
+				SM.Destroy(no);
 			}
 			if(collision.gameObject.tag == "Player")
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(25);
-				Destroy(gameObject);
+				SM.Destroy(no);
 			}
     }
 }

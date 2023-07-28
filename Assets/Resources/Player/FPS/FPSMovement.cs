@@ -18,7 +18,7 @@ public class FPSMovement : MonoBehaviour
 	Animator Anim;
 	
 
-	public void OnAwake()
+	void Awake()
 	{
 		RBody = GetComponent<Rigidbody>();
 		Anim = GetComponent<Animator>();

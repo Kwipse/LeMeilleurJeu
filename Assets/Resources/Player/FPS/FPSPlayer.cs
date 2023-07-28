@@ -17,11 +17,10 @@ using UnityEngine;
             {
 				//this.enabled = false;
 				GetComponentInChildren<Camera>().enabled = false;
-				GetComponent<FPSCamera>().enabled = false;
+				//GetComponent<FPSCamera>().enabled = false;
 				GetComponent<FPSMovement>().enabled = false;
 				GetComponent<FPSJump>().enabled = false;
 				GetComponent<FPSGun>().enabled=false;
-				GetComponent<FPSAnim>().enabled=false;
 
             }
             

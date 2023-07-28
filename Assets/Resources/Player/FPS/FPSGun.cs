@@ -8,22 +8,18 @@ using UnityEngine;
 
 public class FPSGun : MonoBehaviour
 
-{
-	Camera playerCam;
-	
-	int layerMask = 1 << 9;
-	RaycastHit hit;
-
-	public GameObject cube; 
+{	
 
 	ulong localId;
+	int layerMask = 1 << 9;
 	SpawnManager SM;
-	
-	Rigidbody RBody;	
-	
+	Camera cam;
+	Rigidbody RBody;
+	RaycastHit hit;
+	GameObject go;
 	Vector3 shootPositionCorrection = new Vector3(0,1,1);
 
-	GameObject go;
+	public GameObject cube;
 	
 	void Awake()
 	{
@@ -32,7 +28,7 @@ public class FPSGun : MonoBehaviour
 			localId = NetworkManager.Singleton.LocalClientId;
 			//Init Things
 			SM = GetComponent<SpawnManager>();
-			playerCam = GetComponentInChildren<Camera>();
+			cam = GetComponentInChildren<Camera>();
 		
 	}
 	
@@ -51,13 +47,13 @@ public class FPSGun : MonoBehaviour
 	
 	public void CreateBullet()
     {
-        Debug.Log("cubeDeLaMort : " + playerCam.transform.Find("GunPoint").position + " - localId : "+localId);
-		SM.Spawn("LeCubeDeLaMort",playerCam.transform.Find("GunPoint").position, localId, playerCam.transform.Find("GunPoint").rotation);
+        //Debug.Log("cubeDeLaMort : " + cam.transform.Find("GunPoint").position + " - localId : "+localId);
+		SM.Spawn("LeCubeDeLaMort",cam.transform.Find("GunPoint").position, localId, cam.transform.Find("GunPoint").rotation);
     }
 	
 	public void Shoot()
 	{
-		Ray ray = Camera.main.ScreenPointToRay( new Vector3(Screen.width /2, Screen.height /2, 0));
+		Ray ray = cam.ScreenPointToRay( new Vector3(Screen.width /2, Screen.height /2, 0));
 		
 		if (Physics.Raycast(ray, out hit, layerMask))
         {
