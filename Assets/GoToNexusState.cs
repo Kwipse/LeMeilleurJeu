@@ -1,29 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
-public class MiningSbire : StateMachineBehaviour
+public class GoToNexusState : StateMachineBehaviour
 {
-    /*
-     * etat:mine non assignée, en route vers la mine
-     * en train de miner,retour vers le nexus,déchargement
-     * 
-     *cherche une mine mine position
-     *nexus position
-     */
-    public Gatherer gatherer;
+    private MiningSbire mS;
+    private Unit _unit;
 
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       // gatherer = 
+        mS = animator.GetBehaviour<MiningSbire>();
+        _unit = animator.transform.GetComponent<Unit>();
+        _unit.MoveToPosition(mS.nexus.transform.position);
+        animator.SetBool("isGoingToNexus", false);
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        //check la distace à la mine
+        if (Vector3.SqrMagnitude(animator.transform.position - mS.nexus.transform.position) < 30.0f)
+        {
+            animator.SetBool("isUnloading", true);
+            _unit.Stop();
+        }
+    }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

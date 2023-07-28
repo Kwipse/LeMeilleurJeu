@@ -7,7 +7,7 @@ public class RTSRessourceManager : MonoBehaviour
     private static RTSRessourceManager _instance;
     private static RTSRessourceManager Instance { get { return _instance; } }
 
-    private int bankedGold = 500;
+    public int bankedGold = 500;
 
 
     private void Awake()

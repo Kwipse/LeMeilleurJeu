@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEditor.PlayerSettings;
 
 public class Unit : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class Unit : MonoBehaviour
     public void MoveToPosition(Vector3 pos)
     {
         nav.SetDestination(pos);
+    }
+    public void Stop()
+    {
+        nav.SetDestination(transform.position);
     }
     // a faire
     //void OnDestroy() { transform.root.gameObject.GameOject.Find("RTSManager").GetComponent<UnitList>().DelUnit(gameObject); }
