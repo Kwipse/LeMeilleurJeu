@@ -23,7 +23,7 @@ public class PlayerController : NetworkBehaviour
 		if (!IsOwner) {enabled=false;}
 		else
 		{
-
+		
 			//Init the player manager
 			PM = GetComponent<PlayerSpawner>();
 			
@@ -59,21 +59,19 @@ public class PlayerController : NetworkBehaviour
 	//PlayMode Switcher
 	public void SwitchMode()
 	{
-		if (IsOwner)
-		{
+		
 			PlayMode = !PlayMode;
 			SpawnPlayer();
-		}
+		
 	}
 
 	
 	void SpawnPlayer()
 	{
-		if (IsOwner)
-		{
+		
 			if (PlayMode) {toSpawn = FPS;}				
 			else 	  	  {toSpawn = RTS;}
 			PM.Spawn(toSpawn,Vector3.zero, localId);
-		}
+		
 	}
 }

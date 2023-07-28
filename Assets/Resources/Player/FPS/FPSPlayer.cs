@@ -21,6 +21,7 @@ using UnityEngine;
 				GetComponent<FPSMovement>().enabled = false;
 				GetComponent<FPSJump>().enabled = false;
 				GetComponent<FPSGun>().enabled=false;
+				GetComponent<FPSAnim>().enabled=false;
 
             }
             

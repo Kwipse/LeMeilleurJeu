@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 
 
-public class FPSMovement : NetworkBehaviour
+public class FPSMovement : MonoBehaviour
 {
 	
 	//Public Var
@@ -18,7 +18,7 @@ public class FPSMovement : NetworkBehaviour
 	Animator Anim;
 	
 
-	public override void OnNetworkSpawn()
+	public void OnAwake()
 	{
 		RBody = GetComponent<Rigidbody>();
 		Anim = GetComponent<Animator>();
