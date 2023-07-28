@@ -33,6 +33,7 @@ public class FPSGun : MonoBehaviour
 			//Init Things
 			SM = GetComponent<SpawnManager>();
 			playerCam = GetComponentInChildren<Camera>();
+			Debug.Log(playerCam.GetInstanceID().ToString());
 		
 	}
 	
@@ -57,7 +58,7 @@ public class FPSGun : MonoBehaviour
 	
 	public void Shoot()
 	{
-		Ray ray = Camera.main.ScreenPointToRay( new Vector3(Screen.width /2, Screen.height /2, 0));
+		Ray ray = playerCam.ScreenPointToRay( new Vector3(Screen.width /2, Screen.height /2, 0));
 		
 		if (Physics.Raycast(ray, out hit, layerMask))
         {
