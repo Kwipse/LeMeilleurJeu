@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 
 
-public class PlayerSpawner : MonoBehaviour
+public class PlayerSpawner : NetworkBehaviour
 {
 	
 
@@ -32,8 +32,8 @@ public class PlayerSpawner : MonoBehaviour
 		Debug.Log("spawnplayer player list singleton"+PlayerList.PlayerListinstance);
 		//Destroy current player if it exist
 		GameObject go = PlayerList.PlayerListinstance.GetPlayerObject(clientId);
-		Debug.Log("go :"+go);
-		Debug.Log("goclient id :"+clientId);
+
+		Debug.Log("client id :"+clientId+" - go :"+go);
 		if (go != null)
 		{
 			Destroy(go);

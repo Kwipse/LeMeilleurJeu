@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class FPSAnim : NetworkBehaviour
+public class FPSAnim : MonoBehaviour
 {
 	public bool IsGrounded;
 	public bool IsMoving;
 	
-	
 	Animator Anim;
 	Rigidbody RBody;
-	
 	Vector3 position;
 	
 	
-	public override void OnNetworkSpawn()
+	void Awake()
     {
 		Anim = GetComponent<Animator>();
 		RBody = GetComponent<Rigidbody>();	

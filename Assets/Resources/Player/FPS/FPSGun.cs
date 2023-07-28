@@ -6,7 +6,7 @@ using Unity.Netcode;
 using UnityEngine;
 
 
-public class FPSGun : NetworkBehaviour
+public class FPSGun : MonoBehaviour
 
 {
 	Camera playerCam;
@@ -25,18 +25,15 @@ public class FPSGun : NetworkBehaviour
 
 	GameObject go;
 	
-	public override void OnNetworkSpawn()
+	void Awake()
 	{
 		
-		if (!IsOwner) {enabled = false; } //Disable for non-owner
-		else
-		{
 			//Init Client ID
 			localId = NetworkManager.Singleton.LocalClientId;
 			//Init Things
 			SM = GetComponent<SpawnManager>();
 			playerCam = GetComponentInChildren<Camera>();
-		}
+		
 	}
 	
 
@@ -54,7 +51,6 @@ public class FPSGun : NetworkBehaviour
 	
 	public void CreateBullet()
     {
-        //GameObject go = Instantiate(cube,Camera.main.transform.Find("GunPoint").position,Camera.main.transform.rotation);
         Debug.Log("cubeDeLaMort : " + playerCam.transform.Find("GunPoint").position + " - localId : "+localId);
 		SM.Spawn("LeCubeDeLaMort",playerCam.transform.Find("GunPoint").position, localId, playerCam.transform.Find("GunPoint").rotation);
     }

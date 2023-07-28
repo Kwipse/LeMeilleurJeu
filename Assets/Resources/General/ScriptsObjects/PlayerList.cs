@@ -39,13 +39,13 @@ public class PlayerList : MonoBehaviour// NetworkBehaviour
 	
 	public  void AddPlayerObject(ulong clientId, GameObject go)
 	{
-		Debug.Log("Player " + clientId + " has join");
+		Debug.Log("Player " + clientId + " added to player list");
 		ClientPlayer[clientId] = go;
 	}
 	
 	public  void RemovePlayerObject(ulong clientId)
 	{
-		Debug.Log("Player " + clientId + " has been destroyed");
+		Debug.Log("Player " + clientId + " removed from player list");
 		ClientPlayer[clientId] = null;
 	}
 	

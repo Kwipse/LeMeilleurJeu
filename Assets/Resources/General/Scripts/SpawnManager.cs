@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : NetworkBehaviour
 {
 
 	
@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
 	public void Spawn(string PrefabName, Vector3 SpawnLocation, ulong clientId, Quaternion SpawnRotation)
 	{
 		if (NetworkManager.Singleton.IsServer) 
-			{SpawnPrefab(PrefabName, SpawnLocation, clientId, SpawnRotation);}
+			{ServerSpawn(PrefabName, SpawnLocation, clientId, SpawnRotation);}
 		else
 			{RequestSpawnServerRPC(PrefabName, SpawnLocation, clientId, SpawnRotation);}
 	}
@@ -22,11 +22,11 @@ public class SpawnManager : MonoBehaviour
 	[ServerRpc]
 	void RequestSpawnServerRPC(string PrefabName, Vector3 SpawnLocation, ulong clientId, Quaternion SpawnRotation)
 	{
-			{SpawnPrefab(PrefabName, SpawnLocation, clientId, SpawnRotation);}
+			{ServerSpawn(PrefabName, SpawnLocation, clientId, SpawnRotation);}
 	}
 	
 	//Spawn
-	void SpawnPrefab(string PrefabName, Vector3 SpawnLocation, ulong clientId, Quaternion SpawnRotation)
+	void ServerSpawn(string PrefabName, Vector3 SpawnLocation, ulong clientId, Quaternion SpawnRotation)
 	{
 		if (NetworkManager.Singleton.IsServer) 
 		{

@@ -1,14 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
-
-
 using UnityEngine;
-
+using Unity.Netcode;
 
     public class FPSCamera : MonoBehaviour
     {
-		SpawnManager SM;
+
 		
         //Init Public
 		public float sensitivity ;
@@ -26,7 +23,7 @@ using UnityEngine;
 
 				cam =  GetComponentInChildren<Camera>();
 				
-				cam.transform.parent = this.transform; //Parent player to camera
+				cam.transform.parent = transform; //Parent player to camera
 
 				Debug.Log("Current Camera : " + cam);
 				
@@ -60,7 +57,7 @@ using UnityEngine;
 
 
 				//Axe horizontal - FPSPlayer rotationne
-                transform.rotation = xQuat;
+                transform.localRotation = xQuat;
 				
 				//Axe vertical - FPSPlayer ne rotationne pas
                 cam.transform.localRotation = yQuat;
