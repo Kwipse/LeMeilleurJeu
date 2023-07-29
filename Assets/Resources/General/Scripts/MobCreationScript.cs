@@ -6,9 +6,12 @@ public class MobCreationScript : StateMachineBehaviour
 {
     private Vector3 startPosition;
     public GameObject mob;
+	SpawnManager SM;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+		SM = animator.GetComponent<SpawnManager>();
         animator.SetBool("sbireCreation", false);
         animator.SetBool("mobCreation", false);
     }
@@ -33,7 +36,7 @@ public class MobCreationScript : StateMachineBehaviour
 
             if (plane.Raycast(ray, out entry))
             {
-                Instantiate(mob, ray.GetPoint(entry), Quaternion.identity);
+                SM.Spawn(mob.name, ray.GetPoint(entry), Quaternion.identity);
             }
         }
     }

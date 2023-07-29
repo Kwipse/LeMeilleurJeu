@@ -9,16 +9,18 @@ using Unity.Netcode;
 
 public class MobBehaviour : NetworkBehaviour
 {
-	public GameObject explosion;
+	SpawnManager SM;
 	Transform target;
     Vector3 destination;
 	NavMeshAgent agent;
+	
+	public GameObject explosion;
 	
 	
     // Start is called before the first frame update
 	public override void OnNetworkSpawn()
     {
-		
+		SM = GetComponent<SpawnManager>();
 		agent = GetComponent<NavMeshAgent>();
         destination = agent.destination;   
 	
@@ -47,7 +49,8 @@ public class MobBehaviour : NetworkBehaviour
 		
 		if(target!=null && Vector3.Distance(transform.position, target.position) < 2.50f)
 		{
-			GameObject go=Instantiate(explosion,transform.position,Quaternion.identity);
+			//GameObject go=Instantiate(explosion,transform.position,Quaternion.identity);
+			SM.Spawn(explosion.name,transform.position,Quaternion.identity);
 			Destroy(gameObject);
 		}
     }

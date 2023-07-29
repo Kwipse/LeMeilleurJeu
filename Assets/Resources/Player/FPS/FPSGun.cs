@@ -48,7 +48,7 @@ public class FPSGun : MonoBehaviour
 	public void CreateBullet()
     {
         //Debug.Log("cubeDeLaMort : " + cam.transform.Find("GunPoint").position + " - localId : "+localId);
-		SM.Spawn("LeCubeDeLaMort",cam.transform.Find("GunPoint").position, localId, cam.transform.Find("GunPoint").rotation);
+		SM.Spawn("LeCubeDeLaMort",cam.transform.Find("GunPoint").position, cam.transform.Find("GunPoint").rotation);
     }
 	
 	public void Shoot()

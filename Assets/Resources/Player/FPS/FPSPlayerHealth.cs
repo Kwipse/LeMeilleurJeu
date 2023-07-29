@@ -4,14 +4,20 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class FPSPlayerHealth : NetworkBehaviour
+public class FPSPlayerHealth : MonoBehaviour
 {
-    public float pv = 100;
+    
+	SpawnManager SM;
+	
+	public float pv = 100;
     private ulong localId;
     //public bool isAlive = true;
-    public void Awake()
+	
+	
+	
+    void Awake()
     {
-
+		SM = GetComponent<SpawnManager>();
         localId = NetworkManager.Singleton.LocalClientId;
     }
 
@@ -26,9 +32,9 @@ public class FPSPlayerHealth : NetworkBehaviour
 
     public void zeroHp()
     {
-        GetComponent<PlayerSpawner>().DestroyPlayer(localId);
+        SM.DestroyPlayer(localId);
 
-        GetComponent<PlayerSpawner>().Spawn("FPSPlayer", Vector3.zero,localId);
+        SM.SpawnPlayer("FPSPlayer", Vector3.zero,localId);
     }
 
     

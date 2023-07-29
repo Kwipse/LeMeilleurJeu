@@ -9,72 +9,54 @@ public class PlayerSpawner : NetworkBehaviour
 {
 	
 
-	//PUBLIC METHOD TO SPAWN
-	public void Spawn(string PlayerPrefabName, Vector3 SpawnLocation, ulong clientId)
-	{
-		if (NetworkManager.Singleton.IsServer)		
-			{SpawnPlayer(PlayerPrefabName, SpawnLocation, clientId);}
-		else 			
-			{RequestSpawnServerRPC(PlayerPrefabName, SpawnLocation, clientId);}
-	}
+	//SPAWN PLAYER
 	
-	
-	//RPC Spawn Request
 	[ServerRpc]
-	void RequestSpawnServerRPC(string PlayerPrefabName, Vector3 SpawnLocation, ulong clientId)
-	{
-		SpawnPlayer(PlayerPrefabName,SpawnLocation,clientId);
-	}	
+	void SpawnPlayerServerRPC(string PlayerPrefabName, Vector3 SpawnLocation, ulong clientId)
+		{SpawnPlayer(PlayerPrefabName,SpawnLocation,clientId);}		
 	
-	//Spawn 
-	void SpawnPlayer(string PlayerPrefabName, Vector3 SpawnLocation, ulong clientId)
+	public void SpawnPlayer(string PlayerPrefabName, Vector3 SpawnLocation, ulong clientId)
 	{
-		Debug.Log("spawnplayer player list singleton"+PlayerList.PlayerListinstance);
-		//Destroy current player if it exist
-		GameObject go = PlayerList.PlayerListinstance.GetPlayerObject(clientId);
-
-		Debug.Log("client id :"+clientId+" - go :"+go);
-		if (go != null)
+		if (!NetworkManager.Singleton.IsServer) {SpawnPlayerServerRPC(PlayerPrefabName, SpawnLocation, clientId);}
+		else 
 		{
-			Destroy(go);
-			PlayerList.PlayerListinstance.RemovePlayerObject(clientId);
-			Debug.Log("Player " + clientId + " has been destroyed");
+			Debug.Log("spawnplayer player list singleton"+PlayerList.PlayerListinstance);
+			//Destroy current player if it exist
+			GameObject go = PlayerList.PlayerListinstance.GetPlayerObject(clientId);
+
+			Debug.Log("client id :"+clientId+" - go :"+go);
+			if (go != null)
+			{
+				Destroy(go);
+				PlayerList.PlayerListinstance.RemovePlayerObject(clientId);
+				Debug.Log("Player " + clientId + " has been destroyed");
+			}
+			
+			//Instantiate and spawn
+			go = Instantiate(PrefabManager.GetPrefab(PlayerPrefabName), SpawnLocation, Quaternion.identity);
+			go.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+			
+			//Register in Player List
+			PlayerList.PlayerListinstance.AddPlayerObject(clientId,go);
 		}
-		
-		//Instantiate and spawn
-		go = Instantiate(PrefabManager.GetPrefab(PlayerPrefabName), SpawnLocation, Quaternion.identity);
-		go.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
-		
-		//Register in Player List
-		PlayerList.PlayerListinstance.AddPlayerObject(clientId,go);
 	}
 	
 	
+
 	
+	//DESTROY PLAYER
 	
+	[ServerRpc]
+	void DestroyPlayerServerRPC(ulong clientId)
+		{DestroyPlayer(clientId);}
 	
-	//PUBLIC METHOD TO DESTROY
 	public void DestroyPlayer(ulong clientId)
 	{
-		if (NetworkManager.Singleton.IsServer)
-			{DestroyObject(clientId);}
+		if (!NetworkManager.Singleton.IsServer){DestroyPlayerServerRPC(clientId);}
+			
 		else
-			{RequestDestroyServerRPC(clientId);}
-	}
-	
-	//RPC Request to destroy
-	[ServerRpc]
-	void RequestDestroyServerRPC(ulong clientId)
-	{
-		DestroyObject(clientId);
-	}
-	
-	//Destroy
-	void DestroyObject(ulong clientId)
-	{
-		if (NetworkManager.Singleton.IsServer)
 			{Destroy(PlayerList.PlayerListinstance.GetPlayerObject(clientId));}
-		
 	}
 	
+
 }

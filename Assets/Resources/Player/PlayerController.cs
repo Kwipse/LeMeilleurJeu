@@ -7,7 +7,8 @@ using Unity.Netcode;
 public class PlayerController : NetworkBehaviour
 {
 	//Declarations
-	PlayerSpawner PM;
+	SpawnManager SM;
+	
 	ulong localId;
 	bool PlayMode;
 	
@@ -25,7 +26,7 @@ public class PlayerController : NetworkBehaviour
 		{
 		
 			//Init the player manager
-			PM = GetComponent<PlayerSpawner>();
+			SM = GetComponent<SpawnManager>();
 			
 			//Disable the main camera, just in case
 			Camera.main.enabled = false;
@@ -33,9 +34,9 @@ public class PlayerController : NetworkBehaviour
 			//Get ClientID
 			localId = NetworkManager.Singleton.LocalClientId;
 						
-			//Spawn Player
+			//Spawn FPS Player
 			PlayMode = true;
-			SpawnPlayer();
+			SM.SpawnPlayer(FPS,Vector3.zero, localId);
 		}
 	}
 
@@ -59,19 +60,10 @@ public class PlayerController : NetworkBehaviour
 	//PlayMode Switcher
 	public void SwitchMode()
 	{
-		
+		//lol
 			PlayMode = !PlayMode;
-			SpawnPlayer();
-		
+			if (PlayMode) {SM.SpawnPlayer(FPS,Vector3.zero, localId);}				
+			else 	  	  {SM.SpawnPlayer(RTS,Vector3.zero, localId);}
 	}
 
-	
-	void SpawnPlayer()
-	{
-		
-			if (PlayMode) {toSpawn = FPS;}				
-			else 	  	  {toSpawn = RTS;}
-			PM.Spawn(toSpawn,Vector3.zero, localId);
-		
-	}
 }

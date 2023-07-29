@@ -35,7 +35,7 @@ public class TowerScript : MonoBehaviour
         {
             nextAttackTick = Time.time+attaqueRate;
             //SM.Spawn("Bomb", transform.Find("GunPoint").position, localId, transform.Find("GunPoint").rotation);
-            SM.Spawn("Bomb", new Vector3(0,30,40), localId, Quaternion.identity);
+            SM.Spawn("Bomb", new Vector3(0,30,40), Quaternion.identity);
         }
 
     }

@@ -43,7 +43,7 @@ public class BombScript : NetworkBehaviour
     void OnCollisionEnter(Collision collision)
     {    
             DestroyCubeServerRpc();
-            SM.Spawn("BigExplosion", transform.position, localId, transform.rotation);
+            SM.Spawn("BigExplosion", transform.position, transform.rotation);
     }
 
     [ServerRpc(RequireOwnership = false)]
