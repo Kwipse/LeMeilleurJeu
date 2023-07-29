@@ -8,44 +8,27 @@ public class CubedelamortScript : NetworkBehaviour
 {
 	Vector3 push = new Vector3(0,0,500);
 	Rigidbody rb ;
-	NetworkRigidbody networkRigidbody;
-
-    public void Start()
+	SpawnManager SM;
+	NetworkObject no;
+	ulong localId;
+	
+	public override void OnNetworkSpawn()
     {
-        networkRigidbody = GetComponent<NetworkRigidbody>();
-
-    }
-
-    // Start is called before the first frame update
-    public override void OnNetworkSpawn()
-    {
-		if (!IsOwner) {enabled=false;
-			//Debug.Log("is Owner : " + IsOwner);
-            addRelativeForceServerRpc(push); //destroy with 10s delay ?
-			Debug.Log("LocalId non owner: " + NetworkManager.Singleton.LocalClientId);
-        }
-        else
+		if (!IsServer) {enabled=false;}
+		else
 		{
-            Debug.Log("LocalId owner: " + NetworkManager.Singleton.LocalClientId);
-
-            rb = GetComponent<Rigidbody>();
-			//rb.AddRelativeForce(push);
-            Debug.Log(rb);
-
-            addRelativeForceServerRpc( push); //destroy with 10s delay ?
-
-            //Destroy(gameObject,10);
+			
+			SM = GetComponent<SpawnManager>();
+			no = GetComponent<NetworkObject>();
+			rb= GetComponent<Rigidbody>();
+			localId = NetworkManager.Singleton.LocalClientId;
+			
+			rb.AddRelativeForce(push);
+			SM.DestroyCubeServerRpc(1);
+			
+			Debug.Log("POUNNNNLMMM : "+localId);
 		}
     }
-
-	[ServerRpc(RequireOwnership =false)]
-	private void addRelativeForceServerRpc( Vector3 push)
-	{
-        Rigidbody rigidBody = GetComponent<Rigidbody>();
-        rigidBody.AddRelativeForce(push);
-
-    }
-
 
     // Update is called once per frame
     void Update()
@@ -59,34 +42,24 @@ public class CubedelamortScript : NetworkBehaviour
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
 				//Destroy(gameObject);
-				DestroyCubeServerRpc();
+				SM.DestroyCubeServerRpc();
 
         }
         if (collision.gameObject.tag == "Building")
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
 				//Destroy(gameObject);
-				DestroyCubeServerRpc();
+				SM.DestroyCubeServerRpc();
 
             }
 			if(collision.gameObject.tag == "Player")
 			{
 				collision.collider.GetComponent<HealthSystem>().LoosePv(25);
 				//Destroy(gameObject);
-				DestroyCubeServerRpc();
+				SM.DestroyCubeServerRpc();
 
         }
     }
 
-	[ServerRpc(RequireOwnership =false)]
-	private void DestroyCubeServerRpc(int dureeOuiNon =0 )
-	{
-		//GetComponent<Netw>
-		if (dureeOuiNon == 0)
-		{
-			Destroy(gameObject);
-		}else
-			Destroy(gameObject,10);
-
-    }
+	
 }
