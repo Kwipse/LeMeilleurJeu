@@ -54,7 +54,7 @@ public class CubedelamortScript : NetworkBehaviour
             }
 			if(collision.gameObject.tag == "Player")
 			{
-				collision.collider.GetComponent<HealthSystem>().LoosePv(25);
+				collision.collider.GetComponent<FPSPlayerHealth>().LoosePv(25);
 				//Destroy(gameObject);
 				SM.DestroyCubeServerRpc();
 
