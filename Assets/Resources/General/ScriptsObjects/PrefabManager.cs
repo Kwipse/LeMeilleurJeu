@@ -18,9 +18,10 @@ public class PrefabManager : ScriptableObject
 		LoadPrefabs("Player/RTS/ControllerAndCamera");
 		LoadPrefabs("Player/RTS/Sbires");
 		LoadPrefabs("Player/RTS/Batiments");
-		LoadPrefabs("Player/RTS/MapProps");
-		
-		Debug.Log("PREFABS ARE LOADED");
+        LoadPrefabs("Player/RTS/MapProps");
+		LoadPrefabs("Prefab");
+
+        Debug.Log("PREFABS ARE LOADED");
 	}
 	
 
