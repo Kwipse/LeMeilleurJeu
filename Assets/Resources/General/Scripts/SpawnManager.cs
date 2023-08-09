@@ -62,34 +62,31 @@ public class SpawnManager : NetworkBehaviour
 	
 	
 	//SPAWN PLAYER
+	public void SpawnPlayer(string PlayerPrefabName, Vector3 SpawnLocation)
+		{SpawnPlayerServerRPC(PlayerPrefabName, SpawnLocation);}
+		
 	[ServerRpc]
-	void SpawnPlayerServerRPC(string PlayerPrefabName, Vector3 SpawnLocation, ulong clientId)
-		{SpawnPlayer(PlayerPrefabName,SpawnLocation,clientId);}		
-	
-	public void SpawnPlayer(string PlayerPrefabName, Vector3 SpawnLocation, ulong clientId)
+	void SpawnPlayerServerRPC(string PlayerPrefabName, Vector3 SpawnLocation, ServerRpcParams serverRpcParams = default)
 	{
-		if (!NetworkManager.Singleton.IsServer) {SpawnPlayerServerRPC(PlayerPrefabName, SpawnLocation, clientId);}
-		else 
-		{
-			Debug.Log("spawnplayer player list singleton"+PlayerList.PlayerListinstance);
-			//Destroy current player if it exist
-			GameObject go = PlayerList.PlayerListinstance.GetPlayerObject(clientId);
+		var clientId = serverRpcParams.Receive.SenderClientId;
+		
+		//Destroy current player if it exist
+		GameObject go = PlayerList.PlayerListinstance.GetPlayerObject(clientId);
 
-			Debug.Log("client id :"+clientId+" - go :"+go);
-			if (go != null)
-			{
-				Destroy(go);
-				PlayerList.PlayerListinstance.RemovePlayerObject(clientId);
-				Debug.Log("Player " + clientId + " has been destroyed");
-			}
-			
-			//Instantiate and spawn
-			go = Instantiate(PrefabManager.GetPrefab(PlayerPrefabName), SpawnLocation, Quaternion.identity);
-			go.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
-			
-			//Register in Player List
-			PlayerList.PlayerListinstance.AddPlayerObject(clientId,go);
+		Debug.Log("client id :"+clientId+" - go :"+go);
+		if (go != null)
+		{
+			Destroy(go);
+			PlayerList.PlayerListinstance.RemovePlayerObject(clientId);
+			Debug.Log("Player " + clientId + " has been destroyed");
 		}
+		
+		//Instantiate and spawn
+		go = Instantiate(PrefabManager.GetPrefab(PlayerPrefabName), SpawnLocation, Quaternion.identity);
+		go.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+		
+		//Register in Player List
+		PlayerList.PlayerListinstance.AddPlayerObject(clientId,go);
 	}
 	
 	

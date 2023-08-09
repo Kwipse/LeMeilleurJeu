@@ -34,7 +34,7 @@ public class FPSPlayerHealth : MonoBehaviour
     {
         SM.DestroyPlayer(localId);
 
-        SM.SpawnPlayer("FPSPlayer", Vector3.zero,localId);
+        SM.SpawnPlayer("FPSPlayer", Vector3.zero);
     }
 
     

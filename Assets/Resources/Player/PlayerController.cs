@@ -36,7 +36,7 @@ public class PlayerController : NetworkBehaviour
 						
 			//Spawn FPS Player
 			PlayMode = true;
-			SM.SpawnPlayer(FPS,Vector3.zero, localId);
+			SM.SpawnPlayer(FPS,Vector3.zero);
 		}
 	}
 
@@ -60,10 +60,9 @@ public class PlayerController : NetworkBehaviour
 	//PlayMode Switcher
 	public void SwitchMode()
 	{
-		//lol
 			PlayMode = !PlayMode;
-			if (PlayMode) {SM.SpawnPlayer(FPS,Vector3.zero, localId);}				
-			else 	  	  {SM.SpawnPlayer(RTS,Vector3.zero, localId);}
-	}
-
+			if (PlayMode) {SM.SpawnPlayer(FPS,Vector3.zero);}				
+			else 	  	  {SM.SpawnPlayer(RTS,Vector3.zero);}
+    }
+    
 }
