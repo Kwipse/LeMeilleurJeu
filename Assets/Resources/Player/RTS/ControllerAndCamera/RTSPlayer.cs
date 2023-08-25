@@ -9,8 +9,7 @@ public class RTSPlayer : NetworkBehaviour
 	//Declarations
 	ulong localId;
 	Animator anim;
-	SpawnManager SM;
-	
+    SpawnManager SM;	
 
 	public override void OnNetworkSpawn()
 	{
@@ -23,7 +22,7 @@ public class RTSPlayer : NetworkBehaviour
 			
 			//Init Things
 			anim = GetComponent<Animator>();
-			SM = GetComponent<SpawnManager>();
+            SM = (SpawnManager) SpawnManager.spawner;
 		}
 	}
 

@@ -7,17 +7,16 @@ using UnityEngine.SocialPlatforms;
 public class FPSPlayerHealth : MonoBehaviour
 {
     
-	SpawnManager SM;
 	
 	public float pv = 100;
     private ulong localId;
     //public bool isAlive = true;
-	
+    SpawnManager SM;
 	
 	
     void Awake()
     {
-		SM = GetComponent<SpawnManager>();
+        SM = (SpawnManager) SpawnManager.spawner;
         localId = NetworkManager.Singleton.LocalClientId;
     }
 
@@ -32,7 +31,7 @@ public class FPSPlayerHealth : MonoBehaviour
 
     public void zeroHp()
     {
-        SM.DestroyPlayer(localId);
+        SM.DestroyPlayer();
 
         SM.SpawnPlayer("FPSPlayer", Vector3.zero);
     }

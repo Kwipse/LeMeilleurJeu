@@ -12,11 +12,12 @@ public class BombScript : NetworkBehaviour
     ulong localId;
     SpawnManager SM;
 
+    
     public void Start()
     {
         networkRigidbody = GetComponent<NetworkRigidbody>();
         localId = NetworkManager.Singleton.LocalClientId;
-        SM = GetComponent<SpawnManager>();
+        SM = (SpawnManager) SpawnManager.spawner;
     }
 
     public override void OnNetworkSpawn()

@@ -9,18 +9,18 @@ using Unity.Netcode;
 
 public class MobBehaviour : NetworkBehaviour
 {
-	SpawnManager SM;
 	Transform target;
     Vector3 destination;
 	NavMeshAgent agent;
-	
+    SpawnManager SM;
+    
 	public GameObject explosion;
 	
 	
     // Start is called before the first frame update
 	public override void OnNetworkSpawn()
     {
-		SM = GetComponent<SpawnManager>();
+        SM = (SpawnManager) SpawnManager.spawner;
 		agent = GetComponent<NavMeshAgent>();
         destination = agent.destination;   
 	

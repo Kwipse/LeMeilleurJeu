@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2021695606}
   - component: {fileID: 1050471873546618033}
   - component: {fileID: 109094754512732368}
-  - component: {fileID: -4640293369779714039}
   m_Layer: 0
   m_Name: RTSPlayer
   m_TagString: Player
@@ -103,15 +102,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camPrefab: {fileID: 4272657580101837657, guid: f7a12d7e8ee6ade419503274ffefe311, type: 3}
   InitialCameraPosition: {x: 0, y: 30, z: -30}
---- !u!114 &-4640293369779714039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6672819253296030723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19c46d1c6dcc809479a72c8132067856, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

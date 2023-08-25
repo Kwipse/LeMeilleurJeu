@@ -6,13 +6,28 @@ using Unity.Netcode;
 
 public class SpawnManager : NetworkBehaviour
 {
+    //init global access as SpawnManager.spawner.function()
+    public static SpawnManager spawner;
+    
+    void Awake()
+    { 
+        // If there is an spawner, and it's not me, delete myself.
+        if (spawner != null && spawner != this) 
+        { Destroy(this); } 
+        else 
+        { spawner = this; } 
+    }
+    
+	public override void OnNetworkSpawn()
+	{ if (!IsOwner) { enabled=false; } }
+    
 
-	
+
 	//SPAWN
 	public void Spawn(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation)
 		{SpawnServerRpc(PrefabName, SpawnLocation, SpawnRotation);}
 		
-	[ServerRpc]
+	[ServerRpc(RequireOwnership = false)]
 	void SpawnServerRpc(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation, ServerRpcParams serverRpcParams = default)
 	{
 		var clientId = serverRpcParams.Receive.SenderClientId;
@@ -50,22 +65,26 @@ public class SpawnManager : NetworkBehaviour
 
 	
 	
-	//DESTROY
-	public void Destroy(NetworkObject no)
-		{DestroyServerRPC(no);}
+    //DESTROY
+	public void DestroyObject(GameObject go, int secondsBeforeDestroy = 0)
+        {DestroyServerRPC(go, secondsBeforeDestroy);}
+
 	
-	[ServerRpc]
-	void DestroyServerRPC(NetworkObjectReference no)	
-		{Destroy(no);}
-	
-	
+	[ServerRpc(RequireOwnership = false)]
+	void DestroyServerRPC(NetworkObjectReference nor, int secondsBeforeDestroy)	
+    {
+        NetworkObject no = nor;
+        no.Despawn();
+    }
+
+
 	
 	
 	//SPAWN PLAYER
 	public void SpawnPlayer(string PlayerPrefabName, Vector3 SpawnLocation)
 		{SpawnPlayerServerRPC(PlayerPrefabName, SpawnLocation);}
 		
-	[ServerRpc]
+	[ServerRpc(RequireOwnership = false)]
 	void SpawnPlayerServerRPC(string PlayerPrefabName, Vector3 SpawnLocation, ServerRpcParams serverRpcParams = default)
 	{
 		var clientId = serverRpcParams.Receive.SenderClientId;
@@ -91,27 +110,15 @@ public class SpawnManager : NetworkBehaviour
 	
 	
 	//DESTROY PLAYER
-	[ServerRpc]
+    public void DestroyPlayer()
+        {DestroyPlayerServerRPC();}
+    
+	[ServerRpc(RequireOwnership = false)]
 	void DestroyPlayerServerRPC(ServerRpcParams serverRpcParams = default)
 	{ 
 		var clientId = serverRpcParams.Receive.SenderClientId;
-		DestroyPlayer(clientId);
+        GameObject playerObjectToDestroy = PlayerList.PlayerListinstance.GetPlayerObject(clientId);
+		Destroy(playerObjectToDestroy);
 	}
 	
-	public void DestroyPlayer(ulong clientId)
-	{
-		if (!NetworkManager.Singleton.IsServer){DestroyPlayerServerRPC();}
-			
-		else
-			{Destroy(PlayerList.PlayerListinstance.GetPlayerObject(clientId));}
-	}
-	
-	
-	
-	/*
-	public void SomeServerRpc(ServerRpcParams serverRpcParams = default)
-	{
-    var clientId = serverRpcParams.Receive.SenderClientId;
-	}
-	*/
 }

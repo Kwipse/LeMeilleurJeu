@@ -10,14 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 853506795269013769}
   - component: {fileID: 2486408543959667700}
-  - component: {fileID: 6935057334259065903}
   - component: {fileID: 8374617050390548911}
   - component: {fileID: 4504998002841372070}
   - component: {fileID: 1408854979811049638}
   - component: {fileID: 4266936430436066438}
   - component: {fileID: 1123927012816916017}
-  - component: {fileID: 7971653968762069256}
-  - component: {fileID: 6563554878499389100}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -51,18 +48,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6ff162763f728e41840a0299c0d3a4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6935057334259065903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702615763054899602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19c46d1c6dcc809479a72c8132067856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8374617050390548911
@@ -175,45 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7971653968762069256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702615763054899602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19c46d1c6dcc809479a72c8132067856, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6563554878499389100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702615763054899602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6960e84d07fb87f47956e7a81d71c4e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ProtocolType: 0
-  m_MaxPacketQueueSize: 128
-  m_MaxPayloadSize: 6144
-  m_HeartbeatTimeoutMS: 500
-  m_ConnectTimeoutMS: 1000
-  m_MaxConnectAttempts: 60
-  m_DisconnectTimeoutMS: 30000
-  ConnectionData:
-    Address: 127.0.0.1
-    Port: 7777
-    ServerListenAddress: 127.0.0.1
-  DebugSimulator:
-    PacketDelayMS: 0
-    PacketJitterMS: 0
-    PacketDropRate: 0
 --- !u!1 &2458644569271389184
 GameObject:
   m_ObjectHideFlags: 0

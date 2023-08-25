@@ -6,60 +6,46 @@ using Unity.Netcode.Components;
 
 public class CubedelamortScript : NetworkBehaviour
 {
-	Vector3 push = new Vector3(0,0,500);
-	Rigidbody rb ;
-	SpawnManager SM;
-	NetworkObject no;
-	ulong localId;
-	
-	public override void OnNetworkSpawn()
-    {
-		if (!IsServer) {enabled=false;}
-		else
-		{
-			
-			SM = GetComponent<SpawnManager>();
-			no = GetComponent<NetworkObject>();
-			rb= GetComponent<Rigidbody>();
-			localId = NetworkManager.Singleton.LocalClientId;
-			
-			rb.AddRelativeForce(push);
-			SM.DestroyCubeServerRpc(1);
-			
-			Debug.Log("POUNNNNLMMM : "+localId);
-		}
-    }
+    Vector3 push = new Vector3(0,0,500);
+    Rigidbody rb ;
+    GameObject go;
+    NetworkObject no;
+    SpawnManager SM;
 
-    // Update is called once per frame
-    void Update()
+    public override void OnNetworkSpawn()
     {
-        
-    }
-	
-	void OnCollisionEnter(Collision collision)
-	{
-            if(collision.gameObject.tag == "Unit")
-			{
-				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
-				//Destroy(gameObject);
-				SM.DestroyCubeServerRpc();
+        if (!IsServer) {enabled=false;}
+        else
+        {
+            SM = (SpawnManager) SpawnManager.spawner;
+            go = gameObject;
+            no = GetComponent<NetworkObject>();
+            rb= GetComponent<Rigidbody>();
 
+            rb.AddRelativeForce(push);
+            //SM.DestroyObject(go,10);
         }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Unit")
+        {
+            collision.collider.GetComponent<HealthSystem>().LoosePv(100);
+            SM.DestroyObject(go);
+        }
+
         if (collision.gameObject.tag == "Building")
-			{
-				collision.collider.GetComponent<HealthSystem>().LoosePv(100);
-				//Destroy(gameObject);
-				SM.DestroyCubeServerRpc();
-
-            }
-			if(collision.gameObject.tag == "Player")
-			{
-				collision.collider.GetComponent<FPSPlayerHealth>().LoosePv(25);
-				//Destroy(gameObject);
-				SM.DestroyCubeServerRpc();
-
+        {
+            collision.collider.GetComponent<HealthSystem>().LoosePv(100);
+            SM.DestroyObject(go);
+        }
+        
+        if(collision.gameObject.tag == "Player")
+        {
+            collision.collider.GetComponent<FPSPlayerHealth>().LoosePv(25);
+            SM.DestroyObject(go);
         }
     }
-
-	
 }
+    

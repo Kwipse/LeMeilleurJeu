@@ -12,12 +12,12 @@ public class FPSGun : MonoBehaviour
 
 	ulong localId;
 	int layerMask = 1 << 9;
-	SpawnManager SM;
 	Camera cam;
 	Rigidbody RBody;
 	RaycastHit hit;
 	GameObject go;
 	Vector3 shootPositionCorrection = new Vector3(0,1,1);
+    SpawnManager SM;
 
 	public GameObject cube;
 	
@@ -27,7 +27,7 @@ public class FPSGun : MonoBehaviour
 			//Init Client ID
 			localId = NetworkManager.Singleton.LocalClientId;
 			//Init Things
-			SM = GetComponent<SpawnManager>();
+            SM = (SpawnManager) SpawnManager.spawner;
 			cam = GetComponentInChildren<Camera>();
 		
 	}

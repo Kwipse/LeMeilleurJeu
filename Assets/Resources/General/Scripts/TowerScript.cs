@@ -14,17 +14,19 @@ public class TowerScript : MonoBehaviour
      * aleatoire angle et force
      */
     ulong localId;
-    SpawnManager SM;
     public GameObject bomb;
     public float attaqueRate= 1.0f;
     public float angleDelta, forceDelta;
     private float nextAttackTick = 0.0f;
 
+    SpawnManager SM;
+
+    
     // Start is called before the first frame update
     void Start()
     {
         localId = NetworkManager.Singleton.LocalClientId;
-        SM = GetComponent<SpawnManager>();
+        SM = (SpawnManager) SpawnManager.spawner;
 
     }
 

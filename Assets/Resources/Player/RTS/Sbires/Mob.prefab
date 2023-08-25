@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: -7312079580015427048}
   - component: {fileID: 559482814285018697}
   - component: {fileID: 1077384999}
-  - component: {fileID: 3764094154126893958}
   - component: {fileID: 5064970821503379899}
   m_Layer: 9
   m_Name: Mob
@@ -251,18 +250,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 6326067666519825528, guid: c6516393c6baa0c47aa7c74b79116edf, type: 3}
---- !u!114 &3764094154126893958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4036793368903305870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19c46d1c6dcc809479a72c8132067856, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5064970821503379899
 MonoBehaviour:
   m_ObjectHideFlags: 0
