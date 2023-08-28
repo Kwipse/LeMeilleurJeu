@@ -1,4 +1,4 @@
-# LeMeilleurJeu
+﻿# LeMeilleurJeu
 Ben c'est le meilleur jeu quoi
 
 
@@ -18,12 +18,15 @@ Pour faire spawn/despawn des objets, plus besoin d'ajouter un component SpawnMan
 Pour éviter d'avoir a taper toute la ligne a chaque fois, on peut utiliser l'astuce suivante :
 
 Déclaration :
+
     SpawnManager SM;
 
 Initialisation :
+
     SM = (SpawnManager) SpawnManager.spawner;
 
 Utilisation :
+
     SM.fonctionAUtiliser();
 
 
