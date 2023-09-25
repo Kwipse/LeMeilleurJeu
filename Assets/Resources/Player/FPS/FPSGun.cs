@@ -1,64 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
-
-
 using UnityEngine;
 
-
 public class FPSGun : MonoBehaviour
-
 {	
 
-	ulong localId;
+    public GameObject projectile;
+
 	int layerMask = 1 << 9;
+
 	Camera cam;
-	Rigidbody RBody;
+	Rigidbody rb;
 	RaycastHit hit;
 	GameObject go;
-	Vector3 shootPositionCorrection = new Vector3(0,1,1);
-    SpawnManager SM;
+    Transform gunPoint;
+    Vector3 pos;
+    Quaternion rot;
 
-	public GameObject cube;
-	
-	void Awake()
-	{
-		
-			//Init Client ID
-			localId = NetworkManager.Singleton.LocalClientId;
-			//Init Things
-            SM = (SpawnManager) SpawnManager.spawner;
-			cam = GetComponentInChildren<Camera>();
-		
-	}
-	
-
-	//if (Input.GetMouseButtonDown(0)) {SM.Spawn("LeCubeDeLaMort",transform.localPosition,localId);}
+	void Start()
+    {
+        cam =  GetComponentInChildren<Camera>();
+        gunPoint = transform.Find("GunPoint");
+    }
 	
 	void Update()
 	{
-		if (Input.GetMouseButtonDown(0)) {
-		CreateBullet();
-		}
-		if (Input.GetMouseButtonDown(01)) {
-		Shoot();
-		}
+		if (Input.GetMouseButtonDown(0)) { CreateProjectile(); }
+		if (Input.GetMouseButtonDown(1)) { Shoot(); }
 	}
 	
-	public void CreateBullet()
+	void CreateProjectile()
     {
-        //Debug.Log("cubeDeLaMort : " + cam.transform.Find("GunPoint").position + " - localId : "+localId);
-		SM.Spawn("LeCubeDeLaMort",cam.transform.Find("GunPoint").position, cam.transform.Find("GunPoint").rotation);
+        pos = gunPoint.position;
+        rot = cam.transform.rotation;
+        SpawnManager.SpawnObject(projectile, pos, rot);
     }
 	
-	public void Shoot()
+	void Shoot()
 	{
 		Ray ray = cam.ScreenPointToRay( new Vector3(Screen.width /2, Screen.height /2, 0));
-		
 		if (Physics.Raycast(ray, out hit, layerMask))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
         }
 	}
+
 }

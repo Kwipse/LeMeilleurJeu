@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 36fadb295d6dc8c49b35164e0345b824
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_Jaune: {fileID: 2100000, guid: 27c77c2c213a53e4db0bfbfe7e1dd0b0, type: 2}
+  - m_Rouge: {fileID: 2100000, guid: 6b6c51225040a2e42a41d10b5aef630c, type: 2}
+  - m_Bleu: {fileID: 2100000, guid: fc1c784635af7a242ae6b26028632794, type: 2}
+  - m_Vert: {fileID: 2100000, guid: bc88e5df2d5db0841a59d2ecfc699e27, type: 2}
+  - m_Rose: {fileID: 2100000, guid: 3a8dd22bf6bfa0b48983620b2668faeb, type: 2}
+  - m_Violet: {fileID: 2100000, guid: ccb105b33dfe16644bd94702f9bec898, type: 2}
+  - m_Orange: {fileID: 2100000, guid: 3e30f090c51cdb64fb23b8853c620486, type: 2}
+  - m_Marron: {fileID: 2100000, guid: 17eeb9d1a9de90d4e8389d1fac8b49cf, type: 2}
+  - m_Noir: {fileID: 2100000, guid: 69390151611429744886d80584ba0a48, type: 2}
+  - m_Blanc: {fileID: 2100000, guid: dfa8d0b1c50df6f459d2a08adb3124b2, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

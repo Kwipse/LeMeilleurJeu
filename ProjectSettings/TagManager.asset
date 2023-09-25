@@ -9,6 +9,8 @@ TagManager:
   - Bullet
   - ground
   - Minerai
+  - TeamColor
+  - PlayerColor
   layers:
   - Default
   - TransparentFX

@@ -5,24 +5,21 @@ using Unity.Netcode;
 
     public class FPSCamera : MonoBehaviour
     {
-
-		
-        //Init Public
 		public float sensitivity ;
 		public Vector3 InitialCameraPosition ;
 		
-		//Init Private
         Vector2 rotation = Vector2.zero;
         const string xAxis = "Mouse X"; 
         const string yAxis = "Mouse Y";
+
 		Camera cam;
 
 		
-        void Awake()
+        void Start()
         {
-            cam =  GetComponentInChildren<Camera>();
+            cam = GetComponentInChildren<Camera>();
             cam.transform.parent = transform; //Parent player to camera
-            Debug.Log("Current Camera : " + cam);
+            cam.transform.position = InitialCameraPosition;
         }
 		
         void OnEnable()

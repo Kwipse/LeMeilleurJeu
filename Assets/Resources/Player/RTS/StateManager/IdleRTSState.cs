@@ -12,15 +12,17 @@ public class IdleRTSState : StateMachineBehaviour
 /*
     Cet état est le nexus entre les different etat de controle du joueur RTS
 */
+    Camera cam;
     RaycastHit hit;
     public List<GameObject> selection = new List<GameObject>();
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        cam = Camera.current;
+
         Debug.Log("Entering IdleMode");
         //on reset les variables internes de l'état précedent
-        animator.SetBool("IsConstructed", false);
         animator.SetBool("endSelection", false); 
         animator.SetBool("isMineConstructing", false);
         animator.SetBool("mineConstructionEnd", false);
@@ -31,21 +33,14 @@ public class IdleRTSState : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //on défini la capacité à clicker sur un batiment ou une unité
-        /*
-         * 
-         */
 
         if(Input.GetMouseButtonUp(0))
         {
             
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
             if(Physics.Raycast(ray, out hit, 400.0f, (1<<9)))
             {
-   
-     
-
                 if( hit.transform.root.CompareTag("Building"))
                 {
                     Debug.Log("building selected");
@@ -66,23 +61,12 @@ public class IdleRTSState : StateMachineBehaviour
                 }
             }
         }
-        //
-        //sbire a, mine z 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            animator.SetBool("mobCreation", true);
 
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            animator.SetBool("isMineConstructing", true);
 
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            animator.SetBool("sbireCreation", true);
-
-        }
+        if (Input.GetKeyDown(KeyCode.B)) { animator.SetBool("ConstructionMode", true);}
+        if (Input.GetKeyDown(KeyCode.W)) { animator.SetBool("mobCreation", true); }
+        if (Input.GetKeyDown(KeyCode.X)) { animator.SetBool("isMineConstructing", true); }
+        if (Input.GetKeyDown(KeyCode.C)) { animator.SetBool("sbireCreation", true); }
 
     }
 

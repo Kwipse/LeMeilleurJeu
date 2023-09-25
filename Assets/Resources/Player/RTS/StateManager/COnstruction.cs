@@ -2,43 +2,111 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class COnstruction : StateMachineBehaviour
+public class ConstructionMode : StateMachineBehaviour
 {
+    public GameObject Barracks;
+    public GameObject GoldMine;
 
-    public GameObject barracks_blueprint;
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public Material mBlueprintAllowed;
+    public Material mBlueprintNotAllowed;
+
+    GameObject currentBlueprintPrefab;
+    GameObject selectedBlueprintPrefab;
+
+    GameObject Blueprint;
+
+    public bool isBlueprintAllowed;
+    bool setToDestroy;
+
+    Animator anim;
+    GameObject go;
+    Camera cam;
+    Ray ray;
+    RaycastHit hit;
+
+
+
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // on reset la variable interne de l'état précedent
-        animator.SetBool("ConstructionParam",false);
-        //on affiche le batiment sélectionner en vue rts collé à la souris
-        GameObject go = Instantiate(barracks_blueprint);
-       
-        
-    
+        anim = animator;
+        cam = animator.gameObject.GetComponentInChildren<Camera>();
+        Debug.Log("Construction Mode");
+
+        currentBlueprintPrefab = null;
+        selectedBlueprintPrefab = null;
+        setToDestroy = false;
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        PlayerInput();
+        UpdateBlueprint();
+    }
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
 
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
+    void UpdateBlueprint()
+    {
+        if (!selectedBlueprintPrefab) { 
+            return;} 
 
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
+        if (currentBlueprintPrefab != selectedBlueprintPrefab) { 
+            CreateBlueprint(); }
+
+        if (Blueprint){
+            Blueprint.transform.position = GetMouseGroundHit().point; 
+        }
+    }
+
+
+    void CreateBlueprint()
+    {
+        if (Blueprint) {Destroy(Blueprint);}
+        currentBlueprintPrefab = selectedBlueprintPrefab;
+        Blueprint = Instantiate(currentBlueprintPrefab);
+    }
+
+
+    void ConstructBuilding()
+    {
+        if (!Blueprint.GetComponent<BatimentSystem>().isBlueprintAllowed) { return; }
+
+        Vector3 pos = Blueprint.transform.position;
+        Quaternion rot = Blueprint.transform.rotation;
+
+        SpawnManager.SpawnObject(currentBlueprintPrefab, pos, rot);
+
+        QuitConstructionMode();
+
+    }
+
+    RaycastHit GetMouseGroundHit()
+    {
+        ray = cam.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out hit, 3000.0f, (1<<8));
+        return hit; 
+    }
+
+
+    void QuitConstructionMode()
+    {
+        currentBlueprintPrefab = null;
+        selectedBlueprintPrefab = null;
+
+        if (Blueprint && !setToDestroy) {
+            setToDestroy = true;
+            Destroy(Blueprint);}
+
+        anim.SetBool("ConstructionMode", false);
+    }
+
+
+    void PlayerInput()
+    {
+        if (Input.GetMouseButtonDown(0)) { ConstructBuilding(); }
+        if (Input.GetKeyDown(KeyCode.Escape)) { QuitConstructionMode(); }
+        if (Input.GetKeyDown(KeyCode.W)) { selectedBlueprintPrefab = Barracks; }
+        if (Input.GetKeyDown(KeyCode.X)) { selectedBlueprintPrefab = GoldMine; }
+        if (Input.GetKeyDown(KeyCode.P)) { Debug.Log("Prout!"); }
+
+    }
 }

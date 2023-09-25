@@ -6,10 +6,7 @@ using static UnityEditor.PlayerSettings;
 
 public class Unit : MonoBehaviour
 {
-    //s'ajoute a la list des unités
-
-    //run to a point
-    //necesitte un navmeshagent
+    //necessite un navmeshagent
     private NavMeshAgent nav;
 	public string type;
 
@@ -20,6 +17,7 @@ public class Unit : MonoBehaviour
 		type = gameObject.name;
     }    
 
+    //run to a point
     public void MoveToPosition(Vector3 pos)
     {
         nav.SetDestination(pos);

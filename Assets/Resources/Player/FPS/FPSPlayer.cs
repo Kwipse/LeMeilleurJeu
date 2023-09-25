@@ -1,28 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using Unity.Netcode;
 
-using UnityEngine;
-
-
-    public class FPSPlayer : NetworkBehaviour
+public class FPSPlayer : NetworkBehaviour
+{
+    public override void OnNetworkSpawn()
     {
-		
-		
-		
-		public override void OnNetworkSpawn()
-		{
+        if (!IsOwner)
+        {
+            GetComponentInChildren<Camera>().enabled = false;
+            GetComponent<FPSCamera>().enabled = false;
+            GetComponent<FPSMovement>().enabled = false;
+            GetComponent<FPSJump>().enabled = false;
+            GetComponent<FPSGun>().enabled=false;
 
-            if (!IsOwner)
-            {
-				//this.enabled = false;
-				GetComponentInChildren<Camera>().enabled = false;
-				GetComponent<FPSCamera>().enabled = false;
-				GetComponent<FPSMovement>().enabled = false;
-				GetComponent<FPSJump>().enabled = false;
-				GetComponent<FPSGun>().enabled=false;
+        }
 
-            }
-            
-		}
     }
+ 
+    void Start()
+    {
+        ColorManager.SetObjectColors(gameObject);
+    }
+}
