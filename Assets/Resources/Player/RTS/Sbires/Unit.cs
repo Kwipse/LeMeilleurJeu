@@ -22,10 +22,12 @@ public class Unit : MonoBehaviour
     {
         nav.SetDestination(pos);
     }
+
     public void Stop()
     {
         nav.SetDestination(transform.position);
     }
+
     // a faire
     //void OnDestroy() { transform.root.gameObject.GameOject.Find("RTSManager").GetComponent<UnitList>().DelUnit(gameObject); }
 

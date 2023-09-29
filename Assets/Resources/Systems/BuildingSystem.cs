@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class BatimentSystem : NetworkBehaviour 
+public class BuildingSystem : NetworkBehaviour 
 {
     public Material mBlueprintAllowed;
     public Material mBlueprintNotAllowed;

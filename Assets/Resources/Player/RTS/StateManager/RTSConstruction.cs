@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConstructionMode : StateMachineBehaviour
+public class ConstructionState : StateMachineBehaviour
 {
     public GameObject Barracks;
     public GameObject GoldMine;
@@ -16,6 +16,7 @@ public class ConstructionMode : StateMachineBehaviour
     GameObject Blueprint;
 
     public bool isBlueprintAllowed;
+    bool keepBlueprintOnConstruct;
     bool setToDestroy;
 
     Animator anim;
@@ -23,8 +24,6 @@ public class ConstructionMode : StateMachineBehaviour
     Camera cam;
     Ray ray;
     RaycastHit hit;
-
-
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -34,6 +33,7 @@ public class ConstructionMode : StateMachineBehaviour
 
         currentBlueprintPrefab = null;
         selectedBlueprintPrefab = null;
+        keepBlueprintOnConstruct = false;
         setToDestroy = false;
     }
 
@@ -46,21 +46,22 @@ public class ConstructionMode : StateMachineBehaviour
 
     void UpdateBlueprint()
     {
-        if (!selectedBlueprintPrefab) { 
-            return;} 
+        if (!selectedBlueprintPrefab)  
+            return;
 
-        if (currentBlueprintPrefab != selectedBlueprintPrefab) { 
-            CreateBlueprint(); }
+        if (currentBlueprintPrefab != selectedBlueprintPrefab)  
+            CreateBlueprint(); 
 
-        if (Blueprint){
+        if (Blueprint)
             Blueprint.transform.position = GetMouseGroundHit().point; 
-        }
     }
-
 
     void CreateBlueprint()
     {
-        if (Blueprint) {Destroy(Blueprint);}
+        
+        if (Blueprint)
+            Destroy(Blueprint);
+
         currentBlueprintPrefab = selectedBlueprintPrefab;
         Blueprint = Instantiate(currentBlueprintPrefab);
     }
@@ -68,14 +69,17 @@ public class ConstructionMode : StateMachineBehaviour
 
     void ConstructBuilding()
     {
-        if (!Blueprint.GetComponent<BatimentSystem>().isBlueprintAllowed) { return; }
+        if (!Blueprint)
+            return;
+        if (!Blueprint.GetComponent<BuildingSystem>().isBlueprintAllowed)
+            return; 
 
         Vector3 pos = Blueprint.transform.position;
         Quaternion rot = Blueprint.transform.rotation;
-
         SpawnManager.SpawnObject(currentBlueprintPrefab, pos, rot);
 
-        QuitConstructionMode();
+        if (!keepBlueprintOnConstruct) 
+            QuitConstructionMode();
 
     }
 
@@ -92,21 +96,26 @@ public class ConstructionMode : StateMachineBehaviour
         currentBlueprintPrefab = null;
         selectedBlueprintPrefab = null;
 
-        if (Blueprint && !setToDestroy) {
+        if (Blueprint && !setToDestroy) 
             setToDestroy = true;
-            Destroy(Blueprint);}
+            Destroy(Blueprint);
 
         anim.SetBool("ConstructionMode", false);
     }
 
-
     void PlayerInput()
     {
-        if (Input.GetMouseButtonDown(0)) { ConstructBuilding(); }
-        if (Input.GetKeyDown(KeyCode.Escape)) { QuitConstructionMode(); }
-        if (Input.GetKeyDown(KeyCode.W)) { selectedBlueprintPrefab = Barracks; }
-        if (Input.GetKeyDown(KeyCode.X)) { selectedBlueprintPrefab = GoldMine; }
-        if (Input.GetKeyDown(KeyCode.P)) { Debug.Log("Prout!"); }
+        //Selection Input 
+        if (Input.GetKeyDown(KeyCode.W))  selectedBlueprintPrefab = Barracks; 
+        if (Input.GetKeyDown(KeyCode.X))  selectedBlueprintPrefab = GoldMine; 
 
+        //Construction Input
+        if (Input.GetMouseButtonDown(0))  ConstructBuilding(); 
+        if (Input.GetKeyDown(KeyCode.LeftShift))  keepBlueprintOnConstruct = true; 
+        if (Input.GetKeyUp(KeyCode.LeftShift))  keepBlueprintOnConstruct = false; 
+
+        //Misc
+        if (Input.GetKeyDown(KeyCode.Escape))  QuitConstructionMode(); 
+        if (Input.GetKeyDown(KeyCode.P))  Debug.Log("Prout!"); 
     }
 }

@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: -5860586318765841677}
   - component: {fileID: 4151320477246802486}
   - component: {fileID: 7823756144295753137}
+  - component: {fileID: -1299425612788970397}
   m_Layer: 0
   m_Name: Barracks
   m_TagString: Building
@@ -335,6 +336,20 @@ MonoBehaviour:
   mBlueprintAllowed: {fileID: 2100000, guid: b1e154008f6b0b74cb9989e12084b113, type: 2}
   mBlueprintNotAllowed: {fileID: 2100000, guid: 6f5f08d68e9b07d488b6bb6f9982419b, type: 2}
   isBlueprintAllowed: 0
+--- !u!114 &-1299425612788970397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6117278076527145797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998b19e4f7dedaf48b738e9e7caf90da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitToSpawn: {fileID: 4036793368903305870, guid: 2394db2bb9b8aa242aca43f3d4f4d476, type: 3}
+  isSelected: 0
 --- !u!1 &6873509441481894645
 GameObject:
   m_ObjectHideFlags: 0

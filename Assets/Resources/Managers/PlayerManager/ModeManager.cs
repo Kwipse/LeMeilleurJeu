@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 
     
-public class PlayerController : NetworkBehaviour
+public class ModeManager : NetworkBehaviour
 {
 	//Declarations
 	ulong localId;

@@ -14,17 +14,12 @@ namespace LeMeilleurJeu
             {
                 NetworkButtons();
             }
-            else
-            {
-                ChooseMode();
-                SendInfoToHud();
-            }
             GUILayout.EndArea();
         }
 
 
 
-         static void NetworkButtons()
+        static void NetworkButtons()
         {
 		
             if (GUILayout.Button("Host")) NetworkManager.Singleton.StartHost();
@@ -33,28 +28,5 @@ namespace LeMeilleurJeu
         }
         
 
-        static void ChooseMode()
-        {
-            if (GUILayout.Button("Switch Mode"))
-            {
-                var localId = NetworkManager.Singleton.LocalClientId;
-
-                if (NetworkManager.Singleton.ConnectedClients.TryGetValue(localId, out var localClient))
-                {
-                    var localPlayerController = localClient.PlayerObject;
-                    if (localPlayerController)
-                    {
-                        localPlayerController.GetComponent<PlayerController>().SwitchMode();
-                    }
-                }
-            }
-        }
-
-        static void SendInfoToHud()
-        {
-            GUILayout.Label("Host : " + NetworkManager.Singleton.IsHost);
-            GUILayout.Label("Local Client ID : " + NetworkManager.Singleton.LocalClientId);
-            GUILayout.Label("Camera : " + Camera.current);
-        }
     }
 }

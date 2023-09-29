@@ -206,7 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4506d8f90b6111438977891b9c55db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selection: []
 --- !u!1101 &-1530669235416254884
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -239,7 +238,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Idle
+  m_Name: SelectionMode
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -603,6 +602,7 @@ MonoBehaviour:
   GoldMine: {fileID: 6117278076527145797, guid: 1e9d9c88f09273e44ab408e0930417b2, type: 3}
   mBlueprintAllowed: {fileID: 2100000, guid: b1e154008f6b0b74cb9989e12084b113, type: 2}
   mBlueprintNotAllowed: {fileID: 2100000, guid: 6f5f08d68e9b07d488b6bb6f9982419b, type: 2}
+  isBlueprintAllowed: 0
 --- !u!1101 &5724967291983927409
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

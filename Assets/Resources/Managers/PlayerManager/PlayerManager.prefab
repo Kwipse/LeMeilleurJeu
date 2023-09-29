@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2842993848225051947}
   - component: {fileID: 5212637653998666582}
-  - component: {fileID: 5778457259729937833}
+  - component: {fileID: -7163238807791106576}
   m_Layer: 0
-  m_Name: PlayerController
+  m_Name: PlayerManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &5778457259729937833
+--- !u!114 &-7163238807791106576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

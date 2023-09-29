@@ -167,6 +167,18 @@ public class ColorManager : NetworkBehaviour
         TeamMaterial.Add(3);
     }
     
+    public static void DrawBounds(Bounds b)
+    {
+        var p1 = new Vector3(b.min.x, 1, b.min.z);
+        var p2 = new Vector3(b.max.x, 1, b.min.z);
+        var p3 = new Vector3(b.max.x, 1, b.max.z);
+        var p4 = new Vector3(b.min.x, 1, b.max.z);
+
+        Debug.DrawLine(p1, p2, Color.blue);
+        Debug.DrawLine(p2, p3, Color.red);
+        Debug.DrawLine(p3, p4, Color.yellow);
+        Debug.DrawLine(p4, p1, Color.magenta);
+    }
 }
 
 

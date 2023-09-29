@@ -74,5 +74,15 @@ public class TeamManager : NetworkBehaviour
     {
         return ClientTeam[(int) clientId]; 
     }
+
+    public static bool AreObjectsEnnemies(GameObject go1, GameObject go2)
+    {
+        NetworkObject no1 = go1.GetComponent<NetworkObject>();
+        NetworkObject no2 = go2.GetComponent<NetworkObject>();
+
+        if (no1.OwnerClientId != no2.OwnerClientId) return true;
+        return false;
+
+    }
   
 }
