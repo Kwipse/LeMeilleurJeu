@@ -507,7 +507,6 @@ GameObject:
   - component: {fileID: 1970200015650935997}
   - component: {fileID: 554391329087682132}
   - component: {fileID: 6615941722500849162}
-  - component: {fileID: 3124402648923388366}
   m_Layer: 0
   m_Name: BrassardJoueurD
   m_TagString: PlayerColor
@@ -580,27 +579,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3124402648923388366
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2385912820661809203}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2701964522977473794
 GameObject:
   m_ObjectHideFlags: 0

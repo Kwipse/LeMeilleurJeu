@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1194680959304645758}
   - component: {fileID: 188989812087954243}
-  - component: {fileID: 2696989781065878645}
   m_Layer: 0
   m_Name: RTSCamera
   m_TagString: Untagged
@@ -84,14 +83,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &2696989781065878645
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3832593548991965164}
-  m_Enabled: 1
 --- !u!1 &6672819253296030723
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,9 +93,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5095495299012725171}
   - component: {fileID: -3181902887744652081}
-  - component: {fileID: 2021695606}
-  - component: {fileID: 1050471873546618033}
   - component: {fileID: 109094754512732368}
+  - component: {fileID: 1050471873546618033}
+  - component: {fileID: -2683372428898695347}
+  - component: {fileID: 2021695606}
   m_Layer: 0
   m_Name: RTSPlayer
   m_TagString: Player
@@ -148,6 +140,47 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &109094754512732368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672819253296030723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773017dcc1351c343ac616a4fa1b53ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialCameraPosition: {x: 0, y: 80, z: -80}
+  InitialCameraRotation: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}
+  ksensitivity: 2
+  zsensitivity: 4
+--- !u!114 &1050471873546618033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672819253296030723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5051b051dbcc24aa770ffa75a2b346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2683372428898695347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672819253296030723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8099c377fa95d645a4d23ab001471d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSelection: []
 --- !u!95 &2021695606
 Animator:
   serializedVersion: 5
@@ -169,29 +202,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1050471873546618033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6672819253296030723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5051b051dbcc24aa770ffa75a2b346, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &109094754512732368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6672819253296030723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 773017dcc1351c343ac616a4fa1b53ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitialCameraPosition: {x: 0, y: 80, z: -80}
-  InitialCameraRotation: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}

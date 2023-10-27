@@ -6,14 +6,14 @@ using UnityEngine;
 public class GoToNexusState : StateMachineBehaviour
 {
     private MiningSbire mS;
-    private Unit _unit;
+    //private Unit _unit;
 
     
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         mS = animator.GetBehaviour<MiningSbire>();
-        _unit = animator.transform.GetComponent<Unit>();
-        _unit.MoveToPosition(mS.nexus.transform.position);
+        //_unit = animator.transform.GetComponent<Unit>();
+        //_unit.MoveToPosition(mS.nexus.transform.position);
         animator.SetBool("isGoingToNexus", false);
 
     }
@@ -25,7 +25,7 @@ public class GoToNexusState : StateMachineBehaviour
         if (Vector3.SqrMagnitude(animator.transform.position - mS.nexus.transform.position) < 30.0f)
         {
             animator.SetBool("isUnloading", true);
-            _unit.Stop();
+            //_unit.Stop();
         }
     }
 

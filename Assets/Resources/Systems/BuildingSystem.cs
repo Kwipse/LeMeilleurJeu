@@ -13,12 +13,6 @@ public class BuildingSystem : NetworkBehaviour
 
     public bool isBlueprintAllowed;
 
-    void Awake()
-    {
-        BatRenderers = GetComponentsInChildren<Renderer>(); 
-        BatBehaviours = GetComponentsInChildren<Behaviour>();
-        gameObject.GetComponent<Rigidbody>().isKinematic = true;
-    }
 
     public override void OnNetworkSpawn()
     {
@@ -31,7 +25,11 @@ public class BuildingSystem : NetworkBehaviour
 
     void Start()
     {
+        BatBehaviours = GetComponentsInChildren<Behaviour>();
+        BatRenderers = GetComponentsInChildren<Renderer>(); 
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
         gameObject.GetComponent<Collider>().isTrigger = true;
+
         foreach (Behaviour b in BatBehaviours) { if (b!=this) { b.enabled = false; } }
         foreach (Renderer r in BatRenderers) { r.material = mBlueprintAllowed; } 
         isBlueprintAllowed = true;

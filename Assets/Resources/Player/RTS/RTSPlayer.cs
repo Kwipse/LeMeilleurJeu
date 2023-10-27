@@ -7,12 +7,12 @@ public class RTSPlayer : NetworkBehaviour
 {
 	public override void OnNetworkSpawn()
 	{
-		if (!IsOwner)
-        {
-            GetComponent<Camera>().enabled = false;
+		if (!IsOwner) {
+
+            GetComponentInChildren<Camera>().enabled = false;
             GetComponent<RTSCamera>().enabled = false;
+            GetComponent<RTSSelection>().enabled = false;
             GetComponent<Animator>().enabled = false;
-          
         }
 	}
 }

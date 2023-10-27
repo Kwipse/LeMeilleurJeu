@@ -13,9 +13,7 @@ GameObject:
   - component: {fileID: 7175562515329427469}
   - component: {fileID: -6619672956015725089}
   - component: {fileID: -454093185751173377}
-  - component: {fileID: -2553348302583567940}
   - component: {fileID: -6165174734040666833}
-  - component: {fileID: -2577537663839646389}
   - component: {fileID: -2400505807627575635}
   - component: {fileID: 670259694732076245}
   - component: {fileID: 8986211388519810114}
@@ -137,19 +135,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-2553348302583567940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711416458826522534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b9d628eaabf51243a27547d40d50839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 
 --- !u!23 &-6165174734040666833
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -192,14 +177,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &-2577537663839646389
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711416458826522534}
-  m_Mesh: {fileID: -8524781615669338677, guid: 87b00cc176ca68a498e679b3da8c3c79, type: 3}
 --- !u!114 &-2400505807627575635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 933c55ce1f682e7439a333d49597a5e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectPv: 100
+  pv:
+    m_InternalValue: 100
 --- !u!65 &670259694732076245
 BoxCollider:
   m_ObjectHideFlags: 0

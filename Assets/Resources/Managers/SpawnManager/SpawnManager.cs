@@ -18,7 +18,7 @@ public class SpawnManager : NetworkBehaviour
 
     //SPAWN OBJECT
     public static void SpawnObject(GameObject Prefab, Vector3 SpawnLocation, Quaternion SpawnRotation)
-    {SM.SpawnObjectByNameServerRpc(Prefab.name, SpawnLocation, SpawnRotation);}
+        {SM.SpawnObjectByNameServerRpc(Prefab.name, SpawnLocation, SpawnRotation);}
 
 	//SPAWN OBJECT BY NAME
 	public static void SpawnObjectByName(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation)
@@ -34,6 +34,55 @@ public class SpawnManager : NetworkBehaviour
 	}
 		
 
+
+    //SPAWN UNIT
+    public static void SpawnUnit(
+            GameObject unitPrefab, Vector3 spawnPosition,
+            Quaternion spawnRotation = default(Quaternion), Vector3 rallyPosition = default(Vector3)) 
+    { 
+        SM.SpawnUnitByNameServerRpc(unitPrefab.name, spawnPosition, spawnRotation, rallyPosition);
+    }
+
+    public static void SpawnUnitByName(
+            string unitPrefabName, Vector3 spawnPosition,
+            Quaternion spawnRotation = default(Quaternion), Vector3 rallyPosition = default(Vector3))
+    { 
+        SM.SpawnUnitByNameServerRpc(unitPrefabName, spawnPosition, spawnRotation, rallyPosition);
+    }
+
+	[ServerRpc(RequireOwnership = false)]
+	void SpawnUnitByNameServerRpc(
+            string PrefabName, Vector3 SpawnLocation,
+            Quaternion SpawnRotation = default(Quaternion), Vector3 rallyPosition = default(Vector3),
+            ServerRpcParams serverRpcParams = default)
+	{
+		var clientId = serverRpcParams.Receive.SenderClientId;
+
+		GameObject go = Instantiate(PrefabManager.GetPrefab(PrefabName), SpawnLocation, SpawnRotation);
+		go.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+
+        //if (rallyPosition != default(Vector3))
+            SM.MoveUnitToRallyPointClientRPC(go, rallyPosition);
+	}
+
+    [ClientRpc]
+    void MoveUnitToRallyPointClientRPC(
+            NetworkObjectReference nor, Vector3 rallyPosition,
+            ClientRpcParams clientRpcParams = default)
+    {
+        NetworkObject no = nor;
+        GameObject go = nor;
+
+        Debug.Log($"SpawnManager : Received order to move {go.name} to rally point {rallyPosition}");
+
+        if (no.IsOwner)
+            go.GetComponent<UnitSystem>().MoveUnitToPos(rallyPosition, false);
+    }
+
+
+
+
+
     //DESTROY
 	public static void DestroyObject(GameObject go)
         {
@@ -47,9 +96,14 @@ public class SpawnManager : NetworkBehaviour
 		var clientId = serverRpcParams.Receive.SenderClientId;
 
         NetworkObject no = nor;
-        //Debug.Log("ServerManager : RPC from client " + clientId + " -> I received the order to despawn " + no.name);
+        
+        if (!no) {
+            Debug.Log($"SpawnManager : The object you are trying to destroy does not exist"); 
+            return;
+        }
+
         no.Despawn();
-        //Debug.Log("ServerRPC from client " + clientId + " -> I despawned " + no.name);
+        Debug.Log($"SpawnManager : I despawned {no.name} for client {clientId}");
     }
 
 
@@ -66,12 +120,9 @@ public class SpawnManager : NetworkBehaviour
 		
 		//Destroy current player if it exist
 		GameObject go = PlayerList.PlayerListinstance.GetPlayerObject(clientId);
-
-		//Debug.Log("client id :"+clientId+" - go :"+go);
-		if (go != null)
-		{
+		//Debug.Log("PlayerId :" + clientId + " - go :" + go);
+		if (go != null) 
             DestroyPlayer(go);
-		}
 		
 		//Instantiate and spawn
 		go = Instantiate(PrefabManager.GetPrefab(PlayerPrefabName), SpawnLocation, Quaternion.identity);
@@ -81,7 +132,6 @@ public class SpawnManager : NetworkBehaviour
 		PlayerList.PlayerListinstance.AddPlayerObject(clientId,go);
 	}
 	
-
 	
 	//DESTROY PLAYER
     public static void DestroyPlayer(GameObject go)
@@ -90,12 +140,14 @@ public class SpawnManager : NetworkBehaviour
 	[ServerRpc(RequireOwnership = false)]
 	void DestroyPlayerServerRPC(NetworkObjectReference nor, ServerRpcParams serverRpcParams = default)
 	{ 
-		var clientId = serverRpcParams.Receive.SenderClientId;
+        GameObject go = nor;
         NetworkObject no = nor;
-        no.Despawn();
-        PlayerList.PlayerListinstance.RemovePlayerObject(clientId);
+        var playerId = PlayerList.PlayerListinstance.GetPlayerId(go);
 
-        //Debug.Log("Player " + clientId + " has been destroyed by player " + clientId);
+        no.Despawn();
+        PlayerList.PlayerListinstance.RemovePlayerObject((ulong) playerId);
+
+        //Debug.Log("Player " + playerId + " has been destroyed");
 
         //GameObject playerObjectToDestroy = PlayerList.PlayerListSM.GetPlayerObject(clientId);
         //Destroy(playerObjectToDestroy);

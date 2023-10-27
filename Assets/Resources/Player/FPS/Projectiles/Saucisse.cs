@@ -48,6 +48,7 @@ public class Saucisse : NetworkBehaviour
 
         collision.collider.GetComponent<HealthSystem>()?.LoosePv(dmg);
         SpawnManager.DestroyObject(this.gameObject);
+        gameObject.SetActive(false);
     }
 
 }

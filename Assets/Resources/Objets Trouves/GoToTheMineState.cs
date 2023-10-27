@@ -5,14 +5,14 @@ using UnityEngine;
 public class GoToTheMineState : StateMachineBehaviour
 {
     private MiningSbire mS;
-    private Unit _unit;
+    //private Unit _unit;
    
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         mS = animator.GetBehaviour<MiningSbire>();
-        _unit = animator.transform.GetComponent<Unit>();
-       _unit.MoveToPosition(mS.mine.transform.position);
+        //_unit = animator.transform.GetComponent<Unit>();
+        //_unit.MoveToPosition(mS.mine.transform.position);
         animator.SetBool("isGoingToMine", false);
 
     }
@@ -24,7 +24,7 @@ public class GoToTheMineState : StateMachineBehaviour
         if(Vector3.SqrMagnitude(animator.transform.position - mS.mine.transform.position) <30.0f)
         {
             animator.SetBool("isLoading", true);
-            _unit.Stop();
+            //_unit.Stop();
         }
     }
 

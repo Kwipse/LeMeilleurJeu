@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConstructionState : StateMachineBehaviour
+public class RTSConstructionState : StateMachineBehaviour
 {
     public GameObject Barracks;
     public GameObject GoldMine;

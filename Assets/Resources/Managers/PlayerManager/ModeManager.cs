@@ -29,10 +29,7 @@ public class ModeManager : NetworkBehaviour
 
 	void Update()
 	{
-		if (IsOwner) 
-		{ 
-			KeyBoardInput();   
-		}         
+        KeyBoardInput();   
 	}
 
 
@@ -48,6 +45,7 @@ public class ModeManager : NetworkBehaviour
 			PlayMode = !PlayMode;
 			if (PlayMode) {SpawnManager.SpawnPlayer(FPS,Vector3.zero);}
 			else 	  	  {SpawnManager.SpawnPlayer(RTS,Vector3.zero);}
+            Debug.Log($"Client {NetworkManager.Singleton.LocalClientId} has switched mode");
     }
     
 }

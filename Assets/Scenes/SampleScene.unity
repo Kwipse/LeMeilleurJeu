@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 587235820}
   - component: {fileID: 587235819}
   - component: {fileID: 587235818}
+  - component: {fileID: 587235826}
   m_Layer: 8
   m_Name: Plane
   m_TagString: ground
@@ -377,6 +378,37 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &587235826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587235817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 5d27743ec0b2fd54384c1760b0732f75, type: 2}
+  m_BuildHeightMesh: 1
 --- !u!1 &688283851 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3290049382361361868, guid: ce4218288533d564b8f0b5be1ab9ac57, type: 3}
@@ -663,13 +695,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 711416458826522534, guid: 4401b1ae844e2cc44ae44c26bb2ba785, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7175562515329427469, guid: 4401b1ae844e2cc44ae44c26bb2ba785, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 25447827
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -2553348302583567940, guid: 4401b1ae844e2cc44ae44c26bb2ba785, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1196,6 +1229,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawn Zone
       objectReference: {fileID: 0}
+    - target: {fileID: 6490805026998603322, guid: f45223341098dbb49a9886b78f7b7d07, type: 3}
+      propertyPath: m_TagString
+      value: ground
+      objectReference: {fileID: 0}
     - target: {fileID: 6490805027733137340, guid: f45223341098dbb49a9886b78f7b7d07, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1258,8 +1295,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6941354109113961875, guid: 89ce378ee393d4c4babe01d198605f10, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941354109113961875, guid: 89ce378ee393d4c4babe01d198605f10, type: 3}
       propertyPath: m_Name
       value: ServerManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941354109113961875, guid: 89ce378ee393d4c4babe01d198605f10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

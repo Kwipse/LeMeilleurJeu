@@ -2,33 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-using Unity.Netcode.Components;
 
-public class ExplosionScript : MonoBehaviour
+public class ExplosionScript : NetworkBehaviour
 {
-    ulong localId;
-    // Start is called before the first frame update
+    public int damageToUnit = 25;
+    public int damageToBuilding = 25;
+
+    int dmg;
+    bool setToDestroy;
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner)
+            enabled = false;
+    }
+
     void Start()
     {
-        DestroyCubeServerRpc(0.25f);
+        setToDestroy = false;
+        Invoke("EndExplosion", 0.25f);
     }
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if(collision.gameObject.tag== "Player")
-			{collision.collider.GetComponent<HealthSystem>().LoosePv(25);}
+        if (!IsOwner) return;
+
+        switch(collision.gameObject.tag) 
+        {
+            case "Player" or "Unit":
+                dmg = damageToUnit;
+                break;
+
+            case "Building":
+                dmg = damageToBuilding;
+                break;
+
+            default:
+                break; }
+
+        collision.collider.GetComponent<HealthSystem>()?.LoosePv(dmg);
 	}
 
-    [ServerRpc(RequireOwnership = false)]
-    private void DestroyCubeServerRpc(float dureeOuiNon = 0f)
-    {
-        //GetComponent<Netw>
-        if (dureeOuiNon == 0f)
-        {
-            Destroy(gameObject);
-        }
-        else
-            Destroy(gameObject, dureeOuiNon);
 
-    }
+    void EndExplosion() {
+        if (setToDestroy) return;
+        setToDestroy = true;
+        SpawnManager.DestroyObject(this.gameObject); }
 }

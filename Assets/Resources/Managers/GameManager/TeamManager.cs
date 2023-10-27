@@ -23,15 +23,11 @@ public class TeamManager : NetworkBehaviour
 
         ClientTeam.OnListChanged += OnClientTeamChanged;
 
-        //AddNewClient();
         if (IsServer)
-        {
             InitializeClientTeam();
-        }
+
         if (IsClient)
-        {
             Debug.Log($"ColorManager : Team set to {ClientTeam[(int) clientId]}");
-        }
 
     }
 
@@ -77,12 +73,13 @@ public class TeamManager : NetworkBehaviour
 
     public static bool AreObjectsEnnemies(GameObject go1, GameObject go2)
     {
-        NetworkObject no1 = go1.GetComponent<NetworkObject>();
-        NetworkObject no2 = go2.GetComponent<NetworkObject>();
+        int team1 = ClientTeam[(int) go1.GetComponent<NetworkObject>().OwnerClientId];
+        int team2 = ClientTeam[(int) go2.GetComponent<NetworkObject>().OwnerClientId];
 
-        if (no1.OwnerClientId != no2.OwnerClientId) return true;
+        if (team1 != team2)
+            return true;
+
         return false;
-
     }
   
 }

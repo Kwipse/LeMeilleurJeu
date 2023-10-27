@@ -16,12 +16,15 @@ Il suffit de placer ce component sur un objet.
     GameObject cible;
     cible.GetComponent<HealthSystem>().LoosePv(int dmg)
 
-
-
 BATIMENTSYSTEM
 
 Ce script donne un systeme de blueprint a l'objet qui le possède :
 En plus de ce component, l'objet requiert un Rigidbody et un Collider.
+
+UNITSYSTEM
+
+Ce script donne un systeme d'unité à l'objet qui le possède :
+En plus de ce component, l'objet requiert un NavMeshAgent.
 
 
 

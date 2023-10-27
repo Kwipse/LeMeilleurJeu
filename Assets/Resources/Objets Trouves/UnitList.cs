@@ -26,14 +26,14 @@ public class UnitList : MonoBehaviour
     public void AddUnit(GameObject unit)
     {
         unitsList.Add(unit);
-		if(unit.GetComponent<Unit>().type == "sbire") sbire.Add(unit);
-		if(unit.GetComponent<Unit>().type == "mob") mob.Add(unit);
+		//if(unit.GetComponent<Unit>().type == "sbire") sbire.Add(unit);
+		//if(unit.GetComponent<Unit>().type == "mob") mob.Add(unit);
     }
     public void DelUnit(GameObject unit)
     {
         unitsList.Remove(unit);
-		if(unit.GetComponent<Unit>().type == "sbire") sbire.Remove(unit);
-		if(unit.GetComponent<Unit>().type == "mob") mob.Remove(unit);
+		//if(unit.GetComponent<Unit>().type == "sbire") sbire.Remove(unit);
+		//if(unit.GetComponent<Unit>().type == "mob") mob.Remove(unit);
 
     }
 }

@@ -12,8 +12,8 @@ public class RTSCamera : MonoBehaviour
     Camera cam;
 
     //Init Sensibilite
-    float ksensitivity = 2f; //Sensibilit� Clavier
-    float zsensitivity = 2f; //Sensibilit� Zoom
+    public float ksensitivity = 2f; //Sensibilit� Clavier
+    public float zsensitivity = 4f; //Sensibilit� Zoom
 
 
     Vector3 translation;
