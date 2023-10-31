@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
+[RequireComponent(typeof(NetworkObject))]
+
 public class ColorManager : NetworkBehaviour
 {
     public Material m_Jaune;
@@ -16,10 +18,15 @@ public class ColorManager : NetworkBehaviour
     public Material m_Noir;
     public Material m_Blanc;
 
+    public Material m_BlueprintAllowed;
+    public Material m_BlueprintNotAllowed;
+    
     static NetworkList<int> PlayerMaterial;
     static NetworkList<int> TeamMaterial;
     static Material[] Materials;
     
+    Renderer[] renderers;
+
     int matNumber;
     Material mat;
     GameObject go;
@@ -36,6 +43,7 @@ public class ColorManager : NetworkBehaviour
 
         PlayerMaterial = new NetworkList<int>();
         TeamMaterial = new NetworkList<int>();
+
     }
 	
     public override void OnNetworkSpawn()
@@ -68,17 +76,11 @@ public class ColorManager : NetworkBehaviour
     }
 
 
-    static Material GetPlayerMaterial(int playerId)
-    {
-        Material mat  = Materials[PlayerMaterial[playerId]];
-        return mat;
-    }
+    static Material GetPlayerMaterial(int playerId) {
+        return Materials[PlayerMaterial[playerId]]; }
 
-    static Material GetTeamMaterial(int playerId)
-    { 
-        Material mat  = Materials[TeamMaterial[playerId]];
-        return mat;
-    }
+    static Material GetTeamMaterial(int playerId) { 
+        return Materials[TeamMaterial[playerId]]; }
 
 
     public static void SetPlayerMaterial(int playerId, int matId) 
@@ -128,12 +130,26 @@ public class ColorManager : NetworkBehaviour
         }
     }
 
-   
+    public static void SetBlueprintColor(GameObject go, bool Allowed)
+    {
+        Material mBlueprint;
+        if (Allowed)
+            mBlueprint = CM.m_BlueprintAllowed;
+        else
+            mBlueprint = CM.m_BlueprintNotAllowed;
+
+        Renderer[] renderers = go.GetComponentsInChildren<Renderer>(); 
+        foreach (Renderer r in renderers) 
+            r.material = mBlueprint;
+    } 
+
+
     public static void SetPlayerColors(ulong clientId)
     {
 
         
     }
+
 
     void InitializeMaterials()
     {
@@ -149,6 +165,7 @@ public class ColorManager : NetworkBehaviour
         Materials[9] = m_Blanc;
     }
 
+
     void InitializePlayerMaterials()
     {
         PlayerMaterial.Add(4);
@@ -159,6 +176,7 @@ public class ColorManager : NetworkBehaviour
         PlayerMaterial.Add(9);
     }
 
+
     void InitializeTeamMaterials()
     {
         TeamMaterial.Add(0);
@@ -167,6 +185,7 @@ public class ColorManager : NetworkBehaviour
         TeamMaterial.Add(3);
     }
     
+
     public static void DrawBounds(Bounds b)
     {
         var p1 = new Vector3(b.min.x, 1, b.min.z);

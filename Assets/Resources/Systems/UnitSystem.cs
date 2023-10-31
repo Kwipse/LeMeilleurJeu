@@ -3,37 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Unity.Netcode;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 
+[RequireComponent(typeof(NetworkObject))]
+[RequireComponent(typeof(ClientNetworkTransform))]
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(HealthSystem))]
+[RequireComponent(typeof(Rigidbody))]
 
 public class UnitSystem : NetworkBehaviour
 {
-    public float attackRange = 3.0f;
+    public float attackRange = 2.0f;
     public float attackCooldown = 1.0f;
     public float sightRange = 50.0f;
-
     public float unitSpeed = 15.0f;
     public float unitAngularSpeed = 1000.0f;
     public float unitAcceleration = 1000.0f;
 
     public GameObject explosion;
 
+    NavMeshAgent agent;
+    HealthSystem health;
+
     List<Vector3> moveWaypoints;
-
-	GameObject ennemiTarget;
-	NavMeshAgent agent;
-
-    HealthSystem HS;
-
     Collider[] nearbyColliders;
     GameObject[] nearbyObjects;
-
+    GameObject ennemiTarget;
     bool attackMode;
-    bool isAttacking;
+    //bool isAttacking;
+    //
 
     void Awake() 
     {
+        health = gameObject.GetComponent<HealthSystem>();
+        agent = GetComponent<NavMeshAgent>();
+
         moveWaypoints = new List<Vector3>();
-        moveWaypoints.Add(gameObject.transform.position);
     }
 
     public override void OnNetworkSpawn()
@@ -46,9 +51,7 @@ public class UnitSystem : NetworkBehaviour
 
     void Start()
     {
-        HS = gameObject.GetComponent<HealthSystem>();
-
-        agent = GetComponent<NavMeshAgent>();
+        //moveWaypoints.Add(gameObject.transform.position);
         agent.speed = unitSpeed;
         agent.angularSpeed = unitAngularSpeed;
         agent.acceleration = unitAcceleration;
@@ -107,6 +110,7 @@ public class UnitSystem : NetworkBehaviour
         agent.isStopped = false;
 
         //Attaque si l'ennemi est a portée 
+        //On utilise SqrMagnitude pour eviter de calculer des racines
         float sqrTargetSize = Vector3.SqrMagnitude(targetGo.GetComponent<Collider>().bounds.size);
         float sqrDistanceToTarget = Vector3.SqrMagnitude(this.gameObject.transform.position - targetGo.transform.position);
         float sqrAttackRange = attackRange * attackRange;
@@ -122,7 +126,7 @@ public class UnitSystem : NetworkBehaviour
 
     void AttackAction() 
     {
-        HS.LoosePv(100);
+        health.LoosePv(100);
         SpawnManager.SpawnObjectByName(explosion.name,transform.position,Quaternion.identity); 
         gameObject.SetActive(false);
     }

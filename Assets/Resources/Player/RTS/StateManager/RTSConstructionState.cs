@@ -71,7 +71,7 @@ public class RTSConstructionState : StateMachineBehaviour
     {
         if (!Blueprint)
             return;
-        if (!Blueprint.GetComponent<BuildingSystem>().isBlueprintAllowed)
+        if (!Blueprint.GetComponent<BlueprintSystem>().isBlueprintAllowed)
             return; 
 
         Vector3 pos = Blueprint.transform.position;

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
+[RequireComponent(typeof(NetworkObject))]
+[RequireComponent(typeof(SphereCollider))]
+
 public class ExplosionScript : NetworkBehaviour
 {
     public int damageToUnit = 25;

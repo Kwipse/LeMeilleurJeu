@@ -14,6 +14,8 @@ MonoImporter:
   - m_Marron: {fileID: 2100000, guid: 17eeb9d1a9de90d4e8389d1fac8b49cf, type: 2}
   - m_Noir: {fileID: 2100000, guid: 69390151611429744886d80584ba0a48, type: 2}
   - m_Blanc: {fileID: 2100000, guid: dfa8d0b1c50df6f459d2a08adb3124b2, type: 2}
+  - m_BlueprintAllowed: {fileID: 2100000, guid: b1e154008f6b0b74cb9989e12084b113, type: 2}
+  - m_BlueprintNotAllowed: {fileID: 2100000, guid: 6f5f08d68e9b07d488b6bb6f9982419b, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
