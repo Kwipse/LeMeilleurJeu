@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-[RequireComponent(typeof(NetworkObject))]
-[RequireComponent(typeof(SphereCollider))]
 
-public class ExplosionScript : NetworkBehaviour
+public class Explosion : NetworkBehaviour
 {
-    public int damageToUnit = 25;
-    public int damageToBuilding = 25;
+    [HideInInspector] public float ExplosionSize;
+    [HideInInspector] public float ExplosionDuration;
+    [HideInInspector] public int damageToUnit;
+    [HideInInspector] public int damageToBuilding;
 
-    int dmg;
     bool setToDestroy;
+
 
     public override void OnNetworkSpawn()
     {
@@ -22,12 +22,17 @@ public class ExplosionScript : NetworkBehaviour
 
     void Start()
     {
+        Debug.Log($"Exploding at {transform.position}, size {ExplosionSize}");
+
+        
+
+        Invoke("EndExplosion", ExplosionDuration);
         setToDestroy = false;
-        Invoke("EndExplosion", 0.25f);
     }
 
 	void OnCollisionEnter(Collision collision)
 	{
+        int dmg = 0;
         if (!IsOwner) return;
 
         switch(collision.gameObject.tag) 

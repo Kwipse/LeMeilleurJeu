@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class UnitSpawnerSystem : MonoBehaviour
 {
-    public GameObject unitToSpawn;
+    public List<GameObject> UnitesDisponibles;
     //public bool isSelected;
+
+    Collider buildingCollider;
+    List<Collider> unitColliders;
 
     Vector3 rallyPos;
     Vector3 spawnPos;
     Quaternion spawnRot;
-    Collider unitCollider;
-    Collider buildingCollider;
 
     Camera cam;
     Ray ray;
@@ -21,8 +22,11 @@ public class UnitSpawnerSystem : MonoBehaviour
     
     void Awake()
     {
-        unitCollider = unitToSpawn.GetComponent<Collider>();
         buildingCollider = gameObject.GetComponent<Collider>();
+
+        unitColliders = new List<Collider>();
+        foreach (GameObject unit in UnitesDisponibles)
+            unitColliders.Add(unit.GetComponent<Collider>());
     }
 
     void Start()
@@ -35,20 +39,20 @@ public class UnitSpawnerSystem : MonoBehaviour
         rallyPos = pos; }
 
 
-    public void SpawnUnit()
+    public void SpawnUnit(int unitIndex)
     {
         Vector3 spawnerPos = gameObject.transform.position;
         Vector3 rallyDirection = Vector3.Normalize(rallyPos - spawnerPos);
-        Vector3 offset = (unitCollider.bounds.size + buildingCollider.bounds.size)/2;
+        Vector3 offset = (unitColliders[unitIndex].bounds.size + buildingCollider.bounds.size)/2;
 
         spawnPos = spawnerPos + (rallyDirection * offset.magnitude);
-        spawnPos.y = unitCollider.bounds.size.y;
+        spawnPos.y = unitColliders[unitIndex].bounds.size.y;
 
         spawnRot = Quaternion.identity;
 
-        Debug.Log($"{gameObject.name} : Production de {unitToSpawn.name} en {spawnPos}");
+        Debug.Log($"{gameObject.name} : Production de {UnitesDisponibles[unitIndex].name} en {spawnPos}");
         //SpawnManager.SpawnObject(unitToSpawn, spawnPos, Quaternion.identity);
 
-        SpawnManager.SpawnUnit(unitToSpawn, spawnPos, spawnRot, rallyPos);
+        SpawnManager.SpawnUnit(UnitesDisponibles[unitIndex], spawnPos, spawnRot, rallyPos);
     }
 }

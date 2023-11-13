@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using AbstractClasses;
 
 
 public class SpawnManager : NetworkBehaviour
 {
+    static GameObject ExpPrefab;
+    static GameObject Explosion;
+    static Explosion ExpStats;
+
     //Enable global access to static 
     //functions as SpawnManager.function()
     static SpawnManager SM;
@@ -15,10 +20,20 @@ public class SpawnManager : NetworkBehaviour
         Debug.Log("SpawnManager : J'existe !");
     }
     
+    public override void OnNetworkSpawn() 
+    {
+        if (IsServer)
+        {
+			PrefabManager.LoadAllPrefabs();
+            ExpPrefab = PrefabManager.GetPrefab("Explosion");
+        }
+    }
+
+    
 
     //SPAWN OBJECT
-    public static void SpawnObject(GameObject Prefab, Vector3 SpawnLocation, Quaternion SpawnRotation)
-        {SM.SpawnObjectByNameServerRpc(Prefab.name, SpawnLocation, SpawnRotation);}
+    public static void SpawnObject(GameObject go, Vector3 SpawnLocation, Quaternion SpawnRotation)
+        {SM.SpawnObjectByNameServerRpc(go.name, SpawnLocation, SpawnRotation);}
 
 	//SPAWN OBJECT BY NAME
 	public static void SpawnObjectByName(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation)
@@ -28,11 +43,51 @@ public class SpawnManager : NetworkBehaviour
 	void SpawnObjectByNameServerRpc(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation, ServerRpcParams serverRpcParams = default)
 	{
 		var clientId = serverRpcParams.Receive.SenderClientId;
+        GameObject go = PrefabManager.GetPrefab(PrefabName);
 
-		GameObject go = Instantiate(PrefabManager.GetPrefab(PrefabName), SpawnLocation, SpawnRotation);
+		go = Instantiate(go, SpawnLocation, SpawnRotation);
 		go.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
 	}
-		
+
+
+    //SPAWN EXPLOSION
+    public static void SpawnExplosion(
+            Vector3 position,
+            int size = 10,
+            int unitDmg = 0,
+            int buildingDmg = 0,
+            float duration = 0.25f)
+    {
+        SM.SpawnExplosionServerRPC(position, size, unitDmg, buildingDmg, duration);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void SpawnExplosionServerRPC(
+            Vector3 position, 
+            int size,
+            int unitDmg,
+            int buildingDmg,
+            float duration,
+            ServerRpcParams serverRpcParams = default)
+    {
+
+		var clientId = serverRpcParams.Receive.SenderClientId;
+
+        Explosion = Instantiate(ExpPrefab, position, Quaternion.identity);
+        ExpStats = Explosion.GetComponent<Explosion>();
+
+        Explosion.transform.localScale = new Vector3 (size, size, size);
+
+        ExpStats.ExplosionSize = size;
+        ExpStats.damageToUnit = unitDmg;
+        ExpStats.damageToBuilding = buildingDmg;
+        ExpStats.ExplosionDuration = duration;
+
+		Explosion.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+
+        Debug.Log($"SpawnManager : Spawning explosion at {position}");
+
+    }
 
 
     //SPAWN UNIT
@@ -76,8 +131,12 @@ public class SpawnManager : NetworkBehaviour
         Debug.Log($"SpawnManager : Received order to move {go.name} to rally point {rallyPosition}");
 
         if (no.IsOwner)
-            go.GetComponent<UnitSystem>().MoveUnitToPos(rallyPosition, false);
+        {
+            go.GetComponent<UnitSystem>()?.MoveUnitToPos(rallyPosition, false);
+            go.GetComponent<RTSUnit>()?.MoveUnitToPos(rallyPosition, false);
+        }
     }
+
 
 
 
@@ -103,7 +162,7 @@ public class SpawnManager : NetworkBehaviour
         }
 
         no.Despawn();
-        Debug.Log($"SpawnManager : I despawned {no.name} for client {clientId}");
+        //Debug.Log($"SpawnManager : I despawned {no.name} for client {clientId}");
     }
 
 

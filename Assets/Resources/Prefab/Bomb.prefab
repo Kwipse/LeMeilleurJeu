@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 853506795269013769}
-  - component: {fileID: 2486408543959667700}
   - component: {fileID: 8374617050390548911}
+  - component: {fileID: 2486408543959667700}
   - component: {fileID: 4504998002841372070}
   - component: {fileID: 1408854979811049638}
   - component: {fileID: 4266936430436066438}
@@ -38,18 +38,6 @@ Transform:
   - {fileID: 2194372096239437526}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2486408543959667700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702615763054899602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6ff162763f728e41840a0299c0d3a4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8374617050390548911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
+  GlobalObjectIdHash: 3456917836
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -70,6 +58,18 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &2486408543959667700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702615763054899602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ff162763f728e41840a0299c0d3a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &4504998002841372070
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -21,6 +21,7 @@ public class PrefabManager : ScriptableObject
         //LoadPrefabs("Player/RTS/MapProps");
         LoadPrefabs("Player"); 
 		LoadPrefabs("Prefab");
+		LoadPrefabs("AbstractClasses");
 
         Debug.Log("PREFABS ARE LOADED");
 	}

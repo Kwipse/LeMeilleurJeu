@@ -1,14 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RTSConstructionState : StateMachineBehaviour
 {
-    public GameObject Barracks;
-    public GameObject GoldMine;
-
-    public Material mBlueprintAllowed;
-    public Material mBlueprintNotAllowed;
+    public List<GameObject> Batiments = new List<GameObject>();
 
     GameObject currentBlueprintPrefab;
     GameObject selectedBlueprintPrefab;
@@ -58,7 +53,6 @@ public class RTSConstructionState : StateMachineBehaviour
 
     void CreateBlueprint()
     {
-        
         if (Blueprint)
             Destroy(Blueprint);
 
@@ -106,8 +100,26 @@ public class RTSConstructionState : StateMachineBehaviour
     void PlayerInput()
     {
         //Selection Input 
-        if (Input.GetKeyDown(KeyCode.W))  selectedBlueprintPrefab = Barracks; 
-        if (Input.GetKeyDown(KeyCode.X))  selectedBlueprintPrefab = GoldMine; 
+        if (Input.GetKeyDown(KeyCode.W))
+            selectedBlueprintPrefab = Batiments[0];
+
+        if (Input.GetKeyDown(KeyCode.X))
+            selectedBlueprintPrefab = Batiments[1];
+
+        if (Input.mouseScrollDelta.y < 0) //MouseWheel Down
+        {
+            var currentIndex = Batiments.IndexOf(selectedBlueprintPrefab);
+            if (currentIndex < Batiments.Count - 1)
+                selectedBlueprintPrefab = Batiments[currentIndex + 1];
+        }
+       
+        if (Input.mouseScrollDelta.y > 0) //MouseWheel Up
+        {
+            var currentIndex = Batiments.IndexOf(selectedBlueprintPrefab);
+            if (currentIndex > 0)
+                selectedBlueprintPrefab = Batiments[currentIndex - 1];
+        }
+
 
         //Construction Input
         if (Input.GetMouseButtonDown(0))  ConstructBuilding(); 

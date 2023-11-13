@@ -31,17 +31,15 @@ public class RTSUnitCreationState : StateMachineBehaviour
 
     void RTSUnitCreationInputs()
     {
-        if (Input.GetKeyDown(KeyCode.W)) { CreateUnit(); }
+        if (Input.GetKeyDown(KeyCode.W)) { CreateUnit(0); }
+        if (Input.GetKeyDown(KeyCode.X)) { CreateUnit(1); }
     }
 
-    void CreateUnit()
+    void CreateUnit(int unitIndex)
     {
-        Debug.Log($"I pressed W !");
         foreach(GameObject go in selector.currentSelection) 
-            go.GetComponent<UnitSpawnerSystem>()?.SpawnUnit();
+            go.GetComponent<UnitSpawnerSystem>()?.SpawnUnit(unitIndex);
 
-        //if (!Input.GetKey(KeyCode.LeftShift)) 
-        //    QuitUnitCreationMode();
     }
 
     void QuitUnitCreationMode()

@@ -6,45 +6,29 @@ using Unity.Netcode;
 
 public class RTSCamera : MonoBehaviour
 {
-    // Init Prefabs
+    public float vitesseCamera = 2f;
+    public float vitesseZoom = 4f;
+
     public Vector3 InitialCameraPosition;
     public Quaternion InitialCameraRotation; 
+
     Camera cam;
-
-    //Init Sensibilite
-    public float ksensitivity = 2f; //Sensibilit� Clavier
-    public float zsensitivity = 4f; //Sensibilit� Zoom
-
-
     Vector3 translation;
     Vector3 localTranslation;
     Quaternion rotation;
     Quaternion localRotation;
 
+    void Awake()
+    {
+        cam = GetComponentInChildren<Camera>();
+    }
 
     void Start()
     {
-        cam = GetComponentInChildren<Camera>();
-        
         translation = InitialCameraPosition;
         rotation = InitialCameraRotation;
 
-        //cam.transform.parent = transform;
-        //cam.transform.position = InitialCameraPosition;
-        //cam.transform.rotation = InitialCameraRotation;
-
         Cursor.lockState = CursorLockMode.Confined;
-
-        //translation = cam.transform.position;
-        //localTranslation = cam.transform.localPosition;
-        //rotation = cam.transform.rotation;
-        //localRotation = cam.transform.localRotation;
-    }
-
-    void UpdateCamera()
-    {
-        cam.transform.position = translation;
-        cam.transform.rotation = rotation;
     }
 
     void OnDisable()
@@ -66,44 +50,39 @@ public class RTSCamera : MonoBehaviour
         // ZQSD or Arrow keys
         if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.UpArrow))
         {
-            translation.x += transform.forward.x * ksensitivity;
-            translation.z += transform.forward.z * ksensitivity;
+            translation.x += transform.forward.x * vitesseCamera;
+            translation.z += transform.forward.z * vitesseCamera;
         }
         if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
-            translation.x -= transform.forward.x * ksensitivity;
-            translation.z -= transform.forward.z * ksensitivity;
+            translation.x -= transform.forward.x * vitesseCamera;
+            translation.z -= transform.forward.z * vitesseCamera;
         }
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            translation.x += transform.right.x * ksensitivity;
-            translation.z += transform.right.z * ksensitivity;
+            translation.x += transform.right.x * vitesseCamera;
+            translation.z += transform.right.z * vitesseCamera;
         }
         if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.LeftArrow))
         {
-            translation.x -= transform.right.x * ksensitivity;
-            translation.z -= transform.right.z * ksensitivity;
+            translation.x -= transform.right.x * vitesseCamera;
+            translation.z -= transform.right.z * vitesseCamera;
         }
-
-        //// A and E to rotate camera
-        //if (Input.GetKey(KeyCode.A))
-        //{
-        //    rotation *= Quaternion.Euler(Vector3.up * -ksensitivity );
-        //}
-        //if (Input.GetKey(KeyCode.E))
-        //{
-        //    rotation *= Quaternion.Euler(Vector3.up * ksensitivity);
-        //}
     }
 
     void MouseInputs()
     {
         if (Input.mouseScrollDelta.y != 0) //Scroll
         {
-            translation += cam.transform.forward * Input.mouseScrollDelta.y * zsensitivity;
+            translation += cam.transform.forward * Input.mouseScrollDelta.y * vitesseZoom;
         }
     }
 
+    void UpdateCamera()
+    {
+        cam.transform.position = translation;
+        cam.transform.rotation = rotation;
+    }
 }
 
 

@@ -8,6 +8,7 @@ public class TeamManager : NetworkBehaviour
 {
 	static NetworkList<int> ClientTeam;	
 	
+    
 	static TeamManager TM;
 	void Awake() 
 	{ 
