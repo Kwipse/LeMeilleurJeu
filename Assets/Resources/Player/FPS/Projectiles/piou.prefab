@@ -332,10 +332,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 1000
   ImpactDmg: 10
-  ExplosionSize: 20
-  ExpUnitDmg: 50
-  ExpBuildingDmg: 50
+  ExplosionSize: 10
+  ExpUnitDmg: 0
+  ExpBuildingDmg: 0
   ExpDuration: 0.25
+  outwardForce: 1000
 --- !u!1 &4952539135333016345
 GameObject:
   m_ObjectHideFlags: 0

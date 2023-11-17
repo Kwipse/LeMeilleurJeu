@@ -94,9 +94,9 @@ GameObject:
   - component: {fileID: 5095495299012725171}
   - component: {fileID: -3181902887744652081}
   - component: {fileID: 109094754512732368}
-  - component: {fileID: 1050471873546618033}
   - component: {fileID: -2683372428898695347}
-  - component: {fileID: 2021695606}
+  - component: {fileID: 3994478807241691369}
+  - component: {fileID: 1050471873546618033}
   m_Layer: 0
   m_Name: RTSPlayer
   m_TagString: Player
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
+  GlobalObjectIdHash: 4243865098
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -152,22 +152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773017dcc1351c343ac616a4fa1b53ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isZoomActive: 1
+  vitesseCamera: 1
+  vitesseZoom: 4
   InitialCameraPosition: {x: 0, y: 80, z: -80}
   InitialCameraRotation: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}
-  ksensitivity: 2
-  zsensitivity: 4
---- !u!114 &1050471873546618033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6672819253296030723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5051b051dbcc24aa770ffa75a2b346, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-2683372428898695347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSelection: []
---- !u!95 &2021695606
+--- !u!95 &3994478807241691369
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -191,7 +180,7 @@ Animator:
   m_GameObject: {fileID: 6672819253296030723}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 76da16628d1399441bf05fa9f22f7263, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -202,3 +191,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1050471873546618033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672819253296030723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5051b051dbcc24aa770ffa75a2b346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RTSAnimator: {fileID: 9100000, guid: 76da16628d1399441bf05fa9f22f7263, type: 2}
+  AvailableBuildings:
+  - {fileID: 6117278076527145797, guid: ea8d60ec94f3f1249ab46e6c55cd7410, type: 3}
+  - {fileID: 6117278076527145797, guid: 1e9d9c88f09273e44ab408e0930417b2, type: 3}
+  - {fileID: 6179331823867752489, guid: 4726ffb5b4a2eb240869b63678a5ad15, type: 3}

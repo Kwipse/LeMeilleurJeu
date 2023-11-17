@@ -3,33 +3,36 @@ using UnityEngine;
 
 public class RTSConstructionState : StateMachineBehaviour
 {
-    public List<GameObject> Batiments = new List<GameObject>();
-
-    GameObject currentBlueprintPrefab;
-    GameObject selectedBlueprintPrefab;
-
-    GameObject Blueprint;
-
+    [HideInInspector]
     public bool isBlueprintAllowed;
     bool keepBlueprintOnConstruct;
     bool setToDestroy;
 
+    List<GameObject> Batiments;
+    GameObject Blueprint;
+    GameObject currentBlueprintPrefab;
+    GameObject selectedBlueprintPrefab;
+
     Animator anim;
-    GameObject go;
-    Camera cam;
-    Ray ray;
-    RaycastHit hit;
+    GameObject rts;
+    RTSCamera cam;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        //Debug.Log("Construction Mode");
+       
         anim = animator;
-        cam = animator.gameObject.GetComponentInChildren<Camera>();
-        Debug.Log("Construction Mode");
+        rts = anim.gameObject;
+        cam = rts.GetComponent<RTSCamera>();
+        Batiments = rts.GetComponent<RTSPlayer>().AvailableBuildings; 
 
         currentBlueprintPrefab = null;
         selectedBlueprintPrefab = null;
         keepBlueprintOnConstruct = false;
         setToDestroy = false;
+
+        cam.isZoomActive = false;
+
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -48,7 +51,7 @@ public class RTSConstructionState : StateMachineBehaviour
             CreateBlueprint(); 
 
         if (Blueprint)
-            Blueprint.transform.position = GetMouseGroundHit().point; 
+            Blueprint.transform.position = cam.GetMouseGroundHit().point; 
     }
 
     void CreateBlueprint()
@@ -77,13 +80,6 @@ public class RTSConstructionState : StateMachineBehaviour
 
     }
 
-    RaycastHit GetMouseGroundHit()
-    {
-        ray = cam.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out hit, 3000.0f, (1<<8));
-        return hit; 
-    }
-
 
     void QuitConstructionMode()
     {
@@ -94,6 +90,7 @@ public class RTSConstructionState : StateMachineBehaviour
             setToDestroy = true;
             Destroy(Blueprint);
 
+        cam.isZoomActive = true;
         anim.SetBool("ConstructionMode", false);
     }
 

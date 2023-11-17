@@ -2,6 +2,54 @@
 Ben c'est le meilleur jeu quoi
 
 
+INTRO
+
+Bienvenue dans le meilleur jeu.
+
+RACCOURCIS/FONCTTIONALITES
+
+General
+
+Tab : Echange le mode de jeu entre FPS et RTS
+
+FPS
+
+ZQSD : Mouvement FPS
+Espace : Saut
+Clic gauche : Tir de projectile
+
+
+RTS
+
+Le RTS est en mode selection par defaut.
+
+General
+Echap : Retourne en mode selection
+B : Entre en mode construction de batiments
+C : Entre en mode création d'unité
+Maj : Permet d'enchainer les ordres de construction/creation d'unités
+
+Camera
+ZQSD : Translation de la camera
+Clic Molette : Pivot autour de la pos visée
+
+Selection
+Clic Gauche : Selection d'unités/batiments
+Clic Droit : Ordonne le déplacement des unités selectionnees
+Maj : Permet d'enchainer plusieurs ordres de déplacement aux unités
+
+Mode construction de batiments
+Molette haut/bas : Choisit le blueprint a construire
+Clic Gauche : Construction du batiment choisi
+
+Mode Création d'unités
+W : Spawn la 1er unité du batiment
+X : Spawn la 2nd unité du batiment
+
+
+
+
+
 
 -SYSTEMES-
 
@@ -70,7 +118,6 @@ RTSBuilding :
 Donne les proprietes de batiment à un objet.
 
 
-
 -MANAGERS-
 
 Pour faciliter le code, il y a des objets préplacés dans la scène, qui possedent des fonctions accessibles dans tout le projet.
@@ -88,7 +135,7 @@ Gere le spawn et despawn des objets :
     SpawnObjectByName(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation);
     
     //Crée une explosion
-    SpawnExplosion();
+    public static void SpawnExplosion(Vector3 position, int size, int unitDmg, int buildingDmg, float duration, int outwardForce)
 
     //Détruit un objet
     DestroyObject(GameObject go);

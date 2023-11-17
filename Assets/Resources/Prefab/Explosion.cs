@@ -10,6 +10,7 @@ public class Explosion : NetworkBehaviour
     [HideInInspector] public float ExplosionDuration;
     [HideInInspector] public int damageToUnit;
     [HideInInspector] public int damageToBuilding;
+    [HideInInspector] public int outwardForce;
 
     bool setToDestroy;
 
@@ -22,34 +23,58 @@ public class Explosion : NetworkBehaviour
 
     void Start()
     {
-        Debug.Log($"Exploding at {transform.position}, size {ExplosionSize}");
-
-        
+        //Debug.Log($"Exploding at {transform.position}, size {ExplosionSize}");
 
         Invoke("EndExplosion", ExplosionDuration);
         setToDestroy = false;
     }
 
-	void OnCollisionEnter(Collision collision)
+	void OnTriggerEnter(Collider col)
 	{
-        int dmg = 0;
         if (!IsOwner) return;
+        GameObject target = col.gameObject;
+        string tag = target.tag;
 
-        switch(collision.gameObject.tag) 
-        {
-            case "Player" or "Unit":
-                dmg = damageToUnit;
-                break;
+        int dmg = 0;
+        if (tag == "Player") dmg = damageToUnit;
+        if (tag == "Unit") dmg = damageToUnit;
+        if (tag == "Building") dmg = damageToBuilding;
 
-            case "Building":
-                dmg = damageToBuilding;
-                break;
+        target.GetComponent<HealthSystem>()?.LoosePv(dmg);
+        Debug.Log($"Explosion dealt {dmg}pv to {target.name}");
 
-            default:
-                break; }
-
-        collision.collider.GetComponent<HealthSystem>()?.LoosePv(dmg);
+        if (outwardForce != 0)
+            PushTarget(target, outwardForce, col.ClosestPoint(transform.position));
+        
 	}
+
+
+    void PushTarget(GameObject target, int force, Vector3 expCenter)
+    {
+        PushTargetServerRPC(target, force, expCenter);
+    }
+
+    [ServerRpc]
+    void PushTargetServerRPC(NetworkObjectReference nor, int force, Vector3 expPosition)
+    {
+        PushTargetClientRPC(nor, force, expPosition);
+    }
+
+    [ClientRpc]
+    void PushTargetClientRPC(NetworkObjectReference nor, int force, Vector3 expPosition)
+    {
+        GameObject target = nor;
+        if (!target.GetComponent<NetworkObject>().IsOwner) return;
+
+
+        Vector3 targetCenter = target.GetComponent<Collider>().bounds.center;
+        Vector3 pushDirection = targetCenter - expPosition;
+        Vector3 push = Vector3.Normalize(pushDirection) * force;
+
+        Debug.Log($"Add {push} force to {target.name}");
+
+        target.GetComponent<Rigidbody>()?.AddForce(push);
+    }
 
 
     void EndExplosion() {

@@ -7,6 +7,7 @@ using System.Linq;
 
 public class RTSSelection : MonoBehaviour
 {   
+    [HideInInspector]
     public List<GameObject> currentSelection = new List<GameObject>();
 
     GameObject[] selectedUnits;

@@ -9,6 +9,7 @@ public class piou : Projectile
     public int ExpUnitDmg;
     public int ExpBuildingDmg;
     public float ExpDuration;
+    public int outwardForce;
 
 
     public override void OnProjectileCollision(GameObject target)
@@ -20,7 +21,7 @@ public class piou : Projectile
 
         target.GetComponent<HealthSystem>()?.LoosePv(ImpactDmg);
 
-        SpawnManager.SpawnExplosion(transform.position, ExplosionSize, ExpUnitDmg, ExpBuildingDmg, ExpDuration);
+        SpawnManager.SpawnExplosion(transform.position, ExplosionSize, ExpUnitDmg, ExpBuildingDmg, ExpDuration, outwardForce);
         SpawnManager.DestroyObject(gameObject);
         gameObject.SetActive(false);
     }

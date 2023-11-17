@@ -56,9 +56,10 @@ public class SpawnManager : NetworkBehaviour
             int size = 10,
             int unitDmg = 0,
             int buildingDmg = 0,
-            float duration = 0.25f)
+            float duration = 0.25f,
+            int outwardForce = 1)
     {
-        SM.SpawnExplosionServerRPC(position, size, unitDmg, buildingDmg, duration);
+        SM.SpawnExplosionServerRPC(position, size, unitDmg, buildingDmg, duration, outwardForce);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -68,6 +69,7 @@ public class SpawnManager : NetworkBehaviour
             int unitDmg,
             int buildingDmg,
             float duration,
+            int outwardForce,
             ServerRpcParams serverRpcParams = default)
     {
 
@@ -82,6 +84,7 @@ public class SpawnManager : NetworkBehaviour
         ExpStats.damageToUnit = unitDmg;
         ExpStats.damageToBuilding = buildingDmg;
         ExpStats.ExplosionDuration = duration;
+        ExpStats.outwardForce = outwardForce;
 
 		Explosion.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
 
