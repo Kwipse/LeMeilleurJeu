@@ -74,9 +74,11 @@ Pour faciliter la création d'objets, on peut ajouter des fonctionnalites a un p
 Ce script donne un systeme de vie a l'objet qui le possède. 
 Il suffit de placer ce component sur un objet.
 
-    //Faire perdre des points de vie a un objet
-    GameObject cible;
-    cible.GetComponent<HealthSystem>().LoosePv(int dmg)
+```csharp
+//Faire perdre des points de vie a un objet
+GameObject cible;
+cible.GetComponent<HealthSystem>().LoosePv(int dmg)
+```
 
 
 # HERITAGE
@@ -89,27 +91,30 @@ La classe héritante devra implementer les fonctions avec le mot clef "abstract"
 
 Classe abstraite :
 
-    public abstract class ClasseAbstraite
+```csharp
+public abstract class ClasseAbstraite
+{
+    void Start()
     {
-        void Start()
-        {
-            AbstractFonction();
-        }
-
-        public abstract void AbstractFonction;
+        AbstractFonction();
     }
+
+    public abstract void AbstractFonction;
+}
+```
 
 Classe héritante :
 
-    public class ClasseHeritante : ClasseAbstraite
+```csharp
+public class ClasseHeritante : ClasseAbstraite
+{
+    public override void AbstractFonction()
     {
-        public override void AbstractFonction()
-        {
-            //Contenu de la fonction
-        }
-
+        //Contenu de la fonction
     }
 
+}
+```
 
 ## Virtual
 
@@ -134,15 +139,16 @@ public void class ClasseMereAvecVirtual
 
 Classe héritante :
 
-    public class ClasseHeritante : ClasseAbstraite
+```csharp
+public class ClasseHeritante : ClasseAbstraite
+{
+    public override void VirtualFonction()
     {
-        public override void VirtualFonction()
-        {
-            //Contenu de la fonction
-        }
-
+        //Contenu de la fonction
     }
 
+}
+```
 
 ## Protected
 
@@ -156,26 +162,28 @@ Les méthodes de la classe mère avec le mot clef "protected" seront appelées q
 Donne les proprietes d'arme a un objet.
 La classe héritante devra implémenter l'action a realiser lors du tir, et optionellement du tir alternatif.
 
-    public abstract void OnShoot;
-    public virtual void OnShootAlt() {};
-    
-
+```csharp
+public abstract void OnShoot;
+public virtual void OnShootAlt() {};
+```
 
 ### RTSUnit :
 
 Donne les proprietes d'unité RTS a un objet.
 La classe héritante devra implémenter l'attaque de l'unité.
 
-    public abstract void AttackAction; 
-
+```csharp
+public abstract void AttackAction; 
+```
 
 ### Projectile :
 
 Donne les proprietes de projectile à un objet.
 La classe héritante devra implémenter le comportement lors d'une collision.
 
-    public abstract void OnProjectileCollision;
-
+```csharp
+public abstract void OnProjectileCollision;
+```
 
 ### RTSBuilding :
 Donne les proprietes de batiment à un objet.
@@ -190,35 +198,37 @@ Pour faciliter le code, il y a des objets préplacés dans la scène, qui possed
 
 Gere le spawn et despawn des objets :
 
-    //Syntaxe d'appel
-    SpawnManager.fonctionAUtiliser();
+```csharp
+//Syntaxe d'appel
+SpawnManager.fonctionAUtiliser();
 
-    //Crée un nouvel objet, qui appartient au client qui l'appelle
-    SpawnObject(GameObject Prefab, Vector3 SpawnLocation, Quaternion SpawnRotation);
-    SpawnObjectByName(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation);
-    
-    //Crée une explosion
-    public static void SpawnExplosion(Vector3 position, int size, int unitDmg, int buildingDmg, float duration, int outwardForce)
+//Crée un nouvel objet, qui appartient au client qui l'appelle
+SpawnObject(GameObject Prefab, Vector3 SpawnLocation, Quaternion SpawnRotation);
+SpawnObjectByName(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation);
 
-    //Crée un projectile
-    //initialForce donne une impulsion en avant au projectile
-    public static void SpawnProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation, int initialForce = 0)
+//Crée une explosion
+public static void SpawnExplosion(Vector3 position, int size, int unitDmg, int buildingDmg, float duration, int outwardForce);
 
-    //Détruit un objet
-    DestroyObject(GameObject go);
+//Crée un projectile
+//initialForce donne une impulsion en avant au projectile
+public static void SpawnProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation, int initialForce = 0);
 
-    //Détruit l'objet joueur, et en crée un nouveau
-    //PlayerPrefabName = "FPSPlayer" || "RTSPlayer"
-    SpawnPlayer(string PlayerPrefabName, Vector3 SpawnLocation);
+//Détruit un objet
+DestroyObject(GameObject go);
 
-    //Détruit l'objet joueur
-    DestroyPlayer();
+//Détruit l'objet joueur, et en crée un nouveau
+//PlayerPrefabName = "FPSPlayer" || "RTSPlayer"
+SpawnPlayer(string PlayerPrefabName, Vector3 SpawnLocation);
 
+//Détruit l'objet joueur
+DestroyPlayer();
+```
 
 ## TEAM MANAGER
 
-Gere les équipes :
+    Gere les équipes :
 
+    ```csharp
     //Syntaxe d'appel
     TeamManager.fonctionAUtiliser();
 
@@ -227,12 +237,14 @@ Gere les équipes :
 
     //Retourne l'équipe du joueur
     int team = GetTeam(ulong clientId);
+    ```
 
 
 ## COLOR MANAGER
 
-Gère les couleurs des objets en fonction du joueur et de son équipe :
+    Gère les couleurs des objets en fonction du joueur et de son équipe :
 
+    ```csharp
     //Syntaxe d'appel
     ColorManager.fonctionAUtiliser();
 
@@ -244,7 +256,7 @@ Gère les couleurs des objets en fonction du joueur et de son équipe :
 
     //Applique les couleurs de joueur et d'équipe à
     //un objet, en fonction des infos joueur/team
-    SetObjectColors(GameObject objectToColor)
-
+SetObjectColors(GameObject objectToColor)
+    ```
 
 
