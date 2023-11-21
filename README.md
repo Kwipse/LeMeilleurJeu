@@ -226,37 +226,37 @@ DestroyPlayer();
 
 ## TEAM MANAGER
 
-    Gere les équipes :
+Gere les équipes :
 
-    ```csharp
-    //Syntaxe d'appel
-    TeamManager.fonctionAUtiliser();
+```csharp
+//Syntaxe d'appel
+TeamManager.fonctionAUtiliser();
 
-    //Assigne un joueur à une équipe
-    SetTeam(ulong clientId, int teamId);
+//Assigne un joueur à une équipe
+SetTeam(ulong clientId, int teamId);
 
-    //Retourne l'équipe du joueur
-    int team = GetTeam(ulong clientId);
-    ```
+//Retourne l'équipe du joueur
+int team = GetTeam(ulong clientId);
+```
 
 
 ## COLOR MANAGER
 
-    Gère les couleurs des objets en fonction du joueur et de son équipe :
+Gère les couleurs des objets en fonction du joueur et de son équipe :
 
-    ```csharp
-    //Syntaxe d'appel
-    ColorManager.fonctionAUtiliser();
+```csharp
+//Syntaxe d'appel
+ColorManager.fonctionAUtiliser();
 
-    //Assigne un material a un joueur
-    SetPlayerMaterial(int playerId, int matId);
+//Assigne un material a un joueur
+SetPlayerMaterial(int playerId, int matId);
 
-    //Assigne un material a une équipe
-    SetTeamMaterial(int teamId, int matId);
+//Assigne un material a une équipe
+SetTeamMaterial(int teamId, int matId);
 
-    //Applique les couleurs de joueur et d'équipe à
-    //un objet, en fonction des infos joueur/team
+//Applique les couleurs de joueur et d'équipe à
+//un objet, en fonction des infos joueur/team
 SetObjectColors(GameObject objectToColor)
-    ```
+```
 
 
