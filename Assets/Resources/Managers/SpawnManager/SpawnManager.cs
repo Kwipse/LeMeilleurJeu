@@ -87,10 +87,33 @@ public class SpawnManager : NetworkBehaviour
         ExpStats.outwardForce = outwardForce;
 
 		Explosion.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
-
-        Debug.Log($"SpawnManager : Spawning explosion at {position}");
-
+        //Debug.Log($"SpawnManager : Spawning explosion at {position}");
     }
+    
+
+
+    //SPAWN PROJECTILE
+    public static void SpawnProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation, int initialForce = 0)
+    {
+        SM.SpawnProjectileServerRpc(projectilePrefab.name, position, rotation, initialForce);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void SpawnProjectileServerRpc(string projectileName, Vector3 position, Quaternion rotation, int initialForce, ServerRpcParams serverRpcParams = default)
+    {
+		var clientId = serverRpcParams.Receive.SenderClientId;
+
+        GameObject projectile = Instantiate(PrefabManager.GetPrefab(projectileName), position, rotation);
+
+        Projectile projectileStats = projectile.GetComponent<Projectile>();
+        projectileStats.initialForce = initialForce;
+
+        projectile.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+    }
+    
+
+
+
 
 
     //SPAWN UNIT
@@ -131,8 +154,7 @@ public class SpawnManager : NetworkBehaviour
         NetworkObject no = nor;
         GameObject go = nor;
 
-        Debug.Log($"SpawnManager : Received order to move {go.name} to rally point {rallyPosition}");
-
+        //Debug.Log($"SpawnManager : Received order to move {go.name} to rally point {rallyPosition}");
         if (no.IsOwner)
         {
             go.GetComponent<UnitSystem>()?.MoveUnitToPos(rallyPosition, false);
@@ -148,8 +170,7 @@ public class SpawnManager : NetworkBehaviour
     //DESTROY
 	public static void DestroyObject(GameObject go)
         {
-            //Debug.Log("I gave the order to destroy " + go.name);
-            SM.DestroyServerRPC(go);
+            if (go) SM.DestroyServerRPC(go);
         }
 
 	[ServerRpc(RequireOwnership = false)]

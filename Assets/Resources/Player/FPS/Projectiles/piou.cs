@@ -11,13 +11,14 @@ public class piou : Projectile
     public float ExpDuration;
     public int outwardForce;
 
-
     public override void OnProjectileCollision(GameObject target)
     {
         if ((target.tag == "Player" ) && (target.GetComponent<NetworkObject>().IsOwner))
             return;
+        if ((target.tag == "Projectile" ) && (target.GetComponent<NetworkObject>().IsOwner))
+            return;
 
-        Debug.Log($"Piou impact at {transform.position}");
+        //Debug.Log($"Piou impact at {transform.position}");
 
         target.GetComponent<HealthSystem>()?.LoosePv(ImpactDmg);
 

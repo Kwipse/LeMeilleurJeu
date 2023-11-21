@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2593416927
+  GlobalObjectIdHash: 2230506310
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -330,13 +330,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b941f8aec617244bab3382bc9d4f979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1000
+  initialForce: 0
   ImpactDmg: 10
   ExplosionSize: 10
   ExpUnitDmg: 0
   ExpBuildingDmg: 0
   ExpDuration: 0.25
-  outwardForce: 1000
+  outwardForce: 200
 --- !u!1 &4952539135333016345
 GameObject:
   m_ObjectHideFlags: 0

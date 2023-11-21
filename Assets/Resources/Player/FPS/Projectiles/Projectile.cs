@@ -12,7 +12,8 @@ namespace AbstractClasses
 
     public abstract class Projectile : NetworkBehaviour
     {
-        public int Speed = 1000;
+        [HideInInspector]
+        public int initialForce;
 
         Rigidbody rb;
 
@@ -21,13 +22,17 @@ namespace AbstractClasses
             rb = GetComponent<Rigidbody>();
         }
 
-
         public override void OnNetworkSpawn() 
         {
             ColorManager.SetObjectColors(gameObject);
 
             if (IsOwner)
-                rb.AddForce(gameObject.transform.forward * Speed);
+                rb.AddForce(gameObject.transform.forward * initialForce);
+        }
+
+        protected void Start()
+        {
+            gameObject.tag = "Projectile";
         }
 
 

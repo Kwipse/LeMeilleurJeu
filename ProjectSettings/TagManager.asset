@@ -11,6 +11,7 @@ TagManager:
   - Minerai
   - TeamColor
   - PlayerColor
+  - Projectile
   layers:
   - Default
   - TransparentFX

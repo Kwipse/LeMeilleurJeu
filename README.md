@@ -2,60 +2,63 @@
 Ben c'est le meilleur jeu quoi
 
 
-INTRO
+# INTRO
 
 Bienvenue dans le meilleur jeu.
 
-RACCOURCIS/FONCTTIONALITES
 
-General
+# RACCOURCIS/FONCTTIONALITES
+
+## General
 
 Tab : Echange le mode de jeu entre FPS et RTS
 
-FPS
+## FPS
 
 ZQSD : Mouvement FPS
 Espace : Saut
-Clic gauche : Tir de projectile
+Clic gauche : Tir
+Clic droit : Tir altenatif
 
-
-RTS
+## RTS
 
 Le RTS est en mode selection par defaut.
 
-General
+### General
+
 Echap : Retourne en mode selection
 B : Entre en mode construction de batiments
 C : Entre en mode création d'unité
 Maj : Permet d'enchainer les ordres de construction/creation d'unités
 
-Camera
+### Camera
+
 ZQSD : Translation de la camera
 Clic Molette : Pivot autour de la pos visée
 
-Selection
+### Selection
+
 Clic Gauche : Selection d'unités/batiments
 Clic Droit : Ordonne le déplacement des unités selectionnees
 Maj : Permet d'enchainer plusieurs ordres de déplacement aux unités
 
-Mode construction de batiments
+### Mode construction de batiments
+
 Molette haut/bas : Choisit le blueprint a construire
 Clic Gauche : Construction du batiment choisi
 
-Mode Création d'unités
+### Mode Création d'unités
+
 W : Spawn la 1er unité du batiment
 X : Spawn la 2nd unité du batiment
 
 
 
-
-
-
--SYSTEMES-
+# SYSTEMES
 
 Pour faciliter la création d'objets, on peut ajouter des fonctionnalites a un prefab
 
-HealthSystem :
+## HealthSystem 
 
 Ce script donne un systeme de vie a l'objet qui le possède. 
 Il suffit de placer ce component sur un objet.
@@ -65,8 +68,11 @@ Il suffit de placer ce component sur un objet.
     cible.GetComponent<HealthSystem>().LoosePv(int dmg)
 
 
--ABSTRACT CLASSES-
+# HERITAGE
 
+## Abstract 
+
+Toute classe avec une/des methodes abstract doit etre une classe abstraite.
 Une classe abstraite ne peut qu'être héritée.
 La classe héritante devra implementer les fonctions avec le mot clef "abstract".
 
@@ -84,8 +90,6 @@ Classe abstraite :
 
 Classe héritante :
 
-    using AbstractClasses;
-
     public class ClasseHeritante : ClasseAbstraite
     {
         public override void AbstractFonction()
@@ -96,9 +100,55 @@ Classe héritante :
     }
 
 
-Nos classes abstraites 
+## Virtual
 
-RTSUnit :
+Une methode avec le mot clef "virtual" aura un comportement par défaut décrit dans la classe mère, mais peut être redéfinie dans la classe héritante.
+
+Classe mère :
+
+    public void class ClasseMereAvecVirtual
+    {
+        void Start()
+        {
+            VirtualFonction();
+        }
+
+        public virtual void VirtualFonction()
+        {
+            //Comportement par défaut
+        }
+    }
+
+Classe héritante :
+
+    public class ClasseHeritante : ClasseAbstraite
+    {
+        public override void VirtualFonction()
+        {
+            //Contenu de la fonction
+        }
+
+    }
+
+
+## Protected
+
+Les méthodes de la classe mère avec le mot clef "protected" seront appelées quoi qu'il arrive, meme si la classe héritante implémente un comportement supplémentaire.
+
+
+## Nos classes
+
+### Arme :
+
+Donne les proprietes d'arme a un objet.
+La classe héritante devra implémenter l'action a realiser lors du tir, et optionellement du tir alternatif.
+
+    public abstract void OnShoot;
+    public virtual void OnShootAlt() {};
+    
+
+
+### RTSUnit :
 
 Donne les proprietes d'unité RTS a un objet.
 La classe héritante devra implémenter l'attaque de l'unité.
@@ -106,7 +156,7 @@ La classe héritante devra implémenter l'attaque de l'unité.
     public abstract void AttackAction; 
 
 
-Projectile :
+### Projectile :
 
 Donne les proprietes de projectile à un objet.
 La classe héritante devra implémenter le comportement lors d'une collision.
@@ -114,16 +164,16 @@ La classe héritante devra implémenter le comportement lors d'une collision.
     public abstract void OnProjectileCollision;
 
 
-RTSBuilding :
+### RTSBuilding :
 Donne les proprietes de batiment à un objet.
 
 
--MANAGERS-
+# MANAGERS
 
 Pour faciliter le code, il y a des objets préplacés dans la scène, qui possedent des fonctions accessibles dans tout le projet.
 
 
-SPAWN MANAGER
+## SPAWN MANAGER
 
 Gere le spawn et despawn des objets :
 
@@ -137,6 +187,10 @@ Gere le spawn et despawn des objets :
     //Crée une explosion
     public static void SpawnExplosion(Vector3 position, int size, int unitDmg, int buildingDmg, float duration, int outwardForce)
 
+    //Crée un projectile
+    //initialForce donne une impulsion en avant au projectile
+    public static void SpawnProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation, int initialForce = 0)
+
     //Détruit un objet
     DestroyObject(GameObject go);
 
@@ -148,7 +202,7 @@ Gere le spawn et despawn des objets :
     DestroyPlayer();
 
 
-TEAM MANAGER
+## TEAM MANAGER
 
 Gere les équipes :
 
@@ -162,7 +216,7 @@ Gere les équipes :
     int team = GetTeam(ulong clientId);
 
 
-COLOR MANAGER
+## COLOR MANAGER
 
 Gère les couleurs des objets en fonction du joueur et de son équipe :
 
@@ -180,7 +234,4 @@ Gère les couleurs des objets en fonction du joueur et de son équipe :
     SetObjectColors(GameObject objectToColor)
 
 
-SERVER MANAGER :
-
-Vu qu'on va mettre uniquement ce que le serveur doit faire en début de jeu, il n'y a pas de fonction accessible.
 

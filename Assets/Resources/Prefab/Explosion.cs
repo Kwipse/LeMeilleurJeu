@@ -41,7 +41,7 @@ public class Explosion : NetworkBehaviour
         if (tag == "Building") dmg = damageToBuilding;
 
         target.GetComponent<HealthSystem>()?.LoosePv(dmg);
-        Debug.Log($"Explosion dealt {dmg}pv to {target.name}");
+        //Debug.Log($"Explosion dealt {dmg}pv to {target.name}");
 
         if (outwardForce != 0)
             PushTarget(target, outwardForce, col.ClosestPoint(transform.position));
@@ -71,7 +71,7 @@ public class Explosion : NetworkBehaviour
         Vector3 pushDirection = targetCenter - expPosition;
         Vector3 push = Vector3.Normalize(pushDirection) * force;
 
-        Debug.Log($"Add {push} force to {target.name}");
+        //Debug.Log($"Add {push} force to {target.name}");
 
         target.GetComponent<Rigidbody>()?.AddForce(push);
     }
