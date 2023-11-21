@@ -117,18 +117,20 @@ Une methode avec le mot clef "virtual" aura un comportement par défaut décrit 
 
 Classe mère :
 
-    public void class ClasseMereAvecVirtual
+```csharp
+public void class ClasseMereAvecVirtual
+{
+    void Start()
     {
-        void Start()
-        {
-            VirtualFonction();
-        }
-
-        public virtual void VirtualFonction()
-        {
-            //Comportement par défaut
-        }
+        VirtualFonction();
     }
+
+    public virtual void VirtualFonction()
+    {
+        //Comportement par défaut
+    }
+}
+```
 
 Classe héritante :
 
