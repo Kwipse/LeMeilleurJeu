@@ -345,9 +345,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitesDisponibles:
-  - {fileID: 4036793368903305870, guid: 2394db2bb9b8aa242aca43f3d4f4d476, type: 3}
   - {fileID: 8300191337468608082, guid: 0b8c49d86ae951d4fb4b63dba16b5685, type: 3}
-  unitToSpawn: {fileID: 0}
+  - {fileID: 4036793368903305870, guid: 2394db2bb9b8aa242aca43f3d4f4d476, type: 3}
 --- !u!1 &6873509441481894645
 GameObject:
   m_ObjectHideFlags: 0

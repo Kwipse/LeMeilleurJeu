@@ -9,9 +9,11 @@ Bienvenue dans le meilleur jeu.
 
 # RACCOURCIS/FONCTTIONALITES
 
+
 ## General
 
 Tab : Echange le mode de jeu entre FPS et RTS
+
 
 ## FPS
 
@@ -23,9 +25,11 @@ Clic gauche : Tir
 
 Clic droit : Tir altenatif
 
+
 ## RTS
 
 Le RTS est en mode selection par defaut.
+
 
 ### General
 
@@ -37,11 +41,13 @@ C : Entre en mode création d'unité
 
 Maj : Permet d'enchainer les ordres de construction/creation d'unités
 
+
 ### Camera
 
 ZQSD : Translation de la camera
 
 Clic Molette : Pivot autour de la pos visée
+
 
 ### Selection
 
@@ -51,11 +57,13 @@ Clic Droit : Ordonne le déplacement des unités selectionnees
 
 Maj : Permet d'enchainer plusieurs ordres de déplacement aux unités
 
+
 ### Mode construction de batiments
 
 Molette haut/bas : Choisit le blueprint a construire
 
 Clic Gauche : Construction du batiment choisi
+
 
 ### Mode Création d'unités
 
@@ -69,6 +77,7 @@ X : Spawn la 2nd unité du batiment
 
 Pour faciliter la création d'objets, on peut ajouter des fonctionnalites a un prefab
 
+
 ## HealthSystem 
 
 Ce script donne un systeme de vie a l'objet qui le possède. 
@@ -81,7 +90,21 @@ cible.GetComponent<HealthSystem>().LoosePv(int dmg)
 ```
 
 
+## BlueprintSystem
+
+Ce script donne un systeme de blueprint à l'objet qui le possde.
+Il suffit de placer ce component sur un objet.
+Le blueprint existe quand l'objet est instancié, et disparait au moment du spawn.
+
+
+## UnitSpawnerSystem
+
+Ce script donne un systeme de création d'unité à l'objet qui le possède.
+
+
+
 # HERITAGE
+
 
 ## Abstract 
 
@@ -115,6 +138,7 @@ public class ClasseHeritante : ClasseAbstraite
 
 }
 ```
+
 
 ## Virtual
 
@@ -227,6 +251,7 @@ SpawnPlayer(string PlayerPrefabName, Vector3 SpawnLocation);
 DestroyPlayer();
 ```
 
+
 ## TEAM MANAGER
 
 Gere les équipes :
@@ -262,4 +287,92 @@ SetTeamMaterial(int teamId, int matId);
 SetObjectColors(GameObject objectToColor)
 ```
 
+
+# CREER UN NOUVEL OBJET
+
+Pour tous les scripts des nouveaux objets :
+
+```csharp
+    //Si vous voulez un Awake()
+    public override void Awake()
+    {
+        base.Awake();
+    }
+
+    //Si vous voulez un Start()
+    public override void Start()
+    {
+        base.Start();
+    }
+```
+
+## Arme
+
+Dans le dossier Prefabs/Armes, créer un prefab et un script pour votre arme.
+Assigner le script a votre arme, remplir les infos dans l'éditeur.
+
+```csharp
+using UnityEngine;
+using classes;
+
+public class NouvelleArme : Arme
+{	
+    //Obligatoire
+	public override void OnShoot()
+    {
+        //Executé lors du tir
+    }
+	
+    //Optionnel
+    public override void OnShootAlt()
+    {
+        //Executé lors du tir alternatif
+    }
+}
+```
+
+
+## Projectile
+
+Dans le dossier Prefabs/Projectiles, créer un prefab et un script pour votre projectile.
+Assigner le script a votre projectile.
+
+```csharp
+using UnityEngine;
+using classes;
+
+public class NouveauProjectile : Projectile 
+{	
+    //Obligatoire
+    public override void OnProjectileCollision(GameObject target)
+    {
+        //Executé lors du tir alternatif
+    }
+}
+```
+
+
+## Units
+
+Dans le dossier Prefabs/Sbires, créer un prefab et un script pour votre unité.
+Assigner le script a votre unité, remplir les infos dans l'éditeur.
+
+```csharp
+using UnityEngine;
+using classes;
+
+public class NouvelleUnite : RTSUnit
+{	
+    //Obligatoire
+    public override void AttackAction()
+    {
+        //Executé lorsque l'unité attaque
+    }
+}
+```
+
+## Batiments 
+
+Dans le dossier Prefabs/Batiments, créer un prefab et un script pour votre batiment.
+Assigner le script a votre batiment, remplir les infos dans l'éditeur.
 

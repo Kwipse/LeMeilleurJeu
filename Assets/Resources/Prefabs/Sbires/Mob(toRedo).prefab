@@ -264,9 +264,8 @@ GameObject:
   - component: {fileID: 2004135624901011609}
   - component: {fileID: 5064970821503379899}
   - component: {fileID: 3794279895244129712}
-  - component: {fileID: 5384723562104301289}
   m_Layer: 9
-  m_Name: Mob
+  m_Name: Mob(toRedo)
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428,25 +427,6 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &5384723562104301289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4036793368903305870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c9e6b60c16e2174d8d46b5f6b1de712, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackRange: 3
-  attackCooldown: 1
-  sightRange: 50
-  unitSpeed: 15
-  unitAngularSpeed: 1000
-  unitAcceleration: 1000
-  explosion: {fileID: 6326067666519825528, guid: c6516393c6baa0c47aa7c74b79116edf, type: 3}
 --- !u!1 &6392916359313252623
 GameObject:
   m_ObjectHideFlags: 0

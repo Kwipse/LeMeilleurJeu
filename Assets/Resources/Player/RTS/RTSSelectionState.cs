@@ -43,7 +43,6 @@ public class RTSSelectionState : StateMachineBehaviour
         Debug.Log("Ordering units to move");
         Vector3 pos = GetMouseGroundHitPosition();
         foreach (GameObject go in selector.currentSelection) {
-            go.GetComponent<UnitSystem>()?.MoveUnitToPos(pos, false); 
             go.GetComponent<RTSUnit>()?.MoveUnitToPos(pos, false); } }
 
 

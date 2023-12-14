@@ -17,7 +17,7 @@ namespace classes {
 
         Rigidbody rb;
 
-        protected void Awake()
+        public virtual void Awake()
         {
             rb = GetComponent<Rigidbody>();
         }
@@ -30,7 +30,7 @@ namespace classes {
                 rb.AddForce(gameObject.transform.forward * initialForce);
         }
 
-        protected void Start()
+        public virtual void Start()
         {
             gameObject.tag = "Projectile";
         }

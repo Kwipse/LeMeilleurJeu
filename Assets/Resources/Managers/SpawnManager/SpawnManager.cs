@@ -169,7 +169,6 @@ public class SpawnManager : NetworkBehaviour
         //Debug.Log($"SpawnManager : Received order to move {go.name} to rally point {rallyPosition}");
         if (no.IsOwner)
         {
-            go.GetComponent<UnitSystem>()?.MoveUnitToPos(rallyPosition, false);
             go.GetComponent<RTSUnit>()?.MoveUnitToPos(rallyPosition, false);
         }
     }
