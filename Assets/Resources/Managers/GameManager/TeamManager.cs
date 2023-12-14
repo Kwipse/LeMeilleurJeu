@@ -13,7 +13,7 @@ public class TeamManager : NetworkBehaviour
 	void Awake() 
 	{ 
         TM = this;
-        Debug.Log("TeamManager : J'existe !");
+        //Debug.Log("TeamManager : J'existe !");
 
         ClientTeam = new NetworkList<int>();
     }

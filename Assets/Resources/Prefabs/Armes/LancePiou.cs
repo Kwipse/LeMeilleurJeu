@@ -1,5 +1,5 @@
 using UnityEngine;
-using AbstractClasses;
+using classes;
 
 public class LancePiou : Arme
 {	
@@ -7,35 +7,35 @@ public class LancePiou : Arme
     public int projectileSpeed;
 
 	Camera cam;
-    Transform gunPoint;
-    Vector3 pos;
-    Quaternion rot;
-    Transform tr;
+    Transform gunpoint, tr;
 
-	void Start()
+    void Awake()
     {
-        tr = new GameObject().transform;
         cam =  GetComponentInChildren<Camera>();
-        gunPoint = cam.transform.Find("GunPoint");
+        gunpoint = transform.Find("Gunpoint");
+        tr = new GameObject().transform;
     }
-	
+
+    void OnDisable()
+    {
+        Destroy(tr.gameObject);
+    }
+
 	public override void OnShoot()
     {
-        tr.position = gunPoint.position;
-        tr.rotation = cam.transform.rotation;
-        SpawnManager.SpawnProjectile(projectile, tr.position, tr.rotation, projectileSpeed);
+        SpawnManager.SpawnProjectile(projectile, gunpoint.transform.position, gunpoint.transform.rotation, projectileSpeed);
     }
 	
     public override void OnShootAlt()
     {
         //Spawn Middle projectile
-        SpawnManager.SpawnProjectile(projectile, gunPoint.transform.position, cam.transform.rotation, projectileSpeed);
+        SpawnManager.SpawnProjectile(projectile, gunpoint.transform.position, gunpoint.transform.rotation, projectileSpeed);
 
         //Spawn Around projectiles
         for (int i = 0; i < 6; i++)
         {
-            tr.position = gunPoint.transform.position;
-            tr.rotation = cam.transform.rotation;
+            tr.position = gunpoint.transform.position;
+            tr.rotation = gunpoint.transform.rotation;
 
             tr.localEulerAngles += new Vector3(0, 0, 360/6 * i);
             tr.position += tr.TransformVector(new Vector3(1, 0, 0));

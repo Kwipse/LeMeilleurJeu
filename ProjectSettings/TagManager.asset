@@ -6,12 +6,12 @@ TagManager:
   tags:
   - Building
   - Unit
-  - Bullet
   - ground
   - Minerai
   - TeamColor
   - PlayerColor
   - Projectile
+  - Arme
   layers:
   - Default
   - TransparentFX

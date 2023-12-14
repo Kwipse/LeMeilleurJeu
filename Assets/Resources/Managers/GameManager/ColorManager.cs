@@ -36,7 +36,7 @@ public class ColorManager : NetworkBehaviour
 	void Awake() 
 	{ 
         CM = this;
-        Debug.Log("ColorManager : J'existe !");
+        //Debug.Log("ColorManager : J'existe !");
 
         Materials = new Material[10];
         InitializeMaterials();
@@ -92,6 +92,7 @@ public class ColorManager : NetworkBehaviour
         Debug.Log($"ColorManager : Player {playerId} material set to {matId}"); 
     }
 
+
     public static void SetTeamMaterial(int teamId, int matId) 
         { CM.SetTeamMaterialServerRPC(teamId, matId); }
     [ServerRpc(RequireOwnership = false)]
@@ -100,6 +101,7 @@ public class ColorManager : NetworkBehaviour
         TeamMaterial[teamId] = matId; 
         Debug.Log($"ColorManager : Team {teamId} material set to {matId}"); 
     }
+
 
     public static void SetObjectColors(GameObject objectToColor)
     {

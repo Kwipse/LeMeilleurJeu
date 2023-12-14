@@ -1,81 +1,83 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class HealthSystem : NetworkBehaviour
-{
-    GameObject go;
+namespace systems {
 
-	public NetworkVariable<int> pv = new NetworkVariable<int>(100);
-
-    public override void OnNetworkSpawn()
+    public class HealthSystem : NetworkBehaviour
     {
-        go = this.gameObject;
-        pv.OnValueChanged += OnPvChanged;
-    }
+        GameObject go;
 
-    public override void OnNetworkDespawn()
-    {
-        pv.OnValueChanged -= OnPvChanged;
-    }
+        public NetworkVariable<int> pv = new NetworkVariable<int>(100);
 
-
-    public void OnPvChanged(int previous, int current)
-    {
-        if (!IsOwner && !(pv.Value <= 0))
+        public override void OnNetworkSpawn()
         {
-            //Ce que le client qui a touche doit faire
-            Debug.Log("Le " + go.name + " n'a plus que " + pv.Value + "pv");
-            return;
+            go = this.gameObject;
+            pv.OnValueChanged += OnPvChanged;
         }
 
-        if (IsOwner && !(pv.Value <= 0))
+        public override void OnNetworkDespawn()
         {
-            //Ce que le client doit faire quand son objet est touche
-            Debug.Log("Votre " + go.name + " n'a plus que " + pv.Value + "pv");
-            return;
+            pv.OnValueChanged -= OnPvChanged;
         }
 
-        if (IsOwner && (pv.Value <= 0))
+
+        public void OnPvChanged(int previous, int current)
         {
-            //Ce que le client doit faire quand son objet est detruit
-            Debug.Log("Votre " + go.name + " a été détruit");
-            Die();
-            return;
+            if (!IsOwner && !(pv.Value <= 0))
+            {
+                //Ce que le client qui a touche doit faire
+                Debug.Log("Le " + go.name + " n'a plus que " + pv.Value + "pv");
+                return;
+            }
+
+            if (IsOwner && !(pv.Value <= 0))
+            {
+                //Ce que le client doit faire quand son objet est touche
+                Debug.Log("Votre " + go.name + " n'a plus que " + pv.Value + "pv");
+                return;
+            }
+
+            if (IsOwner && (pv.Value <= 0))
+            {
+                //Ce que le client doit faire quand son objet est detruit
+                Debug.Log("Votre " + go.name + " a été détruit");
+                Die();
+                return;
+            }
+
         }
 
-    }
 
-        
-    void Die()
-    {
-        switch (go.tag)
+        void Die()
         {
-            case  "Player":
-                SpawnManager.DestroyPlayer(go);
-                SpawnManager.SpawnPlayer("FPSPlayer", Vector3.zero);
-                break;
+            switch (go.tag)
+            {
+                case  "Player":
+                    SpawnManager.DestroyPlayer(go);
+                    SpawnManager.SpawnPlayer("FPSPlayer", Vector3.zero);
+                    break;
 
-            default:
-                SpawnManager.DestroyObject(go);
-                break;
+                default:
+                    SpawnManager.DestroyObject(go);
+                    break;
+            }
         }
-    }
-    
 
-    public void LoosePv(int dmg)
+
+        public void LoosePv(int dmg)
         { LoosePvServerRPC(dmg); }
-    [ServerRpc(RequireOwnership = false)]
-    void LoosePvServerRPC(int dmg, ServerRpcParams serverRpcParams = default)
-    {
-		var clientId = serverRpcParams.Receive.SenderClientId;
-        pv.Value -= dmg;
-
-        if (pv.Value <= 0)
+        [ServerRpc(RequireOwnership = false)]
+        void LoosePvServerRPC(int dmg, ServerRpcParams serverRpcParams = default)
         {
-            //Ce que le serveur doit faire en cas de mort
+            var clientId = serverRpcParams.Receive.SenderClientId;
+            pv.Value -= dmg;
+
+            if (pv.Value <= 0)
+            {
+                //Ce que le serveur doit faire en cas de mort
+            }
         }
+
     }
 
 }

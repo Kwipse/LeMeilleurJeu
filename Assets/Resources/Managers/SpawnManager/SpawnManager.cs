@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-using AbstractClasses;
-
+using classes;
+using systems;
 
 public class SpawnManager : NetworkBehaviour
 {
@@ -17,7 +15,7 @@ public class SpawnManager : NetworkBehaviour
     void Awake()
     { 
         SM = this; 
-        Debug.Log("SpawnManager : J'existe !");
+        //Debug.Log("SpawnManager : J'existe !");
     }
     
     public override void OnNetworkSpawn() 
@@ -113,6 +111,20 @@ public class SpawnManager : NetworkBehaviour
     
 
 
+    //SPAWN WEAPON
+    public static void SpawnWeapon(GameObject weaponPrefab, GameObject weaponHolder)
+    {
+        SM.SpawnWeaponServerRpc(weaponPrefab.name, weaponHolder);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void SpawnWeaponServerRpc(string weaponName, NetworkObjectReference weaponHolder, ServerRpcParams serverRpcParams = default)
+    {
+        GameObject holder = weaponHolder;
+        GameObject weapon = Instantiate(PrefabManager.GetPrefab(weaponName), Vector3.zero , Quaternion.identity);
+        weapon.GetComponent<Arme>().weaponHolder = holder; //Set weapon holder
+        weapon.GetComponent<NetworkObject>().SpawnWithOwnership(serverRpcParams.Receive.SenderClientId);
+    }
 
 
 
@@ -161,9 +173,6 @@ public class SpawnManager : NetworkBehaviour
             go.GetComponent<RTSUnit>()?.MoveUnitToPos(rallyPosition, false);
         }
     }
-
-
-
 
 
 

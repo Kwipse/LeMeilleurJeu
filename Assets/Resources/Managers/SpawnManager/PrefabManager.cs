@@ -14,16 +14,10 @@ public class PrefabManager : ScriptableObject
 	{
 		// attention a ne pas load deux fois
 		// appeler un dossier puis appeler un sous-dossier fait appeler deux fois
-		//LoadPrefabs("Player/FPS");
-		//LoadPrefabs("Player/RTS/ControllerAndCamera");
-		//LoadPrefabs("Player/RTS/Sbires");
-		//LoadPrefabs("Player/RTS/Batiments");
-        //LoadPrefabs("Player/RTS/MapProps");
         LoadPrefabs("Player"); 
-		LoadPrefabs("Prefab");
-		LoadPrefabs("AbstractClasses");
+		LoadPrefabs("Prefabs");
 
-        Debug.Log("PREFABS ARE LOADED");
+        //Debug.Log("PREFABS ARE LOADED");
 	}
 	
 
@@ -40,7 +34,7 @@ public class PrefabManager : ScriptableObject
 			}
 			else
 			{
-				Debug.Log("redundant key :"+o.name);
+				//Debug.Log("redundant key :"+o.name);
 			}
 		}
 	}

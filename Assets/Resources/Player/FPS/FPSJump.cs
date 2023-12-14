@@ -5,80 +5,40 @@ using Unity.Netcode;
 
 public class FPSJump : NetworkBehaviour
 {
-	
-	
-    //Declarations privees
+    public int nbJumpMax = 1;
+    public float jumpForce = 500f;
+
     Rigidbody RBody;
-    Vector3 velocity;
-	FPSAnim anim;
 	
     //Declarations jump basique
-    float jumpForce;
-    bool jumpKey;
-    
+    bool jumpKey = false;
+    int nbJump = 0;
 
-    //Declarations multijump
-    int nbJumpMax;
-    int nbJump;
-
-
-    
-    
-
-
-    // Start is called before the first frame update
-    public override void OnNetworkSpawn()
+    void Start()
     {
-			
-		RBody = GetComponent<Rigidbody>(); //Get Rigidbody
-		anim = GetComponent<FPSAnim>(); //Get Animation Script
-		
-		//Init Basic Jump
-		jumpForce = 5f;
-		jumpKey = false;
-
-
-		//Init MultiJump
-		nbJumpMax = 3;
-		nbJump = 0;
-		
+        RBody = GetComponent<Rigidbody>();
     }
-
 
     void Update()
     {
-	
-			//Intention de saut
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				jumpKey = true;
-			}
-		
+        if (Input.GetKeyDown(KeyCode.Space)) jumpKey = true;
     }
 
-    void FixedUpdate() // FixedUpdate pour la physique du rigidbody
+    void FixedUpdate()
     {
         if (jumpKey && (nbJumpMax > nbJump ))
         {
-            //Saut
-            velocity = RBody.velocity;
-            velocity.y = jumpForce;
-            RBody.velocity = velocity;
+            RBody.AddForce(new Vector3(0, jumpForce, 0));
             jumpKey = false;
-            anim.JumpEvent();
-
-            //Multisaut
             nbJump += 1;
         }
     }
 
-    void OnCollisionEnter()
-    {
-        //Reset le saut
-        nbJump = 0;
-        jumpKey = false;
-    }
 
+    void OnCollisionEnter(Collision col) {
+        if (col.gameObject.tag == "ground") {
+            nbJump = 0;
+            jumpKey = false; } }
 
 }
 

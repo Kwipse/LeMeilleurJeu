@@ -2,8 +2,8 @@ using UnityEngine;
 using Unity.Netcode;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 
-namespace AbstractClasses
-{
+namespace classes {
+
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(NetworkObject))]

@@ -9,7 +9,7 @@ public class RTSCamera : MonoBehaviour
     public bool isZoomActive = true;
 
     public float vitesseCamera = 2f;
-    public float vitesseZoom = 4f;
+    public float vitesseZoom = 8f;
 
     public Vector3 InitialCameraPosition;
     public Quaternion InitialCameraRotation; 
@@ -18,6 +18,7 @@ public class RTSCamera : MonoBehaviour
     Vector3 translation;
     Quaternion rotation;
 
+    GameObject go;
     Transform camTarget;
     Vector3 previousMousePos; 
     Vector3 pivot;
@@ -43,6 +44,7 @@ public class RTSCamera : MonoBehaviour
 
     void OnDisable()
     {
+        Destroy(camTarget.gameObject);
         Cursor.lockState = CursorLockMode.None; //Debloque la souris
     }
 

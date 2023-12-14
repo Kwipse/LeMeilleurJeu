@@ -119,6 +119,7 @@ public class ClasseHeritante : ClasseAbstraite
 ## Virtual
 
 Une methode avec le mot clef "virtual" aura un comportement par défaut décrit dans la classe mère, mais peut être redéfinie dans la classe héritante.
+Dans la classe héritante, on peut aussi appeler la methode virtuelle de la classe mere pour avoir les deux comportements.
 
 Classe mère :
 
@@ -144,15 +145,14 @@ public class ClasseHeritante : ClasseAbstraite
 {
     public override void VirtualFonction()
     {
+        //Ajouter cette ligne si vous voulez quand meme executer la methode de la classe mere
+        base.VirtualFonction();
+
         //Contenu de la fonction
     }
 
 }
 ```
-
-## Protected
-
-Les méthodes de la classe mère avec le mot clef "protected" seront appelées quoi qu'il arrive, meme si la classe héritante implémente un comportement supplémentaire.
 
 
 ## Nos classes
@@ -207,11 +207,14 @@ SpawnObject(GameObject Prefab, Vector3 SpawnLocation, Quaternion SpawnRotation);
 SpawnObjectByName(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation);
 
 //Crée une explosion
-public static void SpawnExplosion(Vector3 position, int size, int unitDmg, int buildingDmg, float duration, int outwardForce);
+SpawnExplosion(Vector3 position, int size, int unitDmg, int buildingDmg, float duration, int outwardForce);
 
 //Crée un projectile
 //initialForce donne une impulsion en avant au projectile
-public static void SpawnProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation, int initialForce = 0);
+SpawnProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation, int initialForce = 0);
+
+//Crée et assigne une arme a un objet
+SpawnWeapon(GameObject weaponPrefab, GameObject weaponHolder)
 
 //Détruit un objet
 DestroyObject(GameObject go);
