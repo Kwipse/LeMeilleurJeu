@@ -16,7 +16,7 @@ namespace classes {
     [RequireComponent(typeof(ClientNetworkTransform))]
     [RequireComponent(typeof(HealthSystem))]
 
-    public abstract class Unit : NetworkBehaviour, IWeaponizeable
+    public abstract class Unit : NetworkBehaviour
     {
         public float sightRange = 50.0f;
         public bool hasProjectileAttack = false;
