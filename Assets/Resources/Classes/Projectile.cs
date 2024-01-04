@@ -8,7 +8,6 @@ namespace classes {
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(NetworkObject))]
     [RequireComponent(typeof(ClientNetworkTransform))]
-    //[RequireComponent(typeof(NetworkRigidbody))]
 
     public abstract class Projectile : NetworkBehaviour
     {

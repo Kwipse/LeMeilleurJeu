@@ -2,7 +2,7 @@ using UnityEngine;
 using classes;
 using systems;
 
-public class SuicideBomber : RTSUnit
+public class SuicideBomber : Unit
 {
     HealthSystem health;
 

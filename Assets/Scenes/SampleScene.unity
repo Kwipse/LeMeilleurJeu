@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 587235818}
   - component: {fileID: 587235826}
   m_Layer: 8
-  m_Name: Plane
+  m_Name: Sol
   m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

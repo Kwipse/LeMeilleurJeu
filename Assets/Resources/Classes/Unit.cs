@@ -5,21 +5,23 @@ using UnityEngine.AI;
 using Unity.Netcode;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using systems;
+using interfaces;
 
 namespace classes {
 
+    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(NetworkObject))]
     [RequireComponent(typeof(ClientNetworkTransform))]
-    [RequireComponent(typeof(NavMeshAgent))]
-    [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(HealthSystem))]
-    [RequireComponent(typeof(Collider))]
 
-    public abstract class RTSUnit : NetworkBehaviour
+    public abstract class Unit : NetworkBehaviour, IWeaponizeable
     {
+        public float sightRange = 50.0f;
+        public bool hasProjectileAttack = false;
         public float attackRange = 2.0f;
         public float attackCooldown = 1.0f;
-        public float sightRange = 50.0f;
         public float unitSpeed = 15.0f;
         public float unitAngularSpeed = 1000.0f;
         public float unitAcceleration = 1000.0f;
@@ -50,12 +52,10 @@ namespace classes {
 
         public virtual void Start()
         {
-
             //moveWaypoints.Add(gameObject.transform.position);
             agent.speed = unitSpeed;
             agent.angularSpeed = unitAngularSpeed;
             agent.acceleration = unitAcceleration;
-
         }
 
         public virtual void Update()
@@ -165,9 +165,6 @@ namespace classes {
                 closestEnnemi = col.gameObject;
                 closestEnnemiDistance = nearbyObjectDistance; 
             }
-
-            //if (closestEnnemi)
-            //    Debug.Log($"Agent {this.name} closest ennemy is {closestEnnemi.name}");
 
             return closestEnnemi;
         }

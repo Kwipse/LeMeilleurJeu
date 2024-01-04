@@ -6,20 +6,14 @@ public class LancePiou : Arme
     public GameObject projectile;
     public int projectileSpeed;
 
-	Camera cam;
     Transform gunpoint, tr;
 
-    void Awake()
+    public override void Awake()
     {
-        cam =  GetComponentInChildren<Camera>();
         gunpoint = transform.Find("Gunpoint");
         tr = new GameObject().transform;
     }
 
-    void OnDisable()
-    {
-        Destroy(tr.gameObject);
-    }
 
 	public override void OnShoot()
     {
@@ -46,4 +40,9 @@ public class LancePiou : Arme
 
     }
 
+
+    void OnDisable()
+    {
+        Destroy(tr.gameObject);
+    }
 }

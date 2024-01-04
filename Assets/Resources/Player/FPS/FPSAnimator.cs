@@ -39,12 +39,12 @@ public class FPSAnimator : NetworkBehaviour
             if (c.gameObject.name == "MainDroiteIK") {
                 rightHandConstraint = c;
                 playerRightHand = c.gameObject.transform.Find("MainDroiteIK_target");
-                Debug.Log($"Player right hand : {playerRightHand.position}");
+                //Debug.Log($"Player right hand : {playerRightHand.position}");
             }
             if (c.gameObject.name == "MainGaucheIK") {
                 leftHandConstraint = c;
                 playerLeftHand = c.gameObject.transform.Find("MainGaucheIK_target"); 
-                Debug.Log($"Player left hand : {playerLeftHand.position}");
+                //Debug.Log($"Player left hand : {playerLeftHand.position}");
             }
         }
     }
@@ -93,7 +93,7 @@ public class FPSAnimator : NetworkBehaviour
         weaponLeftHandle = currentWeapon.transform.Find("LeftHandle");
         weaponRightHandle = currentWeapon.transform.Find("RightHandle");
 
-        Debug.Log($"{currentWeapon.name} is being animated");
+        //Debug.Log($"{currentWeapon.name} is being animated");
         Anim.SetBool("IsWeaponized", true);
     }
 

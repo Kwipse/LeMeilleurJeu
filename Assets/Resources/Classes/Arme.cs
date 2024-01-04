@@ -1,9 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using interfaces;
 
 namespace classes {
 
+    [RequireComponent(typeof(NetworkObject))]
+    [RequireComponent(typeof(ClientNetworkTransform))]
+    
     public abstract class Arme : NetworkBehaviour
     {
         [HideInInspector]
@@ -19,11 +24,22 @@ namespace classes {
         public int TailleChargeur;
 
         GameObject weapon;
-        Transform weaponGunpoint, weaponHolderGunpoint;
-        Animator anim;
-
+        Transform weaponGunpoint;
         float lastShoot;
         int chargeur;
+
+        //Pour placer l'arme
+        List<Transform> weaponStands;
+        Transform FPSShoulderStand, FPSSideStand, FPSFrontStand;
+        Transform UnitStand;
+
+        Transform targetStand;
+        Animator anim;
+
+        public virtual void Awake()
+        {
+
+        }
 
         public override void OnNetworkSpawn()
         {
@@ -31,43 +47,104 @@ namespace classes {
                 enabled = false;
         }
 
+
         public virtual void Start()
         {
-            weapon = gameObject;
             anim = weaponHolder.GetComponent<Animator>();
 
+            InitWeapon();
+            SetWeaponToHolder();
+        }
+
+
+        void InitWeapon()
+        {
+            weapon = gameObject;
             chargeur = TailleChargeur;
             lastShoot = Time.time;
 
-            SetupWeapon();
+            GetWeaponStands();
         }
 
-        void SetupWeapon()
+
+        void GetWeaponStands()
         {
-            //Debug.Log($"{weaponHolder.name} equips {weapon.name}");
+            weaponStands = new List<Transform>();
 
-            weaponHolderGunpoint = getGunpoint(weaponHolder);
+            foreach (Transform t in transform.GetComponentsInChildren<Transform>()) {
+                if (t.gameObject.name.Contains("Stand"))
+                    weaponStands.Add(t); }
 
-            weapon.transform.parent = weaponHolderGunpoint;
-            weapon.transform.position = weaponHolderGunpoint.position;
-            weapon.transform.rotation = weaponHolderGunpoint.rotation;
+            if (weaponStands.Count == 0)
+                Debug.Log("Weapon has no stand");
+        }
+
+
+        void SetWeaponToHolder()
+        {
+            if (weaponHolder.tag == "Player") {
+                SetupForFpsPlayer(); }
+
+            //if (weaponHolder.tag == "Unit") {
+            //    SetupForUnit(); }
 
             weaponHolder.GetComponent<IWeaponizeable>().EquipWeapon(weapon);
             anim.SetBool("IsWeaponized", true);
         }
 
 
-        Transform getGunpoint(GameObject go) {
-            foreach (Transform t in go.transform.GetComponentsInChildren<Transform>()) 
-                if (t.gameObject.name == "Gunpoint") 
-                    return t.gameObject.transform;
-            return null; }
-
-
-        void Update()
+        void SetupForFpsPlayer()
         {
+            //Get FPS stands
+            foreach (Transform t in weaponHolder.GetComponentsInChildren<Transform>()) {
+                switch (t.gameObject.name) {
+                    case "ShoulderStand": 
+                        FPSShoulderStand = t;
+                        break;
+                    case "SideStand": 
+                        FPSSideStand = t;
+                        break;
+                    case "FrontStand": 
+                        FPSFrontStand = t;
+                        break;
+                }
+            }
+        
+            //Find which FPS stand we use for the weapon
+            foreach (Transform t in weaponStands) {
+                switch (t.gameObject.name) {
+                    case "ShoulderStand":
+                        targetStand = FPSShoulderStand;
+                        break;
+                    case "SideStand": 
+                        targetStand = FPSSideStand;
+                        break;
+                    case "FrontStand": 
+                        targetStand = FPSFrontStand;
+                        break;
+                }
+            }
 
+            //Parent weapon to stand
+            weapon.transform.parent = targetStand;
+            weapon.transform.position = targetStand.position;
+            weapon.transform.rotation = targetStand.rotation;
         }
+
+
+        void SetupForUnit()
+        {
+            //Get Unit stand
+            foreach (Transform t in weaponHolder.GetComponentsInChildren<Transform>()) {
+                    if(t.name == "WeaponStand")
+                       UnitStand = t; }
+            
+            //Parent weapon to stand
+            weapon.transform.parent = UnitStand;
+            weapon.transform.position = UnitStand.position;
+            weapon.transform.rotation = UnitStand.rotation;
+        }
+
 
         public void Shoot(bool AltShoot)
         {
@@ -78,8 +155,7 @@ namespace classes {
             {
                 ammo = ShootAmmo;
                 cadence = CadenceDeTir;
-            } else
-            {
+            } else {
                 ammo = ShootAltAmmo;
                 cadence = CadenceDeTirAlt;
             }
@@ -87,6 +163,8 @@ namespace classes {
             //Shoot conditions
             if (chargeur < ammo) return;
             if ((Time.time - lastShoot) < cadence) return;
+
+            CancelInvoke("Reload");
 
             chargeur -= ammo;
             lastShoot = Time.time;

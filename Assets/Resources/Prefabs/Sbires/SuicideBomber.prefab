@@ -264,7 +264,6 @@ GameObject:
   - component: {fileID: 4992018680514510200}
   - component: {fileID: -551656251665898069}
   - component: {fileID: -3633317159874165211}
-  - component: {fileID: 765289212010030938}
   - component: {fileID: 5708424267219204962}
   m_Layer: 0
   m_Name: SuicideBomber
@@ -427,18 +426,6 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &765289212010030938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8300191337468608082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5708424267219204962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,10 +438,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba7f5a1cbd3052942ace20f9fe0db5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sightRange: 50
+  hasProjectileAttack: 0
   attackRange: 2
   attackCooldown: 1
-  sightRange: 50
   unitSpeed: 15
   unitAngularSpeed: 1000
   unitAcceleration: 1000
-  explosion: {fileID: 6326067666519825528, guid: c6516393c6baa0c47aa7c74b79116edf, type: 3}

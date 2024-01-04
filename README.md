@@ -1,4 +1,5 @@
 ﻿# LeMeilleurJeu
+
 Ben c'est le meilleur jeu quoi
 
 
@@ -7,7 +8,7 @@ Ben c'est le meilleur jeu quoi
 Bienvenue dans le meilleur jeu.
 
 
-# RACCOURCIS/FONCTTIONALITES
+# RACCOURCIS/FONCTIONALITES
 
 
 ## General
@@ -30,47 +31,58 @@ Clic droit : Tir altenatif
 
 Le RTS est en mode selection par defaut.
 
-
 ### General
 
-Echap : Retourne en mode selection
-
-B : Entre en mode construction de batiments
-
-C : Entre en mode création d'unité
-
-Maj : Permet d'enchainer les ordres de construction/creation d'unités
+- Echap : Retourne en mode selection
+- B : Entre en mode construction de batiments
+- C : Entre en mode création d'unité
+- Maj : Permet d'enchainer les ordres de construction/creation d'unités
 
 
 ### Camera
 
-ZQSD : Translation de la camera
-
-Clic Molette : Pivot autour de la pos visée
-
+- ZQSD : Translation de la camera
+- Clic Molette : Pivot autour de la pos visée
 
 ### Selection
 
-Clic Gauche : Selection d'unités/batiments
-
-Clic Droit : Ordonne le déplacement des unités selectionnees
-
-Maj : Permet d'enchainer plusieurs ordres de déplacement aux unités
-
+- Clic Gauche : Selection d'unités/batiments
+- Clic Droit : Ordonne le déplacement des unités selectionnees
+- Maj : Permet d'enchainer plusieurs ordres de déplacement aux unités
 
 ### Mode construction de batiments
 
-Molette haut/bas : Choisit le blueprint a construire
-
-Clic Gauche : Construction du batiment choisi
-
+- Molette haut/bas : Choisit le blueprint a construire
+- Clic Gauche : Construction du batiment choisi
 
 ### Mode Création d'unités
 
-W : Spawn la 1er unité du batiment
+- W : Spawn la 1er unité du batiment
+- X : Spawn la 2nd unité du batiment
 
-X : Spawn la 2nd unité du batiment
+# TAGS
 
+Unity donne a chaque GameObject un tag, qu'on peut initialiser dans l'éditeur.
+Plein de fonctionnalités ne marcherons pas si les tags ne sont pas corrects.
+
+```csharp
+GameObject go;
+string tag = go.tag;
+```
+
+## Moteur de jeu
+
+- ground : Tag réservé au sol, principalement utilisé pour les constructions RTS
+- Player : Pour les objets joueurs (FPS/RTS). 
+- Unit : Pour les unités qui ne sont pas des joueurs (unités RTS, ...)
+- Arme : Pour les armes
+- Projectile : Pour les projectiles
+- Building : Pour les batiments
+
+## Couleurs
+
+- TeamColor : Les objets avec ce tag seront colorés avec la couleur de l'équipe
+- PlayerColor : Les objets avec ce tag seront colorés avec la couleur de l'équipe
 
 
 # SYSTEMES
@@ -100,6 +112,7 @@ Le blueprint existe quand l'objet est instancié, et disparait au moment du spaw
 ## UnitSpawnerSystem
 
 Ce script donne un systeme de création d'unité à l'objet qui le possède.
+Dans l'editeur, vous pouvez ajouter des unités à la liste pour que le batiment puisse les produire.
 
 
 
@@ -181,7 +194,7 @@ public class ClasseHeritante : ClasseAbstraite
 
 ## Nos classes
 
-### Arme :
+### Arme : 
 
 Donne les proprietes d'arme a un objet.
 La classe héritante devra implémenter l'action a realiser lors du tir, et optionellement du tir alternatif.
@@ -191,9 +204,9 @@ public abstract void OnShoot;
 public virtual void OnShootAlt() {};
 ```
 
-### RTSUnit :
+### Unit :
 
-Donne les proprietes d'unité RTS a un objet.
+Donne les proprietes d'unité a un objet.
 La classe héritante devra implémenter l'attaque de l'unité.
 
 ```csharp
@@ -290,25 +303,42 @@ SetObjectColors(GameObject objectToColor)
 
 # CREER UN NOUVEL OBJET
 
-Pour tous les scripts des nouveaux objets :
+
+## Général 
+
+
+### Scripts Awake() & Start()
 
 ```csharp
-    //Si vous voulez un Awake()
-    public override void Awake()
-    {
-        base.Awake();
-    }
+//Si vous voulez un Awake()
+public override void Awake()
+{
+    base.Awake();
+}
 
-    //Si vous voulez un Start()
-    public override void Start()
-    {
-        base.Start();
-    }
+//Si vous voulez un Start()
+public override void Start()
+{
+    base.Start();
+}
 ```
+
+
+### Renderers
+
+Les components "Renderer" seront placés dans les objets-enfants :
+Les Objets-Enfants avec un renderer seront colorés si ils ont le tag "PlayerColor" ou "TeamColor".
+
+- NouvelObjet : 
+    - Objet-Enfant 1 : 'renderer' + tag "PlayerColor" -> Colore l'objet avec la couleur du joueur. 
+    - Objet-Enfant 2 : 'renderer' + tag "PlayerColor" -> Colore l'objet avec la couleur de l'équipe du joueur.  
+    - Objet-Enfant 3 : 'renderer' -> Colore l'objet avec la couleur assignée dans le renderer.
+
 
 ## Arme
 
 Dans le dossier Prefabs/Armes, créer un prefab et un script pour votre arme.
+Configurer le tag en "Arme".
 Assigner le script a votre arme, remplir les infos dans l'éditeur.
 
 ```csharp
@@ -318,11 +348,11 @@ using classes;
 public class NouvelleArme : Arme
 {	
     //Obligatoire
-	public override void OnShoot()
+    public override void OnShoot()
     {
         //Executé lors du tir
     }
-	
+
     //Optionnel
     public override void OnShootAlt()
     {
@@ -335,6 +365,7 @@ public class NouvelleArme : Arme
 ## Projectile
 
 Dans le dossier Prefabs/Projectiles, créer un prefab et un script pour votre projectile.
+Configurer le tag en "Projectile".
 Assigner le script a votre projectile.
 
 ```csharp
@@ -355,13 +386,14 @@ public class NouveauProjectile : Projectile
 ## Units
 
 Dans le dossier Prefabs/Sbires, créer un prefab et un script pour votre unité.
+Configurer le tag en "Unit".
 Assigner le script a votre unité, remplir les infos dans l'éditeur.
 
 ```csharp
 using UnityEngine;
 using classes;
 
-public class NouvelleUnite : RTSUnit
+public class NouvelleUnite : Unit
 {	
     //Obligatoire
     public override void AttackAction()
@@ -374,5 +406,6 @@ public class NouvelleUnite : RTSUnit
 ## Batiments 
 
 Dans le dossier Prefabs/Batiments, créer un prefab et un script pour votre batiment.
+Configurer le tag en "Building".
 Assigner le script a votre batiment, remplir les infos dans l'éditeur.
 

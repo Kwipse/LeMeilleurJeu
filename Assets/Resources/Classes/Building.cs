@@ -11,13 +11,12 @@ namespace classes {
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(BlueprintSystem))]
 
-    public class RTSBuilding : NetworkBehaviour
+    public class Building : NetworkBehaviour
     {
         Rigidbody rb;
         Collider col;
-        BlueprintSystem bp;
 
-        void Awake() 
+        public virtual void Awake() 
         {
             rb = gameObject.GetComponent<Rigidbody>();
             col = gameObject.GetComponent<Collider>();

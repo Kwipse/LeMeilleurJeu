@@ -18,7 +18,8 @@ public class FPSCamera : MonoBehaviour
     void Start()
     {
         cam = GetComponentInChildren<Camera>();
-        cam.transform.parent = transform; //Parent player to camera
+        //cam.transform.parent = transform; //Parent player to camera
+        cam.transform.SetParent(transform); //Parent player to camera
         cam.transform.position = InitialCameraPosition;
 
         Cursor.lockState = CursorLockMode.Locked; //Bloque la souris au centre
