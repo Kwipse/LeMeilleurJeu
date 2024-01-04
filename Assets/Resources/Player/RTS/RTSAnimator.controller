@@ -321,10 +321,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ce9ef343aa356041b6e5dc668ca9e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Batiments:
-  - {fileID: 6117278076527145797, guid: ea8d60ec94f3f1249ab46e6c55cd7410, type: 3}
-  - {fileID: 6117278076527145797, guid: 1e9d9c88f09273e44ab408e0930417b2, type: 3}
-  - {fileID: 6179331823867752489, guid: 4726ffb5b4a2eb240869b63678a5ad15, type: 3}
   isBlueprintAllowed: 0
 --- !u!1107 &6187945465455356626
 AnimatorStateMachine:

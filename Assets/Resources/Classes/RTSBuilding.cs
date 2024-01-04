@@ -16,6 +16,7 @@ namespace classes {
         Rigidbody rb;
         Collider col;
         BlueprintSystem bp;
+  
 
         void Awake() 
         {

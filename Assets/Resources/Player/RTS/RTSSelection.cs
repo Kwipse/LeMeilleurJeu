@@ -8,10 +8,10 @@ using System.Linq;
 public class RTSSelection : MonoBehaviour
 {   
     [HideInInspector]
-    public List<GameObject> currentSelection = new List<GameObject>();
-
-    GameObject[] selectedUnits;
-    GameObject[] selectedBuildings;
+    public List<GameObject> currentSelection, mainSubSelection = new List<GameObject>();
+    public int subSelectionCount;
+    List<GameObject>[] controlGroup = new List<GameObject>[9]; 
+    //public GameObject uIPanel;
 
     Vector3 selectionStartPosition;
     Vector3 selectionEndPosition;
@@ -54,7 +54,10 @@ public class RTSSelection : MonoBehaviour
         Bounds boundSelection = GetBoxBoundsFromTwoPoints(selectionStartPosition, selectionEndPosition);
         List<GameObject> objectsInBound = GetObjectsInBounds(boundSelection);
         List<GameObject> newSelection = GetOwnedObjectsInSelection(objectsInBound); //Remove ennemies & nonSelectables
-        AddToCurrentSelection(newSelection); }
+        AddToCurrentSelection(newSelection);
+        RTSUnitPanelScript uiPanel = transform.GetComponentInChildren<RTSUnitPanelScript>(); 
+        uiPanel.UpdateIconCount();}
+        //a refactoriser je pense que cest pas tres propre d'appeler la
 
 
     Bounds GetBoxBoundsFromTwoPoints(Vector3 p1, Vector3 p2) {
@@ -100,8 +103,29 @@ public class RTSSelection : MonoBehaviour
 
 
     void AddToCurrentSelection(List<GameObject> selection) {
-        if (!isAddingToSelection) currentSelection.Clear();
-        currentSelection.AddRange(selection.Except(currentSelection)); 
+        //si shift n'est pas appuyé on nettoie les list
+        if (!isAddingToSelection) 
+        {
+            currentSelection.Clear();
+            mainSubSelection.Clear();
+        }
+        //on ajoute la selection a la liste sauf les unités déja compté
+        currentSelection.AddRange(selection.Except(currentSelection));
+        // on trie la selection
+        currentSelection = SortListByName(currentSelection);
+        /*
+        on adapte la sub selection
+        avec shift on ajoute les unités du meme type 
+        sans shift on prend le premier type d'unité
+        */ 
+         if (!isAddingToSelection) 
+        {
+           UpdateSubSelection();
+        }
+        else
+        {
+            UpdateSubSelection(currentSelection[0].name);
+        }
         Debug.Log($"Current selection has {currentSelection.Count} objects"); }
 
 
@@ -109,5 +133,41 @@ public class RTSSelection : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out RaycastHit hit, 3000.0f, (1<<8));
         return hit.point; }
+
+    public int CurrentSelectionLenght()
+    {
+        return currentSelection.Count;
+    }
+    public List<GameObject> MainSubSelection()
+    {
+        return mainSubSelection;
+    }
+
+    List<GameObject> SortListByName(List<GameObject> gameObjectList)
+    {
+        //List<GameObject> sortedList = gameObjectList.OrderBy(go=>go.name).ToList();   
+        return gameObjectList.OrderBy(go=>go.name).ToList();   
+    }
+
+    void UpdateSubSelection(string name = null)
+    {
+        if(name != null)
+        {
+            //on recupere les gameobject de meme nom 
+            // jai tout piqué
+            mainSubSelection = currentSelection
+    .Where(go => go.name.Contains(name))
+    .ToList();
+
+        }
+        else
+        {
+            // on prend le nom du premier objet
+            mainSubSelection = currentSelection
+    .Where(go => go.name.Contains(currentSelection[0].name))
+    .ToList();
+        }
+    }
+
 
 }

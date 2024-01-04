@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826ed2ea602acec488087015cab8f888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponHolder: {fileID: 0}
   CadenceDeTir: 0.5
   ShootAmmo: 1
   CadenceDeTirAlt: 1

@@ -9,6 +9,7 @@ public class RTSCamera : MonoBehaviour
     public bool isZoomActive = true;
 
     public float vitesseCamera = 2f;
+    public float scrollBorderSize = 10f;
     public float vitesseZoom = 8f;
 
     public Vector3 InitialCameraPosition;
@@ -21,6 +22,8 @@ public class RTSCamera : MonoBehaviour
     GameObject go;
     Transform camTarget;
     Vector3 previousMousePos; 
+    float screenWidth = Screen.width;
+    float screenHeight = Screen.height;
     Vector3 pivot;
 
     float timer;
@@ -89,12 +92,43 @@ public class RTSCamera : MonoBehaviour
 
     void MouseInputs()
     {
+        //déplacement sur les bords a fignoler 
+        /*
+        Vector3 currentTranslation = translation;
+        Vector3 mousePosition = Input.mousePosition;
+        if(!Input.GetMouseButtonDown(2) && !Input.GetMouseButton(2))
+        {
+            // on empeche le deplacement quand on joue avec l'angle
+            if (mousePosition.x < scrollBorderSize)
+            {
+                // Move the camera to the left
+                transform.Translate(Vector3.left * vitesseCamera * Time.deltaTime);
+            }
+            else if (mousePosition.x > screenWidth - scrollBorderSize)
+            {
+                // Move the camera to the right
+                transform.Translate(Vector3.right * vitesseCamera * Time.deltaTime);
+            }
+
+            if (mousePosition.y < scrollBorderSize)
+            {
+                // Move the camera down
+                transform.Translate(Vector3.back * vitesseCamera * Time.deltaTime);
+            }
+            else if (mousePosition.y > screenHeight - scrollBorderSize)
+            {
+                // Move the camera up
+                transform.Translate(Vector3.forward * vitesseCamera * Time.deltaTime);
+            }
+        }
+        */
         if (Input.mouseScrollDelta.y != 0) //Scroll
         {
             if (isZoomActive)
                 translation += cam.transform.forward * Input.mouseScrollDelta.y * vitesseZoom;
         }
 
+        //pivot
         if (Input.GetMouseButtonDown(2)) //On clic molette down
         {
             Vector3 offset;
