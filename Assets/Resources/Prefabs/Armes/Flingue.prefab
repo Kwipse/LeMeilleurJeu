@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4553114194319485280}
   m_Layer: 0
   m_Name: FrontStand
-  m_TagString: Untagged
+  m_TagString: WeaponStand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,8 +234,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2492832600020039549}
   m_Layer: 0
-  m_Name: RightHandle
-  m_TagString: Untagged
+  m_Name: MainDroiteHandle
+  m_TagString: WeaponHandle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,8 +265,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5427270173775913830}
   m_Layer: 0
-  m_Name: LeftHandle
-  m_TagString: Untagged
+  m_Name: MainGaucheHandle
+  m_TagString: WeaponHandle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

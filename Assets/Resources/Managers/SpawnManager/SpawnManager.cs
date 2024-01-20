@@ -18,11 +18,15 @@ public class SpawnManager : NetworkBehaviour
         //Debug.Log("SpawnManager : J'existe !");
     }
     
+    void Start()
+    {
+        PrefabManager.LoadAllPrefabs();
+    }
+
     public override void OnNetworkSpawn() 
     {
         if (IsServer)
         {
-			PrefabManager.LoadAllPrefabs();
             ExpPrefab = PrefabManager.GetPrefab("Explosion");
         }
     }
@@ -118,13 +122,31 @@ public class SpawnManager : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    void SpawnWeaponServerRpc(string weaponName, NetworkObjectReference weaponHolder, ServerRpcParams serverRpcParams = default)
+    void SpawnWeaponServerRpc(
+            string weaponName, 
+            NetworkObjectReference weaponHolder,
+            ServerRpcParams serverRpcParams = default)
     {
         GameObject holder = weaponHolder;
         GameObject weapon = Instantiate(PrefabManager.GetPrefab(weaponName), Vector3.zero , Quaternion.identity);
         weapon.GetComponent<Arme>().weaponHolder = holder; //Set weapon holder
         weapon.GetComponent<NetworkObject>().SpawnWithOwnership(serverRpcParams.Receive.SenderClientId);
+        SetupSpawnedWeaponClientRpc(weapon, holder);
     }
+    
+    [ClientRpc]
+    void SetupSpawnedWeaponClientRpc(
+            NetworkObjectReference weaponNor, 
+            NetworkObjectReference holderNor)
+            //ClientRpcParams clientRpcParams = default)
+    {
+        NetworkObject holderNo = holderNor;
+        GameObject weapon = weaponNor;
+
+        if (holderNo.IsOwner)
+            holderNo.gameObject.GetComponent<WeaponSystem>().SetupEquippedWeapon(weapon);
+    }
+
 
 
 

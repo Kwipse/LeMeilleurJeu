@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8690317454048960612}
   m_Layer: 0
-  m_Name: RightHandle
-  m_TagString: Untagged
+  m_Name: MainDroiteHandle
+  m_TagString: WeaponHandle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 7429479808889050626}
   m_Layer: 0
   m_Name: ShoulderStand
-  m_TagString: Untagged
+  m_TagString: WeaponStand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

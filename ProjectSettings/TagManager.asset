@@ -12,6 +12,8 @@ TagManager:
   - PlayerColor
   - Projectile
   - Arme
+  - WeaponStand
+  - WeaponHandle
   layers:
   - Default
   - TransparentFX

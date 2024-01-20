@@ -6,6 +6,11 @@ namespace interfaces {
 
     public interface IWeaponizeable
     {
-        void EquipWeapon(GameObject weapon);
+        GameObject currentWeapon {get; set; }
+
+        void EquipWeapon(GameObject weapon)
+        {
+            currentWeapon = weapon;
+        }
     }
 }
