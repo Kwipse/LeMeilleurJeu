@@ -1,6 +1,7 @@
 using UnityEngine;
 using classes;
 using systems;
+using scriptablesobjects;
 
 namespace LesMeilleursScripts
 {
@@ -11,6 +12,8 @@ namespace LesMeilleursScripts
         public GameObject nexus, mine;
         public RTSRessourceManager _rM;
         public int loadCapacity = 10, load = 0;
+
+        public GoldSystem Gold;
 
     public override void Awake()
     {
@@ -35,6 +38,7 @@ namespace LesMeilleursScripts
         }
         
     } 
+
 
     public override void AttackAction() 
     {}

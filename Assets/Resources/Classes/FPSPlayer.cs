@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using systems;
+using scriptablesobjects;
 
 namespace classes {
 
@@ -12,9 +13,8 @@ namespace classes {
 
     public class FPSPlayer : NetworkBehaviour
     {
+        public FPSUI UI;
         WeaponSystem WS;
-        Arme weaponScript;
-
 
         void Awake()
         {
@@ -28,14 +28,13 @@ namespace classes {
             if (!IsOwner)
             {
                 GetComponentInChildren<Camera>().enabled = false;
-                GetComponent<FPSCamera>().enabled = false;
-                GetComponent<FPSMovement>().enabled = false;
+                enabled = false;
             }
         }
 
         void Start()
         {
-
+            UI.SetUI(gameObject);
         }
 
         void Update()
@@ -48,6 +47,7 @@ namespace classes {
             if (Input.GetMouseButton(0)) WS.ShootWeapon();
             if (Input.GetMouseButton(1)) WS.ShootAltWeapon();
             if (Input.GetKeyDown(KeyCode.R)) WS.ReloadWeapon(); 
+            if (Input.GetKeyDown(KeyCode.T)) WS.GetCurrentBackpackAmmo().SetAmmoToFull(); 
             if (Input.mouseScrollDelta.y > 0) WS.EquipNextWeapon();
             if (Input.mouseScrollDelta.y < 0) WS.EquipPreviousWeapon();
         }

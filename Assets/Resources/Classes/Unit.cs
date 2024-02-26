@@ -5,7 +5,6 @@ using UnityEngine.AI;
 using Unity.Netcode;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using systems;
-using interfaces;
 
 namespace classes {
 
@@ -15,6 +14,7 @@ namespace classes {
     [RequireComponent(typeof(NetworkObject))]
     [RequireComponent(typeof(ClientNetworkTransform))]
     [RequireComponent(typeof(HealthSystem))]
+    [RequireComponent(typeof(WeaponSystem))]
 
     public abstract class Unit : NetworkBehaviour
     {
@@ -27,6 +27,7 @@ namespace classes {
         public float unitAcceleration = 1000.0f;
 
         NavMeshAgent agent;
+        WeaponSystem ws;
 
         List<Vector3> moveWaypoints;
         Collider[] nearbyColliders;
@@ -36,10 +37,11 @@ namespace classes {
 
         public virtual void Awake() 
         {
-            Debug.Log($"{gameObject.name} is awake");
+            //Debug.Log($"{gameObject.name} is awake");
 
             agent = GetComponent<NavMeshAgent>();
             moveWaypoints = new List<Vector3>();
+            ws = GetComponent<WeaponSystem>();
         }
 
         public override void OnNetworkSpawn()
@@ -118,11 +120,20 @@ namespace classes {
             //Debug.Log($"Agent distance to target is {sqrDistanceToTarget} and target size is {sqrTargetSize}");
             bool isTargetInRange = sqrAttackRange > (sqrDistanceToTarget - sqrTargetSize);
 
-            if (isTargetInRange) {
+            if (isTargetInRange) 
+            {
                 Debug.Log($"Agent {gameObject.name} attacks the {targetGo.name}");
-                AttackAction(); } 
+                AttackTargetObject(targetGo);
+                //AttackAction(); 
+            } 
         }
 
+
+
+        void AttackTargetObject(GameObject targetGo)
+        {
+            ws.GetCurrentWeaponScript().ShootTargetObject(targetGo);
+        }
 
         public abstract void AttackAction(); 
 

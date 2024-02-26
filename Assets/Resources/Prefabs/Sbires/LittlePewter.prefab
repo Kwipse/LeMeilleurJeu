@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8906654685360765489}
   m_Layer: 0
-  m_Name: WeaponStand
-  m_TagString: Untagged
+  m_Name: PistolStand
+  m_TagString: WeaponStand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2280882601605618332}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.68, z: 0}
+  m_LocalPosition: {x: 0, y: 1.744, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -152,9 +152,10 @@ GameObject:
   - component: {fileID: 1187125715413524840}
   - component: {fileID: 6923841835746517088}
   - component: {fileID: 3570150832727460005}
+  - component: {fileID: 1346568746923284349}
   m_Layer: 0
   m_Name: LittlePewter
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -259,7 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 955960337
+  GlobalObjectIdHash: 3101571599
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -279,6 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
@@ -325,11 +328,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sightRange: 50
   hasProjectileAttack: 0
-  attackRange: 2
+  attackRange: 20
   attackCooldown: 1
   unitSpeed: 15
   unitAngularSpeed: 1000
   unitAcceleration: 1000
+--- !u!114 &1346568746923284349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6891701649780487539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fcef35d11eec6d4a8f30e69c6d50567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AvailableWeapons:
+  - {fileID: 1659970368866776838, guid: 839f198c10492f44bb7e5cb570c7d66a, type: 3}
+  BackpackAmmos:
+  - {fileID: 11400000, guid: 2d99d55cf78043c49ad72da34716b3a1, type: 2}
 --- !u!1 &9222550217853195387
 GameObject:
   m_ObjectHideFlags: 0

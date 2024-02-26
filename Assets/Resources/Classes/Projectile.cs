@@ -1,6 +1,8 @@
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
+using systems;
+using classes;
 
 namespace classes {
 
@@ -12,6 +14,7 @@ namespace classes {
     public abstract class Projectile : NetworkBehaviour
     {
         [HideInInspector]
+        public GameObject weapon, weaponHolder;
         public int initialForce;
 
         Rigidbody rb;
@@ -35,15 +38,30 @@ namespace classes {
         }
 
 
-        void OnCollisionEnter(Collision collision)
+
+        public void SetWeapon(GameObject weaponToSet) {
+            weapon = weaponToSet;
+            weaponHolder = weaponToSet.GetComponent<Arme>().GetWeaponSystem().gameObject;
+        }
+
+
+        void OnCollisionEnter(Collision col)
         {
-            if (IsOwner)
-                OnProjectileCollision(collision.gameObject);
+            //Don't hit owner
+            if (col.gameObject == weapon) { return; }
+            if (col.gameObject == weaponHolder) { return; }
+            //if (col.gameObject.tag == "Projectile") { return; }
+
+            //Debug.Log($"{gameObject.name} collided with {col.gameObject.name}");
+            OnProjectileCollision(col.gameObject);
         }
 
 
         //Fonctions a implementer dans la classe héritante
         public abstract void OnProjectileCollision(GameObject go);
+
+
+
     }
 }
 

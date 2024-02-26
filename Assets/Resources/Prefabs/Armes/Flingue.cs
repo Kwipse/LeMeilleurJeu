@@ -3,19 +3,32 @@ using classes;
 
 public class Flingue : Arme
 {	
+    Transform gunpoint;
+
+
+    public override void Awake()
+    {
+        base.Awake();
+    }
+
     public override void Start()
     {
-        base.Start(); //Appel de la fonction Start() de la classe mere
+        gunpoint = GetGunpointTransform();
+        base.Start(); 
     }
 	
 	public override void OnShoot()
     {
-        Debug.Log("Shoot !");
+        Ray ray = new Ray(gunpoint.position, gunpoint.forward); 
+        if (Physics.Raycast(ray, out RaycastHit hit, 3000f))
+        {
+            Debug.Log($"Hit {hit.transform.gameObject.name} at {hit.point}");
+        }
     }
 	
     public override void OnShootAlt()
     {
-        Debug.Log("ShootAlt !");
+
     }
 
 }

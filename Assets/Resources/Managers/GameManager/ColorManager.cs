@@ -33,8 +33,9 @@ public class ColorManager : NetworkBehaviour
     NetworkObject no;
 
 	static ColorManager CM;
+
 	void Awake() 
-	{ 
+    { 
         CM = this;
         //Debug.Log("ColorManager : J'existe !");
 
@@ -42,8 +43,7 @@ public class ColorManager : NetworkBehaviour
         InitializeMaterials();
 
         PlayerMaterial = new NetworkList<int>();
-        TeamMaterial = new NetworkList<int>();
-
+        TeamMaterial = new NetworkList<int>(); 
     }
 	
     public override void OnNetworkSpawn()
@@ -61,19 +61,15 @@ public class ColorManager : NetworkBehaviour
         
         if (IsClient)
         {
-            Debug.Log($"ColorManager : TeamColor set to {TeamMaterial[(int)clientId]}, PlayerColor set to {PlayerMaterial[(int)clientId]}");
+            //Debug.Log($"ColorManager : TeamColor set to {TeamMaterial[(int)clientId]}, PlayerColor set to {PlayerMaterial[(int)clientId]}");
         }
     }
 
-    void OnPlayerMaterialChanged(NetworkListEvent<int> ListEvent)
-    {
-        SetPlayerColors((ulong) ListEvent.Index);
-    }
+    void OnPlayerMaterialChanged(NetworkListEvent<int> ListEvent) {
+        SetPlayerColors((ulong) ListEvent.Index); }
 
-    void OnTeamMaterialChanged(NetworkListEvent<int> ListEvent)
-    {
-        SetPlayerColors((ulong) ListEvent.Index);
-    }
+    void OnTeamMaterialChanged(NetworkListEvent<int> ListEvent) {
+        SetPlayerColors((ulong) ListEvent.Index); }
 
 
     static Material GetPlayerMaterial(int playerId) {
@@ -86,10 +82,10 @@ public class ColorManager : NetworkBehaviour
     public static void SetPlayerMaterial(int playerId, int matId) 
         { CM.SetPlayerMaterialServerRPC(playerId, matId); }
     [ServerRpc(RequireOwnership = false)]
-    void SetPlayerMaterialServerRPC(int playerId, int matId)
+    void SetPlayerMaterialServerRPC(int playerId, int matId) 
     {
         PlayerMaterial[playerId] = matId; 
-        Debug.Log($"ColorManager : Player {playerId} material set to {matId}"); 
+        //Debug.Log($"ColorManager : Player {playerId} material set to {matId}"); 
     }
 
 
@@ -99,7 +95,7 @@ public class ColorManager : NetworkBehaviour
     void SetTeamMaterialServerRPC(int teamId, int matId)
     {
         TeamMaterial[teamId] = matId; 
-        Debug.Log($"ColorManager : Team {teamId} material set to {matId}"); 
+        //Debug.Log($"ColorManager : Team {teamId} material set to {matId}"); 
     }
 
 
@@ -113,10 +109,10 @@ public class ColorManager : NetworkBehaviour
         Material playerMat = GetPlayerMaterial(playerId);
         Material teamMat = GetTeamMaterial(teamId);
 
-        foreach(Renderer r in objectToColor.GetComponentsInChildren<Renderer>())
+        foreach(Renderer r in objectToColor.GetComponentsInChildren<Renderer>()) 
         {
             string tag = r.gameObject.tag;
-            switch (tag)
+            switch (tag) 
             {
                 case "PlayerColor":
                     r.material = playerMat; 
@@ -127,8 +123,8 @@ public class ColorManager : NetworkBehaviour
                     break;
 
                 default:
-                    break;
-            }
+                    break; 
+            } 
         }
     }
 
@@ -187,6 +183,12 @@ public class ColorManager : NetworkBehaviour
         TeamMaterial.Add(3);
     }
     
+    public static void DrawBox(Vector3 p1, Vector3 p2)
+    {
+        Bounds b = new Bounds();
+        b.SetMinMax(Vector3.Min(p1, p2), Vector3.Max(p1, p2));
+        DrawBounds(b);
+    }
 
     public static void DrawBounds(Bounds b)
     {

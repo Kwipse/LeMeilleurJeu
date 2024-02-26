@@ -26,19 +26,17 @@ public class FPSAnimator : NetworkBehaviour
         WS = GetComponent<WeaponSystem>();
     }
 
-    void Start()
+    void Start() 
     {
         Anim.SetBool("IsMoving", false);
         Anim.SetBool("IsFalling", false);
         wasFalling = false;
         wasMovingUp = false;
-        position = RBody.position;
+        position = RBody.position; 
     }
 
-	void FixedUpdate()
-	{
-        UpdateStates();
-	}
+	void FixedUpdate() {
+        UpdateStates(); }
 	
 
     void UpdateStates()

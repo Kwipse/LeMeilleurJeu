@@ -1,8 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
-using interfaces;
+using systems;
+using scriptablesobjects;
+using UnityEngine.Animations.Rigging;
 
 namespace classes {
 
@@ -11,43 +13,83 @@ namespace classes {
     
     public abstract class Arme : NetworkBehaviour
     {
-        [HideInInspector]
-        public GameObject weaponHolder;
+        //Ammo properties
+        public AmmoSystem magasineAmmo;
+        public float reloadTime;
+        public int reloadAmount = 0; //0 -> fullMag
 
+        //Shooting properties
         public float CadenceDeTir;
-        public int ShootAmmo;
         public float CadenceDeTirAlt;
+        public int ShootAmmo;
         public int ShootAltAmmo;
 
-        public float DureeRechargement;
-        public int QteRechargement;
-        public int TailleChargeur;
+        //Reload Options
+        public bool autoReloadOnMagasineEmpty = true;
+        public bool autoReloadOnMagasineNotFull = false;
+        public bool keepMagAmmoOnReload = false;
 
-        GameObject weapon;
+        WeaponSystem WS; //Le Weapon System qui possede cette arme
+        AmmoSystem backpackAmmo;
         Transform weaponGunpoint;
         float lastShoot;
-        int chargeur;
 
-        Animator anim;
+        List<Transform> weaponStands, weaponHandles;
+
+
+
+        public override void OnNetworkSpawn() {
+            ColorManager.SetObjectColors(gameObject);
+            if (!IsOwner) { enabled = false; } }
+
 
         public virtual void Awake()
         {
+            //Set stands, handles, gunpoint
+            weaponStands = new List<Transform>();
+            weaponHandles = new List<Transform>();
+            weaponGunpoint = null;
+            foreach (var t in gameObject.GetComponentsInChildren<Transform>()) {
+                if (t.tag == "WeaponHandle") { weaponHandles.Add(t); } 
+                if (t.tag == "WeaponStand") { weaponStands.Add(t); } 
+                if (t.tag == "Gunpoint") { weaponGunpoint = t;  } }
 
+            if (weaponStands.Count == 0) { Debug.Log("Weapon has no stand"); }
+            if (weaponHandles.Count == 0) { Debug.Log("Weapon has no handle"); }
+            if (!weaponGunpoint) { Debug.Log("Weapon has no handle"); }
         }
 
-        public override void OnNetworkSpawn()
+
+        public virtual void Start() 
         {
-            if (!IsOwner) 
-                enabled = false;
+
+
+            lastShoot = Time.time - Mathf.Max(CadenceDeTir, CadenceDeTirAlt); 
+
+            //Subscribe to magasineAmmo events
+            magasineAmmo.GetAmmoRessource().ChangeEvent += OnMagAmmoChanged;
+            magasineAmmo.GetAmmoRessource().HitMinEvent += OnMagAmmoEmpty;
+            OnMagAmmoChanged(magasineAmmo.GetAmmo()); 
         }
 
 
-        public virtual void Start()
+        public override void OnDestroy()
         {
-            weapon = gameObject;
-            chargeur = TailleChargeur;
-            lastShoot = Time.time;
+            magasineAmmo.GetAmmoRessource().ChangeEvent -= OnMagAmmoChanged;
+            magasineAmmo.GetAmmoRessource().HitMinEvent -= OnMagAmmoEmpty;
+
+            base.OnDestroy();
         }
+
+
+
+        //Infos
+        public AmmoSystem GetMagasine() { return magasineAmmo; }
+        public int GetAmmo() {return magasineAmmo.GetAmmo(); }
+        public Transform GetGunpointTransform() { return weaponGunpoint; }
+        public WeaponSystem GetWeaponSystem() { return WS; }
+        public List<Transform> GetWeaponHandles() {return weaponHandles; }
+        public List<Transform> GetWeaponStands() {return weaponStands; }
 
 
         //Fonctions a implementer dans vos scripts d'arme
@@ -55,53 +97,95 @@ namespace classes {
         public virtual void OnShootAlt() {} //optionnel
 
 
-        public void Shoot(bool AltShoot)
-        {
-            int ammo;
-            float cadence;
 
-            if (!AltShoot)
-            {
-                ammo = ShootAmmo;
-                cadence = CadenceDeTir;
-            } else {
-                ammo = ShootAltAmmo;
-                cadence = CadenceDeTirAlt;
-            }
+        //Called from WeaponSystem
+        public void SetWeaponSystem(WeaponSystem ws) 
+        {
+            WS = ws;  
+            backpackAmmo = WS.GetCurrentBackpackAmmo();
+            //Debug.Log($"{gameObject.name} is set to {WS.gameObject.name}");
+        }
+
+
+
+        //Events
+        void OnMagAmmoChanged(int newMagAmmoAmount)
+        {
+            //Debug.Log($"{gameObject.name } has {newMagAmmoAmount} munitions in magasine");
+            if (autoReloadOnMagasineNotFull && !magasineAmmo.IsAmmoFull()) {
+                StartReload(); }
+        }
+
+        void OnMagAmmoEmpty()
+        {
+            //Debug.Log($"{gameObject.name } has {newMagAmmoAmount} munitions in magasine");
+            if ((autoReloadOnMagasineEmpty) && (!autoReloadOnMagasineNotFull)) {
+                StartReload(); }
+        }
+
+
+
+        //Shoot
+        public void Shoot(bool AltShoot = false)
+        {
+            int ammo = !AltShoot ? ShootAmmo : ShootAltAmmo;
+            float cadence = !AltShoot ? CadenceDeTir : CadenceDeTirAlt;
 
             //Shoot conditions
-            if (chargeur < ammo) return;
-            if ((Time.time - lastShoot) < cadence) return;
+            if (!magasineAmmo.IsEnoughAmmo(ammo)) { return; }
+            if ((Time.time - lastShoot) < cadence) { return; }
 
-            CancelInvoke("Reload");
-
-            chargeur -= ammo;
+            StopReload();
             lastShoot = Time.time;
 
             if (!AltShoot) OnShoot();
             if (AltShoot) OnShootAlt();
 
-            if (chargeur != TailleChargeur) StartReload(); 
-            //Debug.Log($"{gameObject.name} has {chargeur} munitions left");
+            magasineAmmo.RemoveAmmo(ammo);
         }
 
-
-        public void StartReload()
+        public void ShootTargetPoint(Vector3 targetPoint)
         {
-            //Debug.Log($"{gameObject.name} is reloading");
-            Invoke("Reload", DureeRechargement);
+            gameObject.transform.LookAt(targetPoint);
+            Shoot();
         }
+
+        public void ShootTargetObject(GameObject targetGo)
+        {
+            gameObject.transform.LookAt(targetGo.GetComponent<Collider>().bounds.center);
+            Shoot();
+        }
+
+
+        //Reload
+        public void StartReload() { Invoke("Reload", reloadTime); }
+        public void StopReload() { CancelInvoke("Reload"); }
 
         void Reload()
         {
-            chargeur += QteRechargement;
+            int tmpAmmo;
+            int bpAmmo = backpackAmmo.GetAmmo();
+            int wAmmo = magasineAmmo.GetAmmo();
+            int maxAmmo = magasineAmmo.GetMaxAmmo();
+            int rAmmo = (reloadAmount == 0) ? maxAmmo : reloadAmount ;
+            int wastedAmmo = Mathf.Max(0,wAmmo + rAmmo - maxAmmo);
 
-            if (chargeur < TailleChargeur)
-                StartReload(); 
-            else 
-                chargeur = TailleChargeur;
+            //If backpack empty, abort reload
+            if (bpAmmo == 0) { return; }
 
-            //Debug.Log($"{gameObject.name} has reloaded");
+            //If not enough for full reload
+            if (bpAmmo < rAmmo) { 
+                tmpAmmo = bpAmmo; }
+            else {
+                tmpAmmo = rAmmo; }
+
+
+            //Manage ammos
+            if (!keepMagAmmoOnReload) { backpackAmmo.RemoveAmmo(tmpAmmo); }
+            if (keepMagAmmoOnReload) { backpackAmmo.RemoveAmmo(tmpAmmo - wastedAmmo); }
+            magasineAmmo.AddAmmo(tmpAmmo);
+
+            return;
         }
     }
 }

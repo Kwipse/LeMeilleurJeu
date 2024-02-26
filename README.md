@@ -102,18 +102,165 @@ cible.GetComponent<HealthSystem>().LoosePv(int dmg)
 ```
 
 
-## BlueprintSystem
-
-Ce script donne un systeme de blueprint à l'objet qui le possde.
-Il suffit de placer ce component sur un objet.
-Le blueprint existe quand l'objet est instancié, et disparait au moment du spawn.
-
-
 ## UnitSpawnerSystem
 
 Ce script donne un systeme de création d'unité à l'objet qui le possède.
 Dans l'editeur, vous pouvez ajouter des unités à la liste pour que le batiment puisse les produire.
 
+```csharp
+    public class UnitSpawnerSystem : NetworkBehaviour 
+
+    //Unités disponibles
+    public List<GameObject> AvailableUnits; //A definir initialement dans l'editeur
+    public void AddAvailableUnit(GameObject unitPrefab) 
+    public void RemoveAvailableUnit(GameObject unitPrefab) 
+    public void ClearAvailableUnitList() 
+
+    //Spawners disponibles
+    //Par defaut, tous les objets appartenant au UnitSpawner avec le tag "UnitSpawner" seront disponibles.
+    public void AddAvailableSpawner(GameObject spawnerObject) 
+    public void RemoveAvailableSpawner(GameObject spawnerObject) 
+    public void ClearAvailableSpawnerList() 
+
+    //Rally Point
+    public void MoveRallyPoint(Vector3 pos) 
+    public Vector3 GetRallyPoint() 
+
+    //Spawn fonctions
+    //si on ne specifie pas de spawner, alors on utilise la liste des spawners 
+    //disponibles et les options de spawn pour décider du spawn
+    public void SpawnUnit(GameObject unitPrefab, GameObject specificSpawner = null) 
+    public void SpawnUnitByName(string unitName, GameObject specificSpawner = null)
+    public void SpawnUnitByIndex(int unitIndex, GameObject specificSpawner = null)
+
+    //Options de spawn
+    public bool isMatchUnitToSpawner = true; //si un spawner contient le nom de l'unité, on spawn dessus
+```
+
+
+## BuilderSystem
+
+Component qui donne un systeme de construction de batiments.
+
+```csharp
+    public class BuilderSystem : NetworkBehaviour 
+
+    //A definir initialement dans l'editeur
+    public List<GameObject> AvailableBuildings; //Gestion de la liste des batiments disponibles
+    public void AddAvailableBuilding(GameObject buildingPrefab) 
+        public void RemoveAvailableBuilding(GameObject buildingPrefab) 
+
+    //Accessible via code
+    [HideInInspector] public GameObject currentBlueprint;
+    [HideInInspector] public bool isBlueprintAllowed = true;
+    [HideInInspector] public bool keepBlueprintOnConstruction = false;
+
+
+    //Gestion des blueprints
+    public void SelectBlueprint(int blueprintPrefabNumber = 0) //default to the first available building
+    public void SelectNextBlueprint() 
+    public void SelectPreviousBlueprint() 
+    public void ClearBlueprint() 
+    public void MoveBlueprintToPosition(Vector3 position) 
+    public void RotateBlueprintToQuaternion(Quaternion rotation) 
+
+    //Construction des batiments
+    public void ConstructCurrentBlueprint() 
+    public void ConstructBuilding(int buildingNumber, Vector3 position, Quaternion rotation) 
+```
+
+RdN : Un objet avec un BuilderSystem, qui n'est pas controlé par un joueur, n'a pas tellement de raison d'utiliser les blueprints.
+
+
+## SelectionSystem
+
+Component qui donne un systeme de selection a un objet.
+
+ ```csharp
+    public class SelectionSystem : NetworkBehaviour
+
+    //
+    [HideInInspector] public List<GameObject> selection = new List<GameObject>();
+
+    //Options de selection, a définir dans l'editeur ou par code
+    public bool isAddingToSelection = false;
+    public bool canSelectOwnedObjects = true;
+    public bool canSelectNotOwnedObjects = true;
+    public bool canSelectBuilding = true;
+    public bool canSelectUnit = true;
+    public bool canSelectWeapon = true;
+
+    //Events
+    public delegate void SelectEvent(GameObject go);
+    public event SelectEvent ObjectAddedToSelectionEvent;
+    public event SelectEvent ObjectRemovedFromSelectionEvent;
+
+    //Fonctions de selection
+    public void SelectObject(GameObject toSelect, bool forceAddSelection = false) 
+    public void SelectList(List<GameObject> toSelectList) 
+    public void SelectInBox(Vector3 p1, Vector3 p2) 
+    public void StartBoxSelection(Vector3 startPoint) {
+    public void UpdateBoxSelection(Vector3 updatePoint) {
+    public void EndBoxSelection(Vector3 endPoint) {
+    public void DeselectObject(GameObject go) 
+    public void RemoveListFromSelection(List<GameObject> goList) {
+    public void ClearSelection() 
+
+    //Recuperer les infos de la selection
+    public int GetSelectionCount() {
+    public List<GameObject> GetSelection() {
+
+    //Orders to selection
+    public void OrderSelectedUnitsToMove(Vector3 pos) 
+    public void OrderSelectedBuildingsToMoveRallyPoint(Vector3 pos) 
+    public void OrderSelectedSpawnersToCreateUnit(int unitIndex)
+```
+
+Usage :
+
+```csharp
+
+using systems;
+
+public class ExempleClass : 
+{
+    SelectionSystem SS;
+
+    void Awake()
+    {
+        SS = GetComponent<SelectionSystem>(); 
+    }
+
+    void Start()
+    {
+        //Optionellement, s'abonner aux events de modification de la selection, 
+        SS.ObjectAddedToSelectionEvent += OnObjectAddedToSelection;
+        SS.ObjectRemovedFromSelectionEvent += OnObjectRemovedFromSelection;
+    }
+
+    void OnObjectAddedToSelection() 
+    {
+        //Code lorsqu'un objet est ajouté a la selection
+    }
+
+    void OnObjectRemovedFromSelection()
+    {
+        //Code lorsqu'un objet est ajouté a la selection
+    }
+
+    void OnDestroy()
+    {
+        //Se desabonner des events pour eviter de leak de la memoire
+        SS.ObjectAddedToSelectionEvent -= OnObjectAddedToSelection;
+        SS.ObjectRemovedFromSelectionEvent -= OnObjectRemovedFromSelection;
+    }
+}
+
+
+
+
+
+```
 
 
 # HERITAGE

@@ -27,8 +27,9 @@ public class TeamManager : NetworkBehaviour
         if (IsServer)
             InitializeClientTeam();
 
-        if (IsClient)
-            Debug.Log($"ColorManager : Team set to {ClientTeam[(int) clientId]}");
+        if (IsClient) {
+            //Debug.Log($"ColorManager : Team set to {ClientTeam[(int) clientId]}");
+        }
 
     }
 

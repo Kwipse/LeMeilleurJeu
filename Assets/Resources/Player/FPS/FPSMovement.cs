@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 
 
-public class FPSMovement : MonoBehaviour
+public class FPSMovement : NetworkBehaviour
 {
     public float moveSpeed;
     public int nbJumpMax = 1;
@@ -19,6 +19,11 @@ public class FPSMovement : MonoBehaviour
     void Awake()
     {
         RBody = GetComponent<Rigidbody>();
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner) {enabled = false;}
     }
 
 	void Update()

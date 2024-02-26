@@ -96,7 +96,6 @@ GameObject:
   - component: {fileID: 656020676633425855}
   - component: {fileID: 260974157027143799}
   - component: {fileID: -1697441876034763175}
-  - component: {fileID: 7711849623001480342}
   - component: {fileID: 457198876396007484}
   m_Layer: 0
   m_Name: GoldMine
@@ -220,19 +219,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7711849623001480342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6117278076527145797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77324211708666f43b2eddba1f7355a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isBlueprintAllowed: 0
 --- !u!114 &457198876396007484
 MonoBehaviour:
   m_ObjectHideFlags: 0

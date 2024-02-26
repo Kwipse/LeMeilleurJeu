@@ -36,7 +36,7 @@ namespace systems {
                 Debug.Log("Votre " + go.name + " n'a plus que " + pv.Value + "pv");
                 return;
             }
-
+ 
             if (IsOwner && (pv.Value <= 0))
             {
                 //Ce que le client doit faire quand son objet est detruit

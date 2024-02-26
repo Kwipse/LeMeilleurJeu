@@ -16,18 +16,21 @@ public class Saucisse : NetworkBehaviour
     {
        ColorManager.SetObjectColors(gameObject);
 
-       if (IsOwner)
+       if (IsOwner) 
        {
            Rigidbody rb = GetComponent<Rigidbody>();
-           rb.AddForce(gameObject.transform.forward * Speed);
+           rb.AddForce(gameObject.transform.forward * Speed); 
        }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision) 
     {
-        if (!IsOwner) {return;}
+        if (!IsOwner) 
+        {
+            return; 
+        }
 
-        switch (collision.gameObject.tag)
+        switch (collision.gameObject.tag) 
         {
             case "Unit":
                 dmg = DegatsAuxUnites;
@@ -37,19 +40,18 @@ public class Saucisse : NetworkBehaviour
                 dmg = DegatsAuxBatiments;
                 break;
 
-            case "Player":
+           case "Player":
                 dmg = DegatsAuxJoueurs;
                 break;
 
             default:
-                break;
+                break; 
         }
 
         collision.collider.GetComponent<HealthSystem>()?.LoosePv(dmg);
         SpawnManager.DestroyObject(this.gameObject);
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); 
     }
-
 }
 
 

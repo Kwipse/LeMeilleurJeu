@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LesMeilleursScripts
-{
     public class RTSResourcesManager : MonoBehaviour
     {
         public int gold= 500, goldCap= 2000;
@@ -35,4 +33,3 @@ namespace LesMeilleursScripts
 
 
     }
-}

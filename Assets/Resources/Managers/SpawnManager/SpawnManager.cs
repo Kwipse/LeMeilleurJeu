@@ -95,22 +95,51 @@ public class SpawnManager : NetworkBehaviour
 
 
     //SPAWN PROJECTILE
-    public static void SpawnProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation, int initialForce = 0)
-    {
-        SM.SpawnProjectileServerRpc(projectilePrefab.name, position, rotation, initialForce);
-    }
+    public static void SpawnProjectile(GameObject projectilePrefab, GameObject weapon, int initialForce = 0) {
+        Transform gunpoint = weapon.GetComponent<Arme>().GetGunpointTransform();
+        SM.SpawnProjectileRpc(projectilePrefab.name, weapon, gunpoint.position, gunpoint.rotation, initialForce); }
 
-    [ServerRpc(RequireOwnership = false)]
-    void SpawnProjectileServerRpc(string projectileName, Vector3 position, Quaternion rotation, int initialForce, ServerRpcParams serverRpcParams = default)
+    public static void SpawnProjectile(GameObject projectilePrefab, GameObject weapon, Transform altGunpoint, int initialForce = 0) {
+        SM.SpawnProjectileRpc(projectilePrefab.name, weapon, altGunpoint.position, altGunpoint.rotation, initialForce); }
+
+    public static void SpawnProjectile(GameObject projectilePrefab, GameObject weapon, Vector3 position, Quaternion rotation, int initialForce = 0) {
+        SM.SpawnProjectileRpc(projectilePrefab.name, weapon, position, rotation, initialForce); }
+
+
+    [Rpc(SendTo.Server, RequireOwnership = false)]
+    void SpawnProjectileRpc(
+            string projectileName,
+            NetworkObjectReference weaponNor,
+            Vector3 position,
+            Quaternion rotation,
+            int initialForce,
+            RpcParams serverRpcParams = default)
     {
+
+
 		var clientId = serverRpcParams.Receive.SenderClientId;
-
+        GameObject weapon = weaponNor;
         GameObject projectile = Instantiate(PrefabManager.GetPrefab(projectileName), position, rotation);
 
         Projectile projectileStats = projectile.GetComponent<Projectile>();
         projectileStats.initialForce = initialForce;
 
         projectile.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+
+        SetupProjectileRpc(projectile, weapon);
+    }
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    void SetupProjectileRpc(NetworkObjectReference projectileNor, NetworkObjectReference weaponNor)
+    {
+        GameObject projectile = projectileNor;
+        GameObject weapon = weaponNor;
+
+        if (projectile.GetComponent<NetworkObject>().IsOwner)
+        {
+            projectile.GetComponent<Projectile>().SetWeapon(weapon);
+        }
+
     }
     
 
@@ -118,33 +147,36 @@ public class SpawnManager : NetworkBehaviour
     //SPAWN WEAPON
     public static void SpawnWeapon(GameObject weaponPrefab, GameObject weaponHolder)
     {
+        //Debug.Log($"Client : J'ai donné ordre de spawn {weaponPrefab.name} pour {weaponHolder.name}");
         SM.SpawnWeaponServerRpc(weaponPrefab.name, weaponHolder);
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [Rpc(SendTo.Server, RequireOwnership = false)]
     void SpawnWeaponServerRpc(
             string weaponName, 
             NetworkObjectReference weaponHolder,
-            ServerRpcParams serverRpcParams = default)
+            RpcParams rpcParams = default)
     {
         GameObject holder = weaponHolder;
+        //Debug.Log($"Server : J'ai recu ordre de spawn {weaponName} pour {holder.name}");
         GameObject weapon = Instantiate(PrefabManager.GetPrefab(weaponName), Vector3.zero , Quaternion.identity);
-        weapon.GetComponent<Arme>().weaponHolder = holder; //Set weapon holder
-        weapon.GetComponent<NetworkObject>().SpawnWithOwnership(serverRpcParams.Receive.SenderClientId);
-        SetupSpawnedWeaponClientRpc(weapon, holder);
+        weapon.GetComponent<NetworkObject>().SpawnWithOwnership(rpcParams.Receive.SenderClientId);
+        SetupSpawnedWeaponClientRpc(weapon, holder, RpcTarget.Single(rpcParams.Receive.SenderClientId, RpcTargetUse.Temp));
     }
     
-    [ClientRpc]
+    [Rpc(SendTo.SpecifiedInParams)]
     void SetupSpawnedWeaponClientRpc(
             NetworkObjectReference weaponNor, 
-            NetworkObjectReference holderNor)
-            //ClientRpcParams clientRpcParams = default)
+            NetworkObjectReference holderNor,
+            RpcParams rpcParams
+            )
     {
         NetworkObject holderNo = holderNor;
+        WeaponSystem ws = holderNo.gameObject.GetComponent<WeaponSystem>();
         GameObject weapon = weaponNor;
 
-        if (holderNo.IsOwner)
-            holderNo.gameObject.GetComponent<WeaponSystem>().SetupEquippedWeapon(weapon);
+        ws.SetupEquippedWeapon(weapon);
+        //Debug.Log($"Client : {holderNo.gameObject.name} a equippé {weapon.name}");
     }
 
 
@@ -248,7 +280,7 @@ public class SpawnManager : NetworkBehaviour
 	
 	//DESTROY PLAYER
     public static void DestroyPlayer(GameObject go)
-        {SM.DestroyPlayerServerRPC(go);}
+        {if (go) SM.DestroyPlayerServerRPC(go);}
     
 	[ServerRpc(RequireOwnership = false)]
 	void DestroyPlayerServerRPC(NetworkObjectReference nor, ServerRpcParams serverRpcParams = default)
@@ -259,12 +291,6 @@ public class SpawnManager : NetworkBehaviour
 
         no.Despawn();
         PlayerList.PlayerListinstance.RemovePlayerObject((ulong) playerId);
-
-        //Debug.Log("Player " + playerId + " has been destroyed");
-
-        //GameObject playerObjectToDestroy = PlayerList.PlayerListSM.GetPlayerObject(clientId);
-        //Destroy(playerObjectToDestroy);
-        //NetworkObject NetworkObjectToDespawn = playerObjectToDestroy.GetComponent<NetworkObject>();
 	}
 	
 }

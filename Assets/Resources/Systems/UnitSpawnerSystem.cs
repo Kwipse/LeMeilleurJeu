@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,13 +6,15 @@ namespace systems {
 
     [RequireComponent(typeof(Collider))]
 
-    public class UnitSpawnerSystem : MonoBehaviour
+    public class UnitSpawnerSystem : NetworkBehaviour
     {
-        public List<GameObject> UnitesDisponibles;
-        //public bool isSelected;
+        public List<GameObject> AvailableUnits;
+        List<GameObject> AvailableSpawners;
 
-        Collider buildingCollider;
-        List<Collider> unitColliders;
+        public bool isMatchUnitToSpawner = true;
+        
+        GameObject unitSpawner;
+        Collider spawnerCollider;
 
         Vector3 rallyPos;
         Vector3 spawnPos;
@@ -23,39 +26,132 @@ namespace systems {
 
         void Awake()
         {
-            buildingCollider = gameObject.GetComponent<Collider>();
-
-            unitColliders = new List<Collider>();
-            foreach (GameObject unit in UnitesDisponibles)
-                unitColliders.Add(unit.GetComponent<Collider>());
+            unitSpawner = gameObject;
         }
+
+        public override void OnNetworkSpawn() {
+            if (!IsOwner) {enabled = false;} }
 
         void Start()
         {
-            MoveRallyPoint(Vector3.zero);
+            InitRallyPoint();
+            InitSpawner();
         }
 
+
+        //Available Units
+        public void AddAvailableUnit(GameObject unitPrefab) {
+            AvailableUnits.Add(unitPrefab); }
+
+        public void RemoveAvailableUnit(GameObject unitPrefab) {
+            AvailableUnits.Remove(unitPrefab); }
+
+        public void ClearAvailableUnitList() {
+            AvailableUnits.Clear(); }
+
+
+
+        //Available Spawners
+        void InitSpawner()
+        {
+            //Populate AvailableSpawners 
+            AvailableSpawners = new List<GameObject>();
+            foreach (Transform tr in GetComponentsInChildren<Transform>()) {
+                if (tr.gameObject.tag == "UnitSpawner") {
+                    AvailableSpawners.Add(tr.gameObject); } }
+
+            //If at least one spawner found, end init 
+            if (AvailableSpawners.Count != 0) return;
+
+            //Default spawner : 
+            Vector3 spawnerSize = unitSpawner.GetComponent<Collider>().bounds.size;
+            Vector3 unitSize = AvailableUnits[0].GetComponent<Collider>().bounds.size;
+            Vector3 offset = (spawnerSize + unitSize)/2;
+            Vector3 rallyDirection = Vector3.Normalize(rallyPos - unitSpawner.transform.position);
+
+            GameObject defaultSpawner = new GameObject();
+            defaultSpawner.name = "DefaultSpawner";
+            defaultSpawner.tag = "UnitSpawner";
+            defaultSpawner.transform.parent = gameObject.transform;
+            defaultSpawner.transform.position = gameObject.transform.position;
+            defaultSpawner.transform.position += (rallyDirection * offset.magnitude);
+
+            defaultSpawner.transform.position += new Vector3(0, unitSize.y, 0);
+            defaultSpawner.transform.rotation = Quaternion.identity;
+
+            AvailableSpawners.Add(defaultSpawner);
+        }
+
+        public void AddAvailableSpawner(GameObject spawnerObject) {
+            AvailableSpawners.Add(spawnerObject); }
+
+        public void RemoveAvailableSpawner(GameObject spawnerObject) {
+            AvailableSpawners.Remove(spawnerObject); }
+
+        public void ClearAvailableSpawnerList() {
+            AvailableSpawners.Clear(); }
+
+
+
+        //Rally Points
+        void InitRallyPoint() {
+            MoveRallyPoint(Vector3.zero); }
 
         public void MoveRallyPoint(Vector3 pos) {
             rallyPos = pos; }
 
+        public Vector3 GetRallyPoint() {
+            return rallyPos; }
 
-        public void SpawnUnit(int unitIndex)
+
+
+        //Unit Spawning
+        public void SpawnUnit(GameObject unitPrefab, GameObject specificSpawner = null) 
         {
-            Vector3 spawnerPos = gameObject.transform.position;
-            Vector3 rallyDirection = Vector3.Normalize(rallyPos - spawnerPos);
-            Vector3 offset = (unitColliders[unitIndex].bounds.size + buildingCollider.bounds.size)/2;
+            if (!AvailableUnits.Contains(unitPrefab)) {
+                Debug.Log($"Tried to spawn unit prefab \"{unitPrefab.name}\", but it is not available");
+                return; }
 
-            spawnPos = spawnerPos + (rallyDirection * offset.magnitude);
-            spawnPos.y = unitColliders[unitIndex].bounds.size.y;
+            //Use specific spawner if not null
+            if (specificSpawner) {
+                SpawnManager.SpawnUnit(unitPrefab, specificSpawner.transform.position, specificSpawner.transform.rotation, rallyPos); 
+                return; }
 
-            spawnRot = Quaternion.identity;
+            if (AvailableSpawners.Count == 0) {
+                Debug.Log($"Tried to spawn unit, but there is no available spawner");
+                return; }
 
-            Debug.Log($"{gameObject.name} : Production de {UnitesDisponibles[unitIndex].name} en {spawnPos}");
-            //SpawnManager.SpawnObject(unitToSpawn, spawnPos, Quaternion.identity);
+            //isMatchUnitToSpawner = true : Si un spawner contient le nom de l'unité, on spawn dessus 
+            if (isMatchUnitToSpawner) {
+                foreach(GameObject spawner in AvailableSpawners) {
+                    if (spawner.name.Contains(unitPrefab.name)) {
+                        SpawnManager.SpawnUnit(unitPrefab, spawner.transform.position, spawner.transform.rotation, rallyPos); 
+                        return; } } }
 
-            SpawnManager.SpawnUnit(UnitesDisponibles[unitIndex], spawnPos, spawnRot, rallyPos);
+            //Default spawn
+            SpawnManager.SpawnUnit(unitPrefab, AvailableSpawners[0].transform.position, AvailableSpawners[0].transform.rotation, rallyPos); 
+        }
+
+        public void SpawnUnitByName(string unitName, GameObject specificSpawner = null)
+        { 
+            foreach (var unitPrefab in AvailableUnits) {
+                if (unitPrefab.name == unitName) {
+                    SpawnUnit(unitPrefab, specificSpawner);
+                    return; } }
+            Debug.Log($"Tried to spawn unit \"{unitName}\", but it is not available");
+        }
+
+        public void SpawnUnitByIndex(int unitIndex, GameObject specificSpawner = null)
+        {
+            if (unitIndex < 0) {
+                Debug.Log($"Tried to spawn index \"{unitIndex}\" unit, but index cannot be negative"); 
+                return; }
+
+            if (unitIndex > AvailableUnits.Count-1) {
+                Debug.Log($"Tried to spawn index \"{unitIndex}\" unit, but the max index is {AvailableUnits.Count-1}"); 
+                return; }
+
+            SpawnUnit(AvailableUnits[unitIndex], specificSpawner);
         }
     }
-
 }

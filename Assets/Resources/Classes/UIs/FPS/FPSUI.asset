@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d56ce5b4429e845adec3283fc8ca88, type: 3}
+  m_Name: FPSUI
+  m_EditorClassIdentifier: 
+  UIPrefab: {fileID: 9201738328448744742, guid: 09bcee5373676df4ca2838f2fcf8d0e5, type: 3}
+  UIObject: {fileID: 0}

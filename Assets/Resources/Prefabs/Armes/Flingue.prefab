@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4553114194319485280}
   m_Layer: 0
-  m_Name: FrontStand
+  m_Name: PistolStand
   m_TagString: WeaponStand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3392616780
+  GlobalObjectIdHash: 4048582490
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -186,6 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
@@ -216,14 +218,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320bf30deba46aa41840495e65cee5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponHolder: {fileID: 0}
-  CadenceDeTir: 0
-  ShootAmmo: 0
+  magasineAmmo: {fileID: 11400000, guid: 3d871dfe63b02504dbd6028cd0e0fdae, type: 2}
+  reloadTime: 2
+  reloadAmount: 0
+  CadenceDeTir: 1
   CadenceDeTirAlt: 0
+  ShootAmmo: 1
   ShootAltAmmo: 0
-  DureeRechargement: 0
-  QteRechargement: 0
-  TailleChargeur: 0
+  autoReloadOnMagasineEmpty: 1
+  autoReloadOnMagasineNotFull: 0
+  keepMagAmmoOnReload: 1
 --- !u!1 &6166446415365147377
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +301,7 @@ GameObject:
   - component: {fileID: 4546699373420022278}
   m_Layer: 0
   m_Name: Gunpoint
-  m_TagString: Untagged
+  m_TagString: Gunpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

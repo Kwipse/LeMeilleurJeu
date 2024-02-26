@@ -211,7 +211,6 @@ GameObject:
   - component: {fileID: 4384483773088109631}
   - component: {fileID: 6000050902180654946}
   - component: {fileID: 8654195787694031463}
-  - component: {fileID: 9128758363738373013}
   - component: {fileID: 2854334142389094893}
   m_Layer: 0
   m_Name: Tower
@@ -270,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1080856251
+  GlobalObjectIdHash: 3618326329
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -335,19 +334,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &9128758363738373013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8291393325822451198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77324211708666f43b2eddba1f7355a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isBlueprintAllowed: 0
 --- !u!114 &2854334142389094893
 MonoBehaviour:
   m_ObjectHideFlags: 0

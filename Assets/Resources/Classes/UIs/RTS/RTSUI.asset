@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a0de5527d9e4d42855a25dcd5df2d3, type: 3}
+  m_Name: RTSUI
+  m_EditorClassIdentifier: 
+  UIPrefab: {fileID: 1296090797384859356, guid: e38f973e1b9088e4d88be7687c330ed4, type: 3}
+  UIObject: {fileID: 0}

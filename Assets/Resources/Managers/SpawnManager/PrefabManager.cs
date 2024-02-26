@@ -18,10 +18,6 @@ public class PrefabManager : ScriptableObject
 		// appeler un dossier puis appeler un sous-dossier fait appeler deux fois
         
 		LoadPrefabs(""); //Load all prefabs in folder 'Resources/...'
-
-        //LoadPrefabs("Player"); 
-		//LoadPrefabs("Prefabs");
-		//LoadPrefabs("Objets Trouves");
         //Debug.Log("PREFABS ARE LOADED");
 	}
 	
@@ -34,13 +30,15 @@ public class PrefabManager : ScriptableObject
 		foreach (Object o in ObjectArray) {
 			if(!gameObjectList.ContainsKey(o.name.GetHashCode())) {
 				gameObjectList.Add(o.name.GetHashCode(),(GameObject) o); 
-                Debug.Log($"{o.name} added to Prefab list"); } }
+                //Debug.Log($"{o.name} added to Prefab list");
+            } }
 
         //Populate NetworkPrefab list
         foreach (GameObject go in gameObjectList.Values) {
             if (go.GetComponent<NetworkObject>()) {
                 NetworkManager.Singleton.AddNetworkPrefab(go); 
-                Debug.Log($"{go.name} added to NetworkPrefab list"); } }
+                //Debug.Log($"{go.name} added to NetworkPrefab list");
+            } }
 
 	}
 

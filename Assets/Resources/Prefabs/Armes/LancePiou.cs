@@ -10,20 +10,28 @@ public class LancePiou : Arme
 
     public override void Awake()
     {
+        base.Awake(); //On n'outrepasse pas l'Awake() du parent
+
         gunpoint = transform.Find("Gunpoint");
-        tr = new GameObject().transform;
     }
 
+    public override void Start()
+    {
+        base.Start();
+    }
+
+    void OnEnable() { tr = new GameObject().transform; }
+    void OnDisable() { Destroy(tr.gameObject); }
 
 	public override void OnShoot()
     {
-        SpawnManager.SpawnProjectile(projectile, gunpoint.transform.position, gunpoint.transform.rotation, projectileSpeed);
+        SpawnManager.SpawnProjectile(projectile, gameObject, gunpoint.transform.position, gunpoint.transform.rotation, projectileSpeed);
     }
 	
     public override void OnShootAlt()
     {
         //Spawn Middle projectile
-        SpawnManager.SpawnProjectile(projectile, gunpoint.transform.position, gunpoint.transform.rotation, projectileSpeed);
+        OnShoot();
 
         //Spawn Around projectiles
         for (int i = 0; i < 6; i++)
@@ -35,14 +43,10 @@ public class LancePiou : Arme
             tr.position += tr.TransformVector(new Vector3(1, 0, 0));
             tr.Rotate(new Vector3(0,1,0), 5f);
 
-            SpawnManager.SpawnProjectile(projectile, tr.position, tr.rotation, projectileSpeed);
+            SpawnManager.SpawnProjectile(projectile, gameObject, tr.position, tr.rotation, projectileSpeed);
         }
 
     }
 
 
-    void OnDisable()
-    {
-        Destroy(tr.gameObject);
-    }
 }
