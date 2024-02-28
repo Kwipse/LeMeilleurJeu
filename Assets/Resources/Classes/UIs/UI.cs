@@ -36,6 +36,7 @@ namespace scriptablesobjects
         public void SetUIText(string UITextName, string newText)
         {
             if (!isUISet) { return; }
+            if (!UIObject) { return; }
 
             foreach (var text in UITexts) {
                 if (text.name == UITextName)  {
@@ -48,8 +49,6 @@ namespace scriptablesobjects
         public GameObject GetUIOwner() { return UIObject.transform.root.gameObject; }
 
         public abstract void OnSetUI(GameObject UIOwner);
+
     }
-
-    
-
 }

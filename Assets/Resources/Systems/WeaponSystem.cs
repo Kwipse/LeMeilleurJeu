@@ -77,7 +77,7 @@ namespace systems {
             currentWeapon = weapon;
             SetWeaponRpc(currentWeapon, RpcTarget.Everyone);
             PlaceWeapon();
-            Debug.Log($"{gameObject.name} has changed weapon to {weapon.name}");
+            //Debug.Log($"{gameObject.name} has changed weapon to {weapon.name}");
 
             //send NewWeapon event
             if (NewWeaponEquippedEvent != null) { NewWeaponEquippedEvent(currentWeapon); }
@@ -94,7 +94,7 @@ namespace systems {
 
         void OnNewClientConnected(ulong clientId)
         {
-            Debug.Log($"WeaponSystem : client {clientId} connected ");
+            //Debug.Log($"WeaponSystem : client {clientId} connected ");
             SetWeaponRpc(currentWeapon, RpcTarget.Single(clientId, RpcTargetUse.Temp));
         }
 

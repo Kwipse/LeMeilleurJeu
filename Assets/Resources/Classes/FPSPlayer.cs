@@ -51,5 +51,6 @@ namespace classes {
             if (Input.mouseScrollDelta.y > 0) WS.EquipNextWeapon();
             if (Input.mouseScrollDelta.y < 0) WS.EquipPreviousWeapon();
         }
+
     }
 }

@@ -49,21 +49,14 @@ public class Explosion : NetworkBehaviour
 
     void PushTarget(GameObject target, int force, Vector3 expCenter)
     {
-        PushTargetServerRPC(target, force, expCenter);
+        if (target) PushTargetRPC(target, force, expCenter);
     }
 
-    [ServerRpc]
-    void PushTargetServerRPC(NetworkObjectReference nor, int force, Vector3 expPosition)
+    [Rpc(SendTo.Everyone)]
+    void PushTargetRPC(NetworkObjectReference targetNor, int force, Vector3 expPosition)
     {
-        PushTargetClientRPC(nor, force, expPosition);
-    }
-
-    [ClientRpc]
-    void PushTargetClientRPC(NetworkObjectReference nor, int force, Vector3 expPosition)
-    {
-        GameObject target = nor;
-        if (!target.GetComponent<NetworkObject>().IsOwner) return;
-
+        GameObject target = targetNor;
+        if (!target.GetComponent<NetworkObject>().IsOwner) { return; }
 
         Vector3 targetCenter = target.GetComponent<Collider>().bounds.center;
         Vector3 pushDirection = targetCenter - expPosition;

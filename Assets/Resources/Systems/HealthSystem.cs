@@ -26,21 +26,21 @@ namespace systems {
             if (!IsOwner && !(pv.Value <= 0))
             {
                 //Ce que le client qui a touche doit faire
-                Debug.Log("Le " + go.name + " n'a plus que " + pv.Value + "pv");
+                //Debug.Log("Le " + go.name + " n'a plus que " + pv.Value + "pv");
                 return;
             }
 
             if (IsOwner && !(pv.Value <= 0))
             {
                 //Ce que le client doit faire quand son objet est touche
-                Debug.Log("Votre " + go.name + " n'a plus que " + pv.Value + "pv");
+                //Debug.Log("Votre " + go.name + " n'a plus que " + pv.Value + "pv");
                 return;
             }
  
             if (IsOwner && (pv.Value <= 0))
             {
                 //Ce que le client doit faire quand son objet est detruit
-                Debug.Log("Votre " + go.name + " a été détruit");
+                //Debug.Log("Votre " + go.name + " a été détruit");
                 Die();
                 return;
             }

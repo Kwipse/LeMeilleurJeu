@@ -122,7 +122,7 @@ namespace classes {
 
             if (isTargetInRange) 
             {
-                Debug.Log($"Agent {gameObject.name} attacks the {targetGo.name}");
+                //Debug.Log($"Agent {gameObject.name} attacks the {targetGo.name}");
                 AttackTargetObject(targetGo);
                 //AttackAction(); 
             } 
