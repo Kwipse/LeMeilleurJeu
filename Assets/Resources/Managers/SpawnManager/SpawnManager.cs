@@ -135,10 +135,8 @@ public class SpawnManager : NetworkBehaviour
         GameObject projectile = projectileNor;
         GameObject weapon = weaponNor;
 
-        if (projectile.GetComponent<NetworkObject>().IsOwner)
-        {
-            projectile.GetComponent<Projectile>().SetWeapon(weapon);
-        }
+        if (projectile.GetComponent<NetworkObject>().IsOwner) {
+            projectile.GetComponent<Projectile>().SetWeapon(weapon); }
 
     }
     

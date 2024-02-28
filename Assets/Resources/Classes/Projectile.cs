@@ -18,18 +18,18 @@ namespace classes {
         public int initialForce;
 
         Rigidbody rb;
+        Collider col;
 
         public virtual void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            col = GetComponent<Collider>();
+            col.enabled = false;
         }
 
         public override void OnNetworkSpawn() 
         {
             ColorManager.SetObjectColors(gameObject);
-
-            if (IsOwner)
-                rb.AddForce(gameObject.transform.forward * initialForce);
         }
 
         public virtual void Start()
@@ -38,10 +38,12 @@ namespace classes {
         }
 
 
-
+        //Callback from SpawnManager
         public void SetWeapon(GameObject weaponToSet) {
             weapon = weaponToSet;
             weaponHolder = weaponToSet.GetComponent<Arme>().GetWeaponSystem().gameObject;
+            col.enabled = true;
+            rb.AddForce(gameObject.transform.forward * initialForce);
         }
 
 

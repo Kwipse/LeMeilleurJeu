@@ -12,16 +12,13 @@ public class Explosion : NetworkBehaviour
 
     bool setToDestroy;
 
+    public override void OnNetworkSpawn() {
+        if (!IsOwner) { enabled = false; } }
 
-    public override void OnNetworkSpawn()
-    {
-        if (!IsOwner)
-            enabled = false;
-    }
 
     void Start()
     {
-        //Debug.Log($"Exploding at {transform.position}, size {ExplosionSize}");
+        Debug.Log($"Exploding at {transform.position}, size {ExplosionSize}");
 
         Invoke("EndExplosion", ExplosionDuration);
         setToDestroy = false;
@@ -39,16 +36,19 @@ public class Explosion : NetworkBehaviour
         if (tag == "Building") dmg = damageToBuilding;
 
         target.GetComponent<HealthSystem>()?.LoosePv(dmg);
-        //Debug.Log($"Explosion dealt {dmg}pv to {target.name}");
+        Debug.Log($"Explosion dealt {dmg}pv to {target.name}");
 
+        Debug.Log($"Explosion : Outward force = {outwardForce}");
         if (outwardForce != 0)
+        {
             PushTarget(target, outwardForce, col.ClosestPoint(transform.position));
-        
+        }
 	}
 
 
     void PushTarget(GameObject target, int force, Vector3 expCenter)
     {
+        Debug.Log($"Explosion : Pushing {target.name}");
         if (target) PushTargetRPC(target, force, expCenter);
     }
 
@@ -62,7 +62,7 @@ public class Explosion : NetworkBehaviour
         Vector3 pushDirection = targetCenter - expPosition;
         Vector3 push = Vector3.Normalize(pushDirection) * force;
 
-        //Debug.Log($"Add {push} force to {target.name}");
+        Debug.Log($"Add {push} force to {target.name}");
 
         target.GetComponent<Rigidbody>()?.AddForce(push);
     }

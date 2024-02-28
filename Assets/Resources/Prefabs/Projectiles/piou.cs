@@ -14,10 +14,9 @@ public class piou : Projectile
 
     public override void OnProjectileCollision(GameObject target)
     {
-        if ((target.tag == "Player" ) && (target.GetComponent<NetworkObject>().IsOwner))
-            return;
-        if ((target.tag == "Projectile" ) && (target.GetComponent<NetworkObject>().IsOwner))
-            return;
+        if ((target.tag == "Player" ) && (target.GetComponent<NetworkObject>().IsOwner)) return;
+        if ((target.tag == "Arme" ) && (target.GetComponent<NetworkObject>().IsOwner)) return;
+        if ((target.tag == "Projectile" ) && (target.GetComponent<NetworkObject>().IsOwner)) return;
 
         //Debug.Log($"Piou impact at {transform.position}");
 
