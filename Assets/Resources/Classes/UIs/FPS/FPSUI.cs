@@ -10,8 +10,7 @@ using scriptablesobjects;
 public class FPSUI : UI
 {
     //FPS Player info
-    WeaponSystem WS;
-    GameObject currentWeapon;
+    WeaponManager WM;
 
     AmmoSystem weaponAmmo;
     AmmoSystem backpackAmmo;
@@ -19,16 +18,16 @@ public class FPSUI : UI
 
     public override void OnSetUI(GameObject FPSPlayer) 
     {
-        WS = FPSPlayer.GetComponent<WeaponSystem>();
+        WM = FPSPlayer.GetComponent<WeaponManager>();
 
         //Subscribe to weapon system events
-        WS.NewWeaponEquippedEvent += OnWeaponEquipped;
-        WS.WeaponDestructionEvent += OnWeaponUnequipped;
+        WM.NewWeaponEquippedEvent += OnWeaponEquipped;
+        WM.WeaponDestructionEvent += OnWeaponUnequipped;
     }
 
     void UpdateAllTexts()
     {
-        SetUIText("AmmoType", $"{WS.GetCurrentAmmoType()}");  
+        SetUIText("AmmoType", $"{WM.GetCurrentAmmoType()}");  
         SetUIText("WeaponAmmo", $"{weaponAmmo.GetAmmo()}");  
         SetUIText("BackpackAmmo", $" / {backpackAmmo.GetAmmo()}");  
     }
@@ -36,8 +35,8 @@ public class FPSUI : UI
 
     void OnWeaponEquipped(GameObject newWeapon)
     {
-        weaponAmmo = WS.GetCurrentWeaponAmmo();
-        backpackAmmo = WS.GetCurrentBackpackAmmo();
+        weaponAmmo = WM.GetCurrentWeaponAmmo();
+        backpackAmmo = WM.GetCurrentBackpackAmmo();
 
         //Subscribe to ammo events
         weaponAmmo.GetAmmoRessource().ChangeEvent += OnNewWeaponAmmo;
@@ -45,12 +44,14 @@ public class FPSUI : UI
 
         //UI changes
         UpdateAllTexts();
-        //Debug.Log($"UI : {newWeapon.name} equipped, {weaponAmmo.GetAmmo()}/{backpackAmmo.GetAmmo()} {WS.GetCurrentAmmoType()} ammo");
+        //Debug.Log($"FPSUI : Player equipped {newWeapon.name} , {weaponAmmo.GetAmmo()}/{backpackAmmo.GetAmmo()} {WM.GetCurrentAmmoType()} ammo");
     }
 
     void OnWeaponUnequipped(GameObject weapon)
     {
         //Unsubscribe to ammo events
+        //Debug.Log($"FPSUI : Player unequipped {weapon.name}");
+        if (!weapon) { return; }
         weaponAmmo.GetAmmoRessource().ChangeEvent -= OnNewWeaponAmmo;
         backpackAmmo.GetAmmoRessource().ChangeEvent -= OnNewBackpackAmmo;
     }

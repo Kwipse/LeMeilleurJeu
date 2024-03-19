@@ -49,11 +49,13 @@ public class RTSCamera : NetworkBehaviour
         rotation = InitialCameraRotation;
 
         pivot = new Vector3(0,0,0);
-        camTarget = new GameObject().transform;
 
         Cursor.lockState = CursorLockMode.Confined;
     
     }
+
+    void OnEnable() { camTarget = new GameObject().transform; }
+    void OnDisable() { Destroy(camTarget.gameObject); }
 
     public override void OnDestroy()
     {

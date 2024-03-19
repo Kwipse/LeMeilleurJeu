@@ -22,7 +22,6 @@ public class FPSCamera : NetworkBehaviour
     void Start()
     {
         cam = GetComponentInChildren<Camera>();
-        //cam.transform.parent = transform; //Parent player to camera
         cam.transform.SetParent(transform); //Parent player to camera
         cam.transform.position = InitialCameraPosition;
 

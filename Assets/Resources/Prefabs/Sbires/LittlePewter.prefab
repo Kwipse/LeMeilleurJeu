@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 1187125715413524840}
   - component: {fileID: 6923841835746517088}
   - component: {fileID: 3570150832727460005}
-  - component: {fileID: 1346568746923284349}
+  - component: {fileID: 4483987523034045468}
   m_Layer: 0
   m_Name: LittlePewter
   m_TagString: Unit
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 955960337
+  GlobalObjectIdHash: 3101571599
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -311,7 +311,8 @@ MonoBehaviour:
   unitSpeed: 15
   unitAngularSpeed: 1000
   unitAcceleration: 1000
---- !u!114 &1346568746923284349
+  ws: {fileID: 0}
+--- !u!114 &4483987523034045468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -320,13 +321,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6891701649780487539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fcef35d11eec6d4a8f30e69c6d50567, type: 3}
+  m_Script: {fileID: 11500000, guid: d8f3c9b0b95f3e94385ed654f60f03df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AvailableWeapons:
-  - {fileID: 1659970368866776838, guid: 839f198c10492f44bb7e5cb570c7d66a, type: 3}
-  BackpackAmmos:
-  - {fileID: 11400000, guid: 2d99d55cf78043c49ad72da34716b3a1, type: 2}
+  WS: {fileID: 11400000, guid: 093362b7867b7ad4b9915e30caa02657, type: 2}
+  currentWeaponId:
+    m_InternalValue: -1
 --- !u!1 &9222550217853195387
 GameObject:
   m_ObjectHideFlags: 0

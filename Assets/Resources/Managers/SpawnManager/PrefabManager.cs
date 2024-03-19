@@ -7,12 +7,12 @@ using Unity.Netcode;
 public class PrefabManager : ScriptableObject
 {
 	// Declare le dictionnaire  ObjCode-Obj
-	public static Dictionary<int, GameObject> gameObjectList = new Dictionary<int, GameObject>();
+	public static Dictionary<int, GameObject> PrefabList = new Dictionary<int, GameObject>();
 
 
 	public static void LoadAllPrefabs()
 	{
-        gameObjectList.Clear();
+        PrefabList.Clear();
 
 		// attention a ne pas load deux fois
 		// appeler un dossier puis appeler un sous-dossier fait appeler deux fois
@@ -26,15 +26,15 @@ public class PrefabManager : ScriptableObject
         //Add to Object list
         Object[] ObjectArray = Resources.LoadAll(PrefabPath,typeof(GameObject));
 
-        //Populate gameObjectList
+        //Populate PrefabList
 		foreach (Object o in ObjectArray) {
-			if(!gameObjectList.ContainsKey(o.name.GetHashCode())) {
-				gameObjectList.Add(o.name.GetHashCode(),(GameObject) o); 
+			if(!PrefabList.ContainsKey(o.name.GetHashCode())) {
+				PrefabList.Add(o.name.GetHashCode(),(GameObject) o); 
                 //Debug.Log($"{o.name} added to Prefab list");
             } }
 
         //Populate NetworkPrefab list
-        foreach (GameObject go in gameObjectList.Values) {
+        foreach (GameObject go in PrefabList.Values) {
             if (go.GetComponent<NetworkObject>()) {
                 NetworkManager.Singleton.AddNetworkPrefab(go); 
                 //Debug.Log($"{go.name} added to NetworkPrefab list");
@@ -43,15 +43,15 @@ public class PrefabManager : ScriptableObject
 	}
 
 
-	public static GameObject GetPrefab(string objName)
+	public static GameObject GetPrefab(string prefabName)
 	{
 		GameObject obj;
 
-		if (gameObjectList.TryGetValue(objName.GetHashCode(), out obj))
+		if (PrefabList.TryGetValue(prefabName.GetHashCode(), out obj))
 			return obj;
 		else
 		{
-			Debug.Log(objName + " not found");
+			Debug.Log(prefabName + " not found");
 			return null;
 		}
 	}

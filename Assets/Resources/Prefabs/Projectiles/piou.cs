@@ -2,9 +2,12 @@ using UnityEngine;
 using Unity.Netcode;
 using classes;
 using systems;
+using scriptablesobjects;
 
 public class piou : Projectile
 {
+    public ExplosionAsset explosion;
+
     public int ImpactDmg;
     public int ExplosionSize;
     public int ExpUnitDmg;
@@ -22,7 +25,7 @@ public class piou : Projectile
 
         target.GetComponent<HealthSystem>()?.LoosePv(ImpactDmg);
 
-        SpawnManager.SpawnExplosion(transform.position, ExplosionSize, ExpUnitDmg, ExpBuildingDmg, ExpDuration, outwardForce);
+        explosion.ExplodeAtPos(transform.position);
         SpawnManager.DestroyObject(gameObject);
         gameObject.SetActive(false);
     }

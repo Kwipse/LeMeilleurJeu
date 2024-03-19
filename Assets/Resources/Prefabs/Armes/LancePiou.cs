@@ -23,6 +23,7 @@ public class LancePiou : Arme
     void OnEnable() { tr = new GameObject().transform; }
     void OnDisable() { Destroy(tr.gameObject); }
 
+
 	public override void OnShoot()
     {
         SpawnManager.SpawnProjectile(projectile, gameObject, gunpoint.transform.position, gunpoint.transform.rotation, projectileSpeed);
@@ -45,7 +46,6 @@ public class LancePiou : Arme
 
             SpawnManager.SpawnProjectile(projectile, gameObject, tr.position, tr.rotation, projectileSpeed);
         }
-
     }
 
 

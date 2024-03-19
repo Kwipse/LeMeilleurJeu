@@ -14,18 +14,44 @@ public class ModeManager : NetworkBehaviour
 	string FPS = "FPSPlayer";
 	string RTS = "RTSPlayer";
 	
+    void Awake()
+    {
+    }
 	
-	public override void OnNetworkSpawn()
-	{
-		if (!IsOwner) {enabled=false;} 
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner) {
+            enabled=false; 
+            return; }
+
     }
 
     void Start()
+    {
+        if (IsHost) {
+            StartPlayer();
+            return; }
+
+        //If not host
+        if (!ObjectManager.isSynced) {
+            //Debug.Log($"ModeManager : ObjectManager is not synced yet");
+            ObjectManager.ObjectManagerSynchronizedEvent += OnObjectManagerSynced; }
+    }
+
+    void OnObjectManagerSynced()
+    {
+        //Debug.Log($"ModeManager : ObjectManager is synced");
+        ObjectManager.ObjectManagerSynchronizedEvent -= OnObjectManagerSynced;
+        StartPlayer();
+    }
+
+    void StartPlayer()
     {
         //Spawn FPS Player
         PlayMode = true;
         SpawnManager.SpawnPlayer(FPS,Vector3.zero);
     }
+
 
 	void Update()
 	{
