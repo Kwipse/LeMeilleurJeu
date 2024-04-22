@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-using systems;
 using scriptablesobjects;
 
 namespace classes {
@@ -9,26 +8,31 @@ namespace classes {
     [RequireComponent(typeof(FPSCamera))]
     [RequireComponent(typeof(FPSAnimator))]
 
-    public class FPSPlayer : NetworkBehaviour
+    public class FPSPlayer : SyncedBehaviour, IWaitForGameSync
     {
         public FPSUI UI;
         public FPSMovement MV;
         [HideInInspector] public WeaponManager WM;
-        
-        public override void OnNetworkSpawn()
+
+
+        void Awake()
+        {
+            enabled = false;
+        }
+
+        public override void StartAfterGameSync()
         {
             ColorManager.SetObjectColors(gameObject);
 
-            if (!IsOwner)
-            {
+            if (!IsOwner) {
                 GetComponentInChildren<Camera>().enabled = false;
-                enabled = false;
+                return; }
+
+            if (IsOwner)
+            {
+                enabled = true;
             }
-        }
 
-
-        void Start()
-        {
             UI.SetUI(gameObject);
             WM = GetComponent<WeaponManager>();
             MV.SetMovingObject(gameObject);
@@ -42,7 +46,6 @@ namespace classes {
         void FixedUpdate()
         {
             MV.UpdatePosition();
-            //WS.UpdateHandlesIK(); <- called in fpsanimator instead
         }
 
         void PlayerInputs()

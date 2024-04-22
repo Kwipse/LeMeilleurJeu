@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 3127312830958641832}
   - component: {fileID: -9115019866531543157}
   - component: {fileID: 2627754893107395276}
+  - component: {fileID: -3125215787690252328}
   m_Layer: 0
   m_Name: Barracks
   m_TagString: Building
@@ -336,6 +337,21 @@ MonoBehaviour:
   - {fileID: 8300191337468608082, guid: 0b8c49d86ae951d4fb4b63dba16b5685, type: 3}
   - {fileID: 6891701649780487539, guid: 542fa64f25cf5bb4e9b5e40f34a5ad31, type: 3}
   isMatchUnitToSpawner: 1
+--- !u!114 &-3125215787690252328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6117278076527145797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 933c55ce1f682e7439a333d49597a5e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pvMax: 100
+  showLifeBar: 1
+  lifeBar: {fileID: 11400000, guid: d4ca009390534b841b1562ee25049d00, type: 2}
 --- !u!1 &6873509441481894645
 GameObject:
   m_ObjectHideFlags: 0

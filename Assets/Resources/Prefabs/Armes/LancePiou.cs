@@ -8,16 +8,9 @@ public class LancePiou : Arme
 
     Transform gunpoint, tr;
 
-    public override void Awake()
+    void Awake()
     {
-        base.Awake(); //On n'outrepasse pas l'Awake() du parent
-
         gunpoint = transform.Find("Gunpoint");
-    }
-
-    public override void Start()
-    {
-        base.Start();
     }
 
     void OnEnable() { tr = new GameObject().transform; }

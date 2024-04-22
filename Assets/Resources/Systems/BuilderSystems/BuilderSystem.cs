@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using classes;
+using managers;
 
 namespace scriptablesobjects { 
 

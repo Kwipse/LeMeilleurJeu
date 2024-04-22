@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef9177c8d7ea11468ea5204ed2093dc, type: 3}
   m_Name: LittlePewterWS
   m_EditorClassIdentifier: 
-  AvailableWeapons: []
-  BackpackAmmos: []
+  AvailableWeapons:
+  - {fileID: 1659970368866776838, guid: 839f198c10492f44bb7e5cb570c7d66a, type: 3}
+  BackpackAmmos:
+  - {fileID: 11400000, guid: 2d99d55cf78043c49ad72da34716b3a1, type: 2}

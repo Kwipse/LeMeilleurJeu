@@ -5,16 +5,9 @@ public class Flingue : Arme
 {	
     Transform gunpoint;
 
-
-    public override void Awake()
-    {
-        base.Awake();
-    }
-
-    public override void Start()
+    void Start()
     {
         gunpoint = GetGunpointTransform();
-        base.Start(); 
     }
 	
 	public override void OnShoot()

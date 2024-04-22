@@ -325,8 +325,8 @@ MonoBehaviour:
   explosion: {fileID: 11400000, guid: 759203b6fbfc03e47b36cc4eacb5d09c, type: 2}
   ImpactDmg: 10
   ExplosionSize: 20
-  ExpUnitDmg: 0
-  ExpBuildingDmg: 0
+  ExpUnitDmg: 20
+  ExpBuildingDmg: 20
   ExpDuration: 0.25
   outwardForce: 300
 --- !u!1 &4952539135333016345

@@ -1,11 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Unity.Netcode;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using systems;
-using scriptablesobjects;
+using managers;
 
 namespace classes {
 
@@ -16,7 +15,7 @@ namespace classes {
     [RequireComponent(typeof(ClientNetworkTransform))]
     [RequireComponent(typeof(HealthSystem))]
 
-    public abstract class Unit : NetworkBehaviour
+    public abstract class Unit : SyncedBehaviour, IWaitForGameSync
     {
         public float sightRange = 50.0f;
         public bool hasProjectileAttack = false;
@@ -37,46 +36,40 @@ namespace classes {
 
         public virtual void Awake() 
         {
-            //Debug.Log($"{gameObject.name} is awake");
+            enabled = false;
+
+            Debug.Log($"{gameObject.name} is awake");
 
             agent = GetComponent<NavMeshAgent>();
-            moveWaypoints = new List<Vector3>();
             ws = GetComponent<WeaponManager>();
-        }
 
-        public override void OnNetworkSpawn()
-        {
-            ColorManager.SetObjectColors(gameObject);
+            moveWaypoints = new List<Vector3>();
+            moveWaypoints.Add(gameObject.transform.position);
 
-            if (!IsOwner)
-                this.enabled = false;
-        }
-
-        public virtual void Start()
-        {
-            //moveWaypoints.Add(gameObject.transform.position);
             agent.speed = unitSpeed;
             agent.angularSpeed = unitAngularSpeed;
             agent.acceleration = unitAcceleration;
         }
 
+        public override void StartAfterGameSync()
+        {
+            Debug.Log($"Unit is team {gameObject.GetComponent<NetworkObject>().OwnerClientId}");
+            ColorManager.SetObjectColors(gameObject);
+            if (IsOwner) { enabled = true; }
+        }
+
+
         public virtual void Update()
         {
-            if (!ennemiTarget) 
-                MoveToDestination(); 
-
-            if (!attackMode)
-                return;
-
-            //Debug.Log($"Agent is searching for a target");
-
-            if (!ennemiTarget) {
-                //Debug.Log($"{gameObject.name} has no current target");
-                ennemiTarget = FindClosestEnnemiInSightRange(); }
-
-            if (ennemiTarget) {
+            if ((ennemiTarget) && (attackMode))
+            {
                 //Debug.Log($"{gameObject.name} is targetting {ennemiTarget.name}");
-                AttackEnnemiTarget(ennemiTarget); }
+                AttackEnnemiTarget(ennemiTarget); 
+                return;
+            }
+
+            ennemiTarget = FindClosestEnnemiInSightRange();
+            MoveToDestination(); 
         }
 
 

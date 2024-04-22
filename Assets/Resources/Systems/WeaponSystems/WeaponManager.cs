@@ -4,10 +4,9 @@ using UnityEngine.Animations.Rigging;
 using UnityEngine.Animations;
 using UnityEngine;
 using scriptablesobjects;
+using classes;
 
-namespace classes 
-{
-    public class WeaponManager : NetworkBehaviour
+    public class WeaponManager : SyncedBehaviour, IWaitForGameSync
     {
         public WeaponSystem WS;
 
@@ -38,58 +37,6 @@ namespace classes
             InitializeHolder();
         }
 
-        public override void OnNetworkSpawn() 
-        {
-            //Subscribe to weapon change event
-            currentWeaponId.OnValueChanged += OnNewWeaponId; 
-
-            //Init 
-            if (IsServer) 
-            {
-                currentWeaponId.Value = -1; 
-            }
-
-            //All non-host wait for ObjectManager to sync
-            if (!IsServer)
-            {
-                //Debug.Log($"WeaponManager : NetworkVariable \"currentWeaponId\" initialized to {currentWeaponId.Value}"); 
-
-                if (!ObjectManager.isSynced) 
-                {
-                    //Debug.Log($"WeaponManager : ObjectManager is not synced yet");
-                    ObjectManager.ObjectManagerSynchronizedEvent += OnObjectManagerSynced; 
-                }
-
-                if (ObjectManager.isSynced) 
-                {
-                    //Debug.Log($"WeaponManager : ObjectManager is already synced");
-                    InitializeWeaponManager();
-                }
-
-            }
-        }
-
-        void Start()
-        {
-            if (IsServer) { InitializeWeaponManager(); }
-        }
-
-        void OnObjectManagerSynced()
-        {
-            //Debug.Log($"WeaponManager : ObjectManager is synced");
-            ObjectManager.ObjectManagerSynchronizedEvent -= OnObjectManagerSynced; 
-            if (IsOwner) { InitializeWeaponManager(); }
-            if (!IsOwner) { OnNewWeaponId(-1, currentWeaponId.Value); }
-        }
-
-        public override void OnNetworkDespawn() 
-        {
-            currentWeaponId.OnValueChanged -= OnNewWeaponId; 
-            UnequipWeapon();
-        }
-
-
-
         void InitializeHolder()
         {
             weaponHolder = gameObject;
@@ -111,15 +58,26 @@ namespace classes
             foreach (var bp in WS.BackpackAmmos) { bp.SetAmmoToFull(); }
         }
 
-        void InitializeWeaponManager()
+
+
+        public override void StartAfterGameSync()
         {
+            currentWeaponId.OnValueChanged += OnNewWeaponId;
+            if (IsServer) { currentWeaponId.Value = -1; }
             if (IsOwner) { EquipWeaponNumber(0); }
         }
+
+        public override void OnNetworkDespawn() 
+        {
+            currentWeaponId.OnValueChanged -= OnNewWeaponId; 
+            UnequipWeapon();
+        }
+
 
         public void OnNewWeaponId(int previous, int current)
         {
             currentWeapon = ObjectManager.GetObjectById(current);
-            //Debug.Log($"WeaponManager : New weapon {currentWeapon.name} : previousId = {previous}, currentId = {current}");
+            Debug.Log($"WeaponManager : New weapon {currentWeapon.name} : previousId = {previous}, currentId = {current}");
             InitWeapon();
             PlaceWeapon();
             SetIKs();
@@ -233,4 +191,3 @@ namespace classes
                 ch.Key.rotation = ch.Value.rotation; } 
         }
     }
-}

@@ -290,8 +290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 933c55ce1f682e7439a333d49597a5e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pv:
-    m_InternalValue: 100
+  pvMax: 100
+  showLifeBar: 1
+  lifeBar: {fileID: 11400000, guid: d4ca009390534b841b1562ee25049d00, type: 2}
 --- !u!114 &3570150832727460005
 MonoBehaviour:
   m_ObjectHideFlags: 0

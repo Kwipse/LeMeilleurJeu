@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 670259694732076245}
   - component: {fileID: 8986211388519810114}
   - component: {fileID: 2170648227307970666}
-  - component: {fileID: 2052196502205224948}
   - component: {fileID: -8101810304083031313}
   m_Layer: 9
   m_Name: sbire
@@ -161,8 +160,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 933c55ce1f682e7439a333d49597a5e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pv:
-    m_InternalValue: 100
+  pvMax: 100
+  showLifeBar: 1
+  lifeBar: {fileID: 11400000, guid: d4ca009390534b841b1562ee25049d00, type: 2}
 --- !u!65 &670259694732076245
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -242,20 +242,6 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &2052196502205224948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711416458826522534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fcef35d11eec6d4a8f30e69c6d50567, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AvailableWeapons: []
-  BackpackAmmos: []
 --- !u!114 &-8101810304083031313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,6 +261,7 @@ MonoBehaviour:
   unitSpeed: 15
   unitAngularSpeed: 1000
   unitAcceleration: 1000
+  ws: {fileID: 0}
   nexus: {fileID: 0}
   mine: {fileID: 0}
   _rM: {fileID: 0}

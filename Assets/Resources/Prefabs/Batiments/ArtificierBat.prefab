@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: -9201633999512028842}
   - component: {fileID: -1227783865135702466}
   - component: {fileID: 2079668216587283898}
+  - component: {fileID: -2548089590688670791}
   m_Layer: 0
   m_Name: ArtificierBat
   m_TagString: Untagged
@@ -154,7 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2536285874
+  GlobalObjectIdHash: 1677974197
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -174,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
@@ -231,6 +234,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d9edb82c66bd84d8b490acf9bd1536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2548089590688670791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6179331823867752489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 933c55ce1f682e7439a333d49597a5e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pvMax: 100
+  showLifeBar: 1
+  lifeBar: {fileID: 11400000, guid: d4ca009390534b841b1562ee25049d00, type: 2}
 --- !u!1 &7956135962675504542
 GameObject:
   m_ObjectHideFlags: 0

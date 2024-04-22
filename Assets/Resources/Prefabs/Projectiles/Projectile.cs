@@ -1,8 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
-using systems;
-using classes;
+using managers;
 
 namespace classes {
 

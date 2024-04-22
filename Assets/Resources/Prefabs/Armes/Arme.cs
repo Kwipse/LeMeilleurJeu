@@ -2,16 +2,14 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
-using systems;
 using scriptablesobjects;
-using UnityEngine.Animations.Rigging;
 
 namespace classes {
 
     [RequireComponent(typeof(NetworkObject))]
     [RequireComponent(typeof(ClientNetworkTransform))]
     
-    public abstract class Arme : NetworkBehaviour
+    public abstract class Arme : SyncedBehaviour, IWaitForGameSync 
     {
         //Ammo properties
         public AmmoSystem magasineAmmo;
@@ -38,12 +36,7 @@ namespace classes {
 
 
 
-        public override void OnNetworkSpawn() {
-            ColorManager.SetObjectColors(gameObject);
-            if (!IsOwner) { enabled = false; } }
-
-
-        public virtual void Awake()
+        public override void StartAfterGameSync()
         {
             //Set stands, handles, gunpoint
             weaponStands = new List<Transform>();
@@ -57,11 +50,11 @@ namespace classes {
             if (weaponStands.Count == 0) { Debug.Log("Weapon has no stand"); }
             if (weaponHandles.Count == 0) { Debug.Log("Weapon has no handle"); }
             if (!weaponGunpoint) { Debug.Log("Weapon has no handle"); }
-        }
 
 
-        public virtual void Start() 
-        {
+            ColorManager.SetObjectColors(gameObject);
+            if (!IsOwner) { enabled = false; return; } 
+
             lastShoot = Time.time - Mathf.Max(CadenceDeTir, CadenceDeTirAlt); 
 
             //Subscribe to magasineAmmo events
@@ -73,10 +66,10 @@ namespace classes {
 
         public override void OnDestroy()
         {
-
             magasineAmmo.GetAmmoRessource().ChangeEvent -= OnMagAmmoChanged;
             magasineAmmo.GetAmmoRessource().HitMinEvent -= OnMagAmmoEmpty;
 
+            StopReload();
             base.OnDestroy();
         }
 
@@ -156,6 +149,7 @@ namespace classes {
         }
 
 
+        //Reload
         public void StartReload() { Invoke("Reload", reloadTime); }
         public void StopReload() { CancelInvoke("Reload"); }
 

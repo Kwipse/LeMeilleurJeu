@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3011817861
+  GlobalObjectIdHash: 2405427568
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -395,8 +395,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 933c55ce1f682e7439a333d49597a5e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pv:
-    m_InternalValue: 100
+  pvMax: 100
+  showLifeBar: 1
+  lifeBar: {fileID: 11400000, guid: d4ca009390534b841b1562ee25049d00, type: 2}
 --- !u!114 &-3633317159874165211
 MonoBehaviour:
   m_ObjectHideFlags: 0
