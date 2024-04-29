@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cb43eef58855347a90ae9435afa7cd, type: 3}
   m_Name: StandardFPSMovement
   m_EditorClassIdentifier: 
-  moveSpeed: 0.5
+  moveSpeed: 10
   movingStopsForces: 1
   movingGo: {fileID: 0}
   movingTr: {fileID: 0}
