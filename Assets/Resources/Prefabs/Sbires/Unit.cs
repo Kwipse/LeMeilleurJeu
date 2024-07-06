@@ -131,7 +131,8 @@ namespace classes {
                 AttackAction(); }
         }
 
-        public abstract void AttackAction(); 
+        public virtual void AttackAction(){}
+        public virtual void SkillAction(Vector3 pos){} 
 
 
         public void MoveUnitToPos(Vector3 pos, bool attackMove) {
@@ -141,6 +142,12 @@ namespace classes {
             attackMode = false; }
 
 
+        public void SetAgentParameterTo(float _speed, float _angularSpeed, float _acceleration )
+        {//charge du mammouth
+            agent.speed = _speed;
+            agent.angularSpeed = _angularSpeed;
+            agent.acceleration = _acceleration;
+        }
         GameObject FindClosestEnnemiInSightRange()
         {
             GameObject closestEnnemi = null;

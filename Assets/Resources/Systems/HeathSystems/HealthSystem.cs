@@ -19,6 +19,10 @@ namespace systems {
             lifeBar = ScriptableObject.Instantiate(lifeBar);
         }
 
+        public void Update()
+        {//a changer
+            if(lifeBar != null ) lifeBar.LookAtPosition(Vector3.forward);
+        }
         public override void StartAfterGameSync()
         {
             Debug.Log($"{gameObject.name} : HealthSystem is online");
