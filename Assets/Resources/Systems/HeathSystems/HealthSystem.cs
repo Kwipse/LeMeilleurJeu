@@ -49,6 +49,11 @@ public class HealthSystem : SyncedBehaviour, IWaitForGameSync
         if (IsOwner && (pv.Value <= 0)) { Die(); }
     }
 
+    public void Update()
+    {//a changer
+        if(HB != null ) HB.LookAtPosition(Vector3.forward);
+    }
+
     public override void OnNetworkDespawn()
     {
         pvMax.OnValueChanged -= OnPvMaxChanged;

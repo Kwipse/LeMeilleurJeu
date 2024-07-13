@@ -46,6 +46,11 @@ public class HealthBar : ScriptableObject
         }
     }
 
+    public void LookAtPosition(Vector3 pos)
+    {
+        healthBarGo.transform.LookAt(pos);
+    }
+
     //Set Health Amount
     public void SetHealth(float hp)
     {

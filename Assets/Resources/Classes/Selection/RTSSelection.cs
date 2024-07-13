@@ -142,6 +142,12 @@ namespace classes
                 go.GetComponent<UnitSpawnerSystem>()?.SpawnUnitByIndex(unitIndex);
         }
 
+        public void OrderSelectedUnitsToSkill(Vector3 pos)
+        {
+            foreach(GameObject go in selection) 
+                go.GetComponent<Unit>()?.SkillAction(pos);
+        }
+
 
         
         public override void OnDestroy()

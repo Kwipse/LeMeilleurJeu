@@ -12,7 +12,7 @@ using managers;
 [RequireComponent(typeof(ClientNetworkTransform))]
 [RequireComponent(typeof(HealthSystem))]
 
-public abstract class Unit : SyncedBehaviour, IWaitForGameSync, IWeaponizable
+public abstract class Unit : SyncedBehaviour, IWaitForGameSync
 {
     public float sightRange = 50.0f;
     public bool hasProjectileAttack = false;
@@ -146,7 +146,6 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync, IWeaponizable
     }
 
 
-
     void AttackTargetObject(GameObject targetGo)
     {
         if (WS.GetCurrentWeapon()) {
@@ -155,8 +154,16 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync, IWeaponizable
             AttackAction(); }
     }
 
-    public abstract void AttackAction(); 
+    public virtual void AttackAction(){}
+    public virtual void SkillAction(Vector3 pos){} 
 
+
+    public void SetAgentParameterTo(float _speed, float _angularSpeed, float _acceleration )
+    {//charge du mammouth
+        agent.speed = _speed;
+        agent.angularSpeed = _angularSpeed;
+        agent.acceleration = _acceleration;
+    }
 
     public void MoveOrder(Vector3 pos, bool addWaypoint = false) {
         if (!addWaypoint) { waypoints.Clear(); }
