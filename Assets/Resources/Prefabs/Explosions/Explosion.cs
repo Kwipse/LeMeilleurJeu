@@ -39,6 +39,7 @@ public class Explosion : NetworkBehaviour
             PushTarget(target, outwardForce, col.ClosestPoint(transform.position)); }
 
         //Debug.Log($"Explosion dealt {dmg}pv to {target.name}");
+        //target.GetComponent<IHealth>()?.LoosePv(dmg);
         target.GetComponent<HealthSystem>()?.LoosePv(dmg);
 	}
 

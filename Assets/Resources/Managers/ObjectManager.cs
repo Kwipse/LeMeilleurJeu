@@ -18,7 +18,7 @@ public class ObjectManager : SyncedBehaviour, ISyncBeforeGame
     void Awake()
     { 
         OM = this; 
-        Debug.Log("ObjectManager : J'existe !");
+        //Debug.Log("ObjectManager : J'existe !");
     }
 
     public override void InitializeBeforeSync()

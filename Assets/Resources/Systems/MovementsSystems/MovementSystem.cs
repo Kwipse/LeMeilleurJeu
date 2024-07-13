@@ -31,6 +31,7 @@ namespace scriptablesobjects
         public void Move(Vector3 direction) { moveVect += direction; }
         public void Teleport(Vector3 position) { movingTr.position = position; }
 
+        //Call this in fixed update
         public void UpdatePosition()
         {
             if ((moveVect != Vector3.zero) && (movingStopsForces)) 

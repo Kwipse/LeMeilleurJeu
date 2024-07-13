@@ -86,8 +86,8 @@ namespace classes {
             if (Input.GetMouseButtonDown(0)) { selection.StartBoxSelection(GetMousePos()); }
             if (Input.GetMouseButton(0)) { selection.UpdateBoxSelection(GetMousePos()); }
             if (Input.GetMouseButtonUp(0)) { selection.EndBoxSelection(GetMousePos()); }
-            if (Input.GetKeyDown(KeyCode.LeftShift)) selection.isAddingToSelection = true ;
-            if (Input.GetKeyUp(KeyCode.LeftShift)) selection.isAddingToSelection = false ;
+            if (Input.GetKeyDown(KeyCode.LeftShift)) { selection.isAddingToSelection = true ; }
+            if (Input.GetKeyUp(KeyCode.LeftShift)) { selection.isAddingToSelection = false ; }
         }
 
         void SelectionVideInputs()
@@ -99,6 +99,8 @@ namespace classes {
         {
             //SelectionArmee inputs
             if (Input.GetMouseButtonDown(1)) { selection.OrderSelectedUnitsToMove(GetMousePos()); }
+            if (Input.GetKeyDown(KeyCode.LeftShift)) { selection.isAddingToWaypoints = true ; }
+            if (Input.GetKeyUp(KeyCode.LeftShift)) { selection.isAddingToWaypoints = false ; }
         }
 
         void SelectionBatimentInputs()

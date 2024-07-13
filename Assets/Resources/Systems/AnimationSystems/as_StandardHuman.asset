@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c43b39cb9a171a46a05c74f7ed9cf8a, type: 3}
+  m_Name: as_StandardHuman
+  m_EditorClassIdentifier: 
+  rac: {fileID: 9100000, guid: 88cd9144736b8a541b32991a1bbfae00, type: 2}
+  aIdle: {fileID: -2652782386888123355, guid: d8cb7384a91799641aba3cc55f919a18, type: 3}
+  aRunning: {fileID: 1303299601406483602, guid: d8cb7384a91799641aba3cc55f919a18, type: 3}
+  aFalling: {fileID: 996556327985334516, guid: d8cb7384a91799641aba3cc55f919a18, type: 3}
+  aJumping: {fileID: 7238280004761517075, guid: d8cb7384a91799641aba3cc55f919a18, type: 3}

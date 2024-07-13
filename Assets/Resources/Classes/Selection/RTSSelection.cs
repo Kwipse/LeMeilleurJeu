@@ -8,6 +8,8 @@ namespace classes
 {
     public class RTSSelection : SelectionSystem
     {
+        [HideInInspector] public bool isAddingToWaypoints;
+
         string selectionMode;
 
         Vector3 boxSelectStartPoint;
@@ -26,6 +28,7 @@ namespace classes
             canSelectNotOwnedObjects = false;
             canSelectWeapon = false;
             isAddingToSelection = false;
+            isAddingToWaypoints = false;
 
             //Subscribe to selection events
             ObjectSelectedEvent += OnObjectSelected;
@@ -124,7 +127,7 @@ namespace classes
         public void OrderSelectedUnitsToMove(Vector3 pos) 
         {
             foreach (GameObject go in selection) {
-                go.GetComponent<Unit>()?.MoveUnitToPos(pos, false); } 
+                go.GetComponent<Unit>()?.MoveOrder(pos, isAddingToWaypoints); } 
         }
 
         public void OrderSelectedBuildingsToMoveRallyPoint(Vector3 pos) 

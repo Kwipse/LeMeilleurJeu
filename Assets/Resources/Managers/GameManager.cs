@@ -19,7 +19,7 @@ public class GameManager : NetworkBehaviour
     {
         GM = this;
         isGameSynced = false;
-        Debug.Log("GameManager : J'existe !");
+        //Debug.Log("GameManager : J'existe !");
 
         behavioursToSync = new List<SyncedBehaviour>();
         behavioursWaitingSync = new List<SyncedBehaviour>();
@@ -49,7 +49,7 @@ public class GameManager : NetworkBehaviour
         Debug.Log($"GameManager : INITIALISATION DE LA SYNCHRONISATION");
         isGameSynced = true;
         foreach(var b in behavioursToSync) {
-            Debug.Log($"{b.GetType().Name} : Initializing sync"); 
+            //Debug.Log($"{b.GetType().Name} : Initializing sync"); 
             b.InitializeBeforeSync(); }
     }
 
@@ -58,7 +58,7 @@ public class GameManager : NetworkBehaviour
         Debug.Log($"GameManager : COMMENCEMENT DE LA SYNCHRONISATION");
         isGameSynced = true;
         foreach(var b in behavioursToSync) {
-            Debug.Log($"{b.GetType().Name} : Starting sync"); 
+            //Debug.Log($"{b.GetType().Name} : Starting sync"); 
             b.StartSync(); }
     }
 
@@ -67,7 +67,7 @@ public class GameManager : NetworkBehaviour
         Debug.Log($"GameManager : LE JEU EST SYNCHRONISE");
         isGameSynced = true;
         foreach(var b in behavioursWaitingSync) {
-            Debug.Log($"{b.GetType().Name} : Game is synced"); 
+            //Debug.Log($"{b.GetType().Name} : Game is synced"); 
             b.StartAfterGameSync(); }
     }
 

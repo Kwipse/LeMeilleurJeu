@@ -87,21 +87,6 @@ namespace systems
 
 
 
-       // //Box Selection
-       // public void StartBoxSelection(Vector3 startPoint) {
-       //     boxSelectStartPoint = startPoint;
-       //     boxSelectEndPoint = startPoint; }
-
-       // public void UpdateBoxSelection(Vector3 updatePoint) {
-       //     boxSelectEndPoint = updatePoint;
-       //     ColorManager.DrawBox(boxSelectStartPoint, boxSelectEndPoint); }
-
-       // public void EndBoxSelection(Vector3 endPoint) {
-       //     boxSelectEndPoint = endPoint;
-       //     SelectInBox(boxSelectStartPoint, boxSelectEndPoint); }
-
-
-
         //Unselect & Clear
         public void UnselectObject(GameObject go) {
             //Remove from selection and fire event

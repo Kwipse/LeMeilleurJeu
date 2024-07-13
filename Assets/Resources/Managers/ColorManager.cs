@@ -38,7 +38,7 @@ using managers;
             CM = this;
             PlayerMaterial = new NetworkList<int>();
             TeamMaterial = new NetworkList<int>(); 
-            Debug.Log($"{this.GetType().Name} : J'existe !");
+            //Debug.Log($"{this.GetType().Name} : J'existe !");
         }
 
         public override void InitializeBeforeSync()

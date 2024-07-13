@@ -7,8 +7,8 @@ using scriptablesobjects;
 [CreateAssetMenu]
 public class FPSUI : UI
 {
-    //FPS Player info
-    WeaponManager WM;
+    FPSPlayer player;
+    WeaponSystem WS;
 
     AmmoSystem weaponAmmo;
     AmmoSystem backpackAmmo;
@@ -16,16 +16,23 @@ public class FPSUI : UI
 
     public override void OnSetUI(GameObject FPSPlayer) 
     {
-        WM = FPSPlayer.GetComponent<WeaponManager>();
+        player = FPSPlayer.GetComponent<FPSPlayer>();
+        WS = FPSPlayer.GetComponent<IWeaponizable>().WS;
+        //Debug.Log($"{FPSPlayer.name} {WS}");
 
         //Subscribe to weapon system events
-        WM.NewWeaponEquippedEvent += OnWeaponEquipped;
-        WM.WeaponDestructionEvent += OnWeaponUnequipped;
+        WS.NewWeaponEquippedEvent += OnWeaponEquipped;
+        WS.WeaponDestructionEvent += OnWeaponUnequipped;
+
+        if (WS.GetCurrentWeapon())
+        {
+            OnWeaponEquipped(WS.GetCurrentWeapon());
+        }
     }
 
     void UpdateAllTexts()
     {
-        SetUIText("AmmoType", $"{WM.GetCurrentAmmoType()}");  
+        SetUIText("AmmoType", $"{WS.GetCurrentAmmoType()}");  
         SetUIText("WeaponAmmo", $"{weaponAmmo.GetAmmo()}");  
         SetUIText("BackpackAmmo", $" / {backpackAmmo.GetAmmo()}");  
     }
@@ -33,8 +40,8 @@ public class FPSUI : UI
 
     void OnWeaponEquipped(GameObject newWeapon)
     {
-        weaponAmmo = WM.GetCurrentWeaponAmmo();
-        backpackAmmo = WM.GetCurrentBackpackAmmo();
+        weaponAmmo = WS.GetCurrentWeaponAmmo();
+        backpackAmmo = WS.GetCurrentBackpackAmmo();
 
         //Subscribe to ammo events
         weaponAmmo.GetAmmoRessource().ChangeEvent += OnNewWeaponAmmo;
@@ -42,7 +49,7 @@ public class FPSUI : UI
 
         //UI changes
         UpdateAllTexts();
-        //Debug.Log($"FPSUI : Player equipped {newWeapon.name} , {weaponAmmo.GetAmmo()}/{backpackAmmo.GetAmmo()} {WM.GetCurrentAmmoType()} ammo");
+        //Debug.Log($"FPSUI : Player equipped {newWeapon.name} , {weaponAmmo.GetAmmo()}/{backpackAmmo.GetAmmo()} {WS.GetCurrentAmmoType()} ammo");
     }
 
     void OnWeaponUnequipped(GameObject weapon)

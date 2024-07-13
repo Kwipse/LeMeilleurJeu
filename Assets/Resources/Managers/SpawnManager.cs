@@ -106,7 +106,7 @@ using scriptablesobjects;
             Projectile projectileStats = projectile.GetComponent<Projectile>();
             projectileStats.initialForce = initialForce;
 
-            SetupProjectileRpc(projectile, (GameObject) weaponNor);
+            SetupProjectileRpc(projectile, weaponNor);
         }
 
         [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -114,10 +114,8 @@ using scriptablesobjects;
         {
             GameObject projectile = projectileNor;
             GameObject weapon = weaponNor;
-
             if (projectile.GetComponent<NetworkObject>().IsOwner) {
                 projectile.GetComponent<Projectile>().SetWeapon(weapon); }
-
         }
 
 
@@ -135,9 +133,18 @@ using scriptablesobjects;
                 NetworkObjectReference holderNor,
                 RpcParams rpcParams = default)
         {
-            GameObject holder = holderNor;
             int weaponId = ServerSpawnPrefabByName(weaponPrefabName, Vector3.zero , Quaternion.identity, rpcParams.Receive.SenderClientId);
-            holder.GetComponent<WeaponManager>().currentWeaponId.Value = weaponId;
+            GameObject holder = holderNor;
+            holder.GetComponent<WeaponSystem>().currentWeaponId.Value = weaponId;
+            //SyncWeaponRpc(holderNor, weaponId);
+        }
+
+        [Rpc(SendTo.Everyone, RequireOwnership = false)]
+        void SyncWeaponRpc(NetworkObjectReference holderNor, int weaponId)
+        {
+            GameObject holder = holderNor;
+            Debug.Log($"weaponHolder : {holder}, weaponId : {weaponId}");
+            //holder.GetComponent<IWeaponizable>()?.WS.UpdateWeapon(weaponId);
         }
 
 
@@ -184,7 +191,7 @@ using scriptablesobjects;
             //Debug.Log($"SpawnManager : Received order to move {go.name} to rally point {rallyPosition}");
             if (no.IsOwner)
             {
-                go.GetComponent<Unit>()?.MoveUnitToPos(rallyPosition, false);
+                go.GetComponent<Unit>()?.MoveOrder(rallyPosition, false);
             }
         }
 

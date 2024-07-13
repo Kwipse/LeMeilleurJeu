@@ -556,3 +556,22 @@ Dans le dossier Prefabs/Batiments, créer un prefab et un script pour votre bati
 Configurer le tag en "Building".
 Assigner le script a votre batiment, remplir les infos dans l'éditeur.
 
+
+# Notes
+
+Start sans unity hub :
+Creer un .txt, dans lequel il faut adapter la ligne suivante
+start "" "D:\Logiciels\Unity\Unity Editors\2022.3.5f1\Editor\Unity.exe" -projectpath "D:\Logiciels\Unity\Projets\LeMeilleurJeu"
+renommer le fichier en .bat
+???
+profit
+
+blender to unity :
+S'assurer que les pos, rot et scales soient à 0 (object mode -> A (select all) -> Ctrl + a -> Apply all transforms)
+sauvegarder le .blend dans LeMeilleurJeu/Assets/Ressources/BlenderImports
+
+Recuperer toutes les animations d'un .blend:
+"I FIGURED IT OUT. Apparently Unity can recognise animations set up this way but as of version 2019.3 it’s disabled by default and there’s no way to enable it within the editor. In order to enable it, you must navigate to /Data/Tools/ in your installation directory (I installed it using the default path so for me it was C:\Program Files\2019.3.0f6\Editor\Data), open Unity-BlenderToFBX.py and change bake_anim_use_all_actions=False, (it should be on line 43) to bake_anim_use_all_actions=True,. This lets unity properly recognise your actions."
+
+
+

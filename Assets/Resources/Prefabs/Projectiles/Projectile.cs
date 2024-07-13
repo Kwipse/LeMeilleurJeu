@@ -40,10 +40,16 @@ namespace classes {
         //Callback from SpawnManager
         public void SetWeapon(GameObject weaponToSet) {
             weapon = weaponToSet;
-            weaponHolder = weaponToSet.GetComponent<Arme>().GetWeaponSystem().GetWeaponHolder();
+            weaponHolder = weapon.GetComponent<Arme>().GetWeaponSystem().gameObject;
+            FireProjectile();
+        }
+
+        void FireProjectile()
+        {
             col.enabled = true;
             rb.AddForce(gameObject.transform.forward * initialForce);
         }
+
 
 
         void OnCollisionEnter(Collision col)

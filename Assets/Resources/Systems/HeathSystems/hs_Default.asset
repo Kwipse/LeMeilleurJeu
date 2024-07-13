@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c2bcf0f8aef67499173e0734196b8b, type: 3}
+  m_Name: hs_Default
+  m_EditorClassIdentifier: 
+  pvMax: 100
+  lifeBar: {fileID: 11400000, guid: d4ca009390534b841b1562ee25049d00, type: 2}

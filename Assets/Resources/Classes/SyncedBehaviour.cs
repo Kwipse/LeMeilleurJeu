@@ -29,15 +29,15 @@ public class SyncedBehaviour : NetworkBehaviour
         {
             if (this is ISyncBeforeGame) {
                 GameManager.AddBehaviourToSync(this); //Tell GameManager to wait for the object to sync
-                Debug.Log($"{this.GetType()} : Initialization before Sync");
+                //Debug.Log($"{this.GetType()} : Initialization before Sync");
                 InitializeBeforeSync();
-                Debug.Log($"{this.GetType().Name} : Starting object sync");
+                //Debug.Log($"{this.GetType().Name} : Starting object sync");
                 StartSync();
             }
 
             if (this is IWaitForGameSync) {
                 GameManager.AddBehaviourToAfterSync(this); //Tell GameManager to signal on gamesync
-                Debug.Log($"{this.GetType().Name} : Waiting for game sync");
+                //Debug.Log($"{this.GetType().Name} : Waiting for game sync");
             }
         }
 
@@ -45,11 +45,11 @@ public class SyncedBehaviour : NetworkBehaviour
         if (GameManager.isGameSynchronized())
         {
             if (this is ISyncBeforeGame) {
-                Debug.Log($"{this.GetType().Name} : Can't sync after game sync !");
+                //Debug.Log($"{this.GetType().Name} : Can't sync after game sync !");
                 }
 
             if (gameObject.GetComponent<IWaitForGameSync>() != null) {
-                Debug.Log($"{this.GetType().Name} : Starting after game sync");
+                //Debug.Log($"{this.GetType().Name} : Starting after game sync");
                 StartAfterGameSync(); }
         }
 
@@ -64,7 +64,7 @@ public class SyncedBehaviour : NetworkBehaviour
     //Call this from the synced object to signal end of sync
     public void EndSync() 
     {
-        Debug.Log($"{this.GetType().Name} : Ending sync");
+        //Debug.Log($"{this.GetType().Name} : Ending sync");
         GameManager.OnBehaviourSynchronized((SyncedBehaviour)this);
     }
 }

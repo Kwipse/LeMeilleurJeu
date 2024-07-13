@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: fa9b5d1c0f659b04e93166222fa1103f
+guid: 8c43b39cb9a171a46a05c74f7ed9cf8a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - rac: {fileID: 9100000, guid: 88cd9144736b8a541b32991a1bbfae00, type: 2}
+  - aIdle: {instanceID: 0}
+  - aRunning: {instanceID: 0}
+  - aFalling: {instanceID: 0}
+  - aJumping: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

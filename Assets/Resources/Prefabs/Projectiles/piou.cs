@@ -2,8 +2,6 @@ using UnityEngine;
 using Unity.Netcode;
 using classes;
 using scriptablesobjects;
-using managers;
-using systems;
 
 public class piou : Projectile
 {
@@ -22,9 +20,9 @@ public class piou : Projectile
         if ((target.tag == "Arme" ) && (target.GetComponent<NetworkObject>().IsOwner)) return;
         if ((target.tag == "Projectile" ) && (target.GetComponent<NetworkObject>().IsOwner)) return;
 
-        //Debug.Log($"Piou impact at {transform.position}");
-
+        //Debug.Log($"Piou impact {target} at {transform.position}");
         target.GetComponent<HealthSystem>()?.LoosePv(ImpactDmg);
+
 
         explosion.ExplodeAtPos(transform.position);
         SpawnManager.DestroyObject(gameObject);

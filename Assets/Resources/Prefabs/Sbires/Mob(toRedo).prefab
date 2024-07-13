@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 2004135624901011609}
   - component: {fileID: 5064970821503379899}
   - component: {fileID: 3794279895244129712}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Mob(toRedo)
   m_TagString: Unit
   m_Icon: {fileID: 0}
@@ -524,7 +524,7 @@ GameObject:
   - component: {fileID: 8641290069990418285}
   - component: {fileID: 2273811978213151761}
   - component: {fileID: 3398301627316166164}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Corps
   m_TagString: TeamColor
   m_Icon: {fileID: 0}

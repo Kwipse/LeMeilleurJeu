@@ -1,100 +1,92 @@
 using Unity.Netcode;
 using UnityEngine;
-using managers;
 
-namespace systems {
+public class HealthSystem : SyncedBehaviour, IWaitForGameSync
+{
+    public HealthSystemAsset HSA;
+    HealthBar HB;
+    bool showLifeBar = true;
 
-    public class HealthSystem : SyncedBehaviour, IWaitForGameSync
+    NetworkVariable<int> pv;
+    NetworkVariable<int> pvMax;
+
+    void Awake()
     {
-        public int pvMax = 100;
-        NetworkVariable<int> pv;
-        public bool showLifeBar = true;
-        public HealthBar lifeBar;
+        pv = new NetworkVariable<int>();
+        pvMax = new NetworkVariable<int>();
+        HSA = ScriptableObject.Instantiate(HSA);
+        HB = ScriptableObject.Instantiate(HSA.lifeBar);
+    }
 
-        GameObject go;
+    public override void StartAfterGameSync()
+    {
+        if (showLifeBar) { HB.CreateHealthBar(gameObject); }
 
-        void Awake()
+        if (IsServer)
         {
-            pv = new NetworkVariable<int>();
-            lifeBar = ScriptableObject.Instantiate(lifeBar);
+            pvMax.Value = HSA.hpPool;
+            pv.Value = pvMax.Value;
+        }
+        if (IsClient)
+        {
+            OnPvMaxChanged(-1, pvMax.Value);
+            OnPvChanged(-1, pv.Value);
         }
 
-        public override void StartAfterGameSync()
+        pvMax.OnValueChanged += OnPvMaxChanged;
+        pv.OnValueChanged += OnPvChanged;
+    }
+
+    public void OnPvMaxChanged(int previous, int current)
+    {
+        HB.SetHealth((float)current/pvMax.Value);
+        if (IsOwner && (pvMax.Value <= 0)) { Die(); }
+    }
+
+    public void OnPvChanged(int previous, int current)
+    {
+        HB.SetHealth((float)current/pvMax.Value);
+        if (IsOwner && (pv.Value <= 0)) { Die(); }
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        pvMax.OnValueChanged -= OnPvMaxChanged;
+        pv.OnValueChanged -= OnPvChanged;
+        HB.DestroyHealthBar();
+    }
+
+
+
+    void Die()
+    {
+        switch (gameObject.tag)
         {
-            Debug.Log($"{gameObject.name} : HealthSystem is online");
-            pv.OnValueChanged += OnPvChanged;
-            if (showLifeBar) { lifeBar.CreateHealthBar(gameObject); }
+            case  "Player":
+                SpawnManager.DestroyPlayer(gameObject);
+                SpawnManager.SpawnPlayer("FPSPlayer", Vector3.zero);
+                break;
 
-            if (IsServer) { pv.Value = pvMax; }
+            default:
+                SpawnManager.DestroyObject(gameObject);
+                break;
         }
+    }
 
-        public override void OnNetworkDespawn()
+    public void SetPv(int dmg) { LoosePvServerRPC(pv.Value - dmg); }
+    public void LoosePv(int dmg) { LoosePvServerRPC(dmg); }
+
+    [ServerRpc(RequireOwnership = false)]
+    void LoosePvServerRPC(int dmg, ServerRpcParams serverRpcParams = default)
+    {
+        var clientId = serverRpcParams.Receive.SenderClientId;
+        pv.Value -= dmg;
+
+        if (pv.Value <= 0)
         {
-            pv.OnValueChanged -= OnPvChanged;
-            lifeBar.DestroyHealthBar();
+            //Ce que le serveur doit faire en cas de mort
         }
-
-
-        public void OnPvChanged(int previous, int current)
-        {
-            Debug.Log($"{gameObject.name} : Filling health bar to {(float)current/pvMax}");
-            lifeBar.SetHealth((float)current/pvMax);
-
-            if (!IsOwner && !(pv.Value <= 0))
-            {
-                //Ce que le client qui a touche doit faire
-                //Debug.Log("Le " + gameObject.name + " n'a plus que " + pv.Value + "pv");
-                return;
-            }
-
-            if (IsOwner && !(pv.Value <= 0))
-            {
-                //Ce que le client doit faire quand son objet est touche
-                Debug.Log("Votre " + gameObject.name + " n'a plus que " + pv.Value + "pv");
-                return;
-            }
- 
-            if (IsOwner && (pv.Value <= 0))
-            {
-                //Ce que le client doit faire quand son objet est detruit
-                //Debug.Log("Votre " + gameObject.name + " a été détruit");
-                Die();
-                return;
-            }
-
-        }
-
-
-        void Die()
-        {
-            switch (gameObject.tag)
-            {
-                case  "Player":
-                    SpawnManager.DestroyPlayer(gameObject);
-                    SpawnManager.SpawnPlayer("FPSPlayer", Vector3.zero);
-                    break;
-
-                default:
-                    SpawnManager.DestroyObject(gameObject);
-                    break;
-            }
-        }
-
-
-        public void LoosePv(int dmg)
-        { LoosePvServerRPC(dmg); }
-        [ServerRpc(RequireOwnership = false)]
-        void LoosePvServerRPC(int dmg, ServerRpcParams serverRpcParams = default)
-        {
-            var clientId = serverRpcParams.Receive.SenderClientId;
-            pv.Value -= dmg;
-
-            if (pv.Value <= 0)
-            {
-                //Ce que le serveur doit faire en cas de mort
-            }
-        }
-
     }
 
 }
+

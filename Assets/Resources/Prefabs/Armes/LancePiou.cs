@@ -1,5 +1,4 @@
 using UnityEngine;
-using classes;
 
 public class LancePiou : Arme
 {	
@@ -8,14 +7,15 @@ public class LancePiou : Arme
 
     Transform gunpoint, tr;
 
-    void Awake()
-    {
-        gunpoint = transform.Find("Gunpoint");
-    }
 
     void OnEnable() { tr = new GameObject().transform; }
     void OnDisable() { Destroy(tr.gameObject); }
 
+    void Start()
+    {
+        gunpoint = transform.Find("Gunpoint");
+        tr.parent = gunpoint;
+    }
 
 	public override void OnShoot()
     {
