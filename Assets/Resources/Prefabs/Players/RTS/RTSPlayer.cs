@@ -101,6 +101,7 @@ namespace classes {
             if (Input.GetMouseButtonDown(1)) { selection.OrderSelectedUnitsToMove(GetMousePos()); }
             if (Input.GetKeyDown(KeyCode.LeftShift)) { selection.isAddingToWaypoints = true ; }
             if (Input.GetKeyUp(KeyCode.LeftShift)) { selection.isAddingToWaypoints = false ; }
+            if (Input.GetKeyUp(KeyCode.S)) { selection.OrderSelectedUnitsToSkill(GetMousePos()); }
         }
 
         void SelectionBatimentInputs()

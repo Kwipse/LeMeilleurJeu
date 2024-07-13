@@ -75,22 +75,22 @@ public class RTSCamera : NetworkBehaviour
         Vector3 currentTranslation = translation;
 
         // ZQSD or Arrow keys
-        if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             translation.x += cam.transform.forward.x * vitesseCamera;
             translation.z += cam.transform.forward.z * vitesseCamera;
         }
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.DownArrow))
         {
             translation.x -= cam.transform.forward.x * vitesseCamera;
             translation.z -= cam.transform.forward.z * vitesseCamera;
         }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             translation.x += cam.transform.right.x * vitesseCamera;
             translation.z += cam.transform.right.z * vitesseCamera;
         }
-        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             translation.x -= cam.transform.right.x * vitesseCamera;
             translation.z -= cam.transform.right.z * vitesseCamera;

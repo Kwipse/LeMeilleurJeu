@@ -23,7 +23,7 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
     public float unitAcceleration = 1000.0f;
 
     NavMeshAgent agent;
-    [field:SerializeField] public WeaponSystem WS {get;set;}
+    WeaponSystem WS;
     public AnimationSystem AS;
 
     List<Vector3> waypoints;
@@ -38,7 +38,7 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
 
         Debug.Log($"{gameObject.name} is awake");
 
-        WS = ScriptableObject.Instantiate(WS);
+        WS = GetComponent<WeaponSystem>();
         AS = ScriptableObject.Instantiate(AS);
 
         InitWaypoints();
@@ -64,7 +64,6 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
     public override void StartAfterGameSync()
     {
         AS.StartAnimations(gameObject, WS);
-        //WS.StartWeaponSystem(gameObject);
 
         ColorManager.SetObjectColors(gameObject);
 
@@ -91,8 +90,8 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
 
     public virtual void FixedUpdate()
     {
-        AS.UpdateMovementAnimations();
-        AS.UpdateWeaponIK();
+        //AS.UpdateMovementAnimations();
+        //AS.UpdateWeaponIK();
     }
 
 

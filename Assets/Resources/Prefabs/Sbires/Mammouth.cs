@@ -16,7 +16,7 @@ public class Mammouth : Unit
 
     public override void Awake()
     {
-        health = GetComponent<HealthSystem>();
+        //health = GetComponent<HealthSystem>();
         chargeAngularSpeed= unitAngularSpeed;
         base.Awake();
     }
@@ -46,7 +46,7 @@ public class Mammouth : Unit
         if(ChargeMode=="ready") 
             {
                 ChargeModeEnter();
-                MoveUnitToPos(pos,false);
+                MoveOrder(pos,false);
             }
 
     }
