@@ -181,7 +181,7 @@ namespace classes {
 
 
         //Misc
-        Vector3 GetMousePos() { 
+        public Vector3 GetMousePos() { 
             return cam.GetMouseGroundHitPosition(); }
     }
 }
