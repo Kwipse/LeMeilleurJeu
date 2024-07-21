@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectManager : SyncedBehaviour, ISyncBeforeGame
+public class ObjectManager : SyncedBehaviour, ISyncBeforeGame, IWaitForGameSync
 {
     static ObjectManager OM;
 
@@ -30,6 +30,14 @@ public class ObjectManager : SyncedBehaviour, ISyncBeforeGame
     {
         if (IsServer) { EndSync(); }
         if (!IsServer) { InitObjectManagerRpc(); }
+    }
+
+    public override void StartAfterGameSync()
+    {
+        //Add scene objects to list
+        if (IsServer) {
+            foreach (NetworkObject no in FindObjectsOfType<NetworkObject>()) {
+                AddObjectToList(no.gameObject); } }
     }
 
     
@@ -70,7 +78,7 @@ public class ObjectManager : SyncedBehaviour, ISyncBeforeGame
     
     public static int AddObjectToList(GameObject go, int id = -1)
     {
-        if (NetworkManager.Singleton.IsServer) 
+        if (OM.IsServer) 
         {
             if (ObjectIdList.ContainsValue(go))
             {

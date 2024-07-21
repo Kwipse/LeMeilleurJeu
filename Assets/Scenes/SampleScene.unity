@@ -702,6 +702,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mammouth
       objectReference: {fileID: 0}
+    - target: {fileID: 3124385203425426143, guid: f81cbfc9900fa474285a58503767ad3a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3516413983809843639, guid: f81cbfc9900fa474285a58503767ad3a, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1400441636
@@ -957,6 +961,10 @@ PrefabInstance:
       propertyPath: lazerprop
       value: 
       objectReference: {fileID: 11400000, guid: a79e0bea5c303d64298441ce731d652f, type: 2}
+    - target: {fileID: 5510711734266349437, guid: 7215dac5e67652f418cd4e2442c5b97f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5510711734266349437, guid: 7215dac5e67652f418cd4e2442c5b97f, type: 3}
       propertyPath: castDuration
       value: 0.47

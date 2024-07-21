@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4286208893713426238}
   - component: {fileID: 3725329876132567173}
   - component: {fileID: 5260281106269986572}
-  - component: {fileID: 3557407874696413315}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -84,27 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3557407874696413315
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1924941391791372299}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5632222086534992047
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +94,6 @@ GameObject:
   - component: {fileID: 3951228868848953686}
   - component: {fileID: 8926617708469382163}
   - component: {fileID: 7273003989751460441}
-  - component: {fileID: 3666423231485538921}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -189,27 +166,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3666423231485538921
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5632222086534992047}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7441522139999151988
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +182,7 @@ GameObject:
   - component: {fileID: 1323758722535630070}
   - component: {fileID: 2482026183978111074}
   - component: {fileID: 5510711734266349437}
+  - component: {fileID: 1335120019076871171}
   m_Layer: 0
   m_Name: Cracheur
   m_TagString: Unit
@@ -332,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1135558257
+  GlobalObjectIdHash: 1016551027
   InScenePlacedSourceGlobalObjectIdHash: 2530418338
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -385,6 +342,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HSA: {fileID: 11400000, guid: ee503a61b9b2397459641793dfcd1dd1, type: 2}
+  pv:
+    m_InternalValue: 0
+  pvMax:
+    m_InternalValue: 0
 --- !u!114 &5510711734266349437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,6 +366,22 @@ MonoBehaviour:
   unitAngularSpeed: 1000
   unitAcceleration: 1000
   AS: {fileID: 11400000, guid: e3c5aa26b95de13429605a4c128de42f, type: 2}
+  lazerprop: {fileID: 0}
   castDuration: 10
   cooldownDuration: 10
   castDamage: 20
+--- !u!114 &1335120019076871171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7441522139999151988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cef9177c8d7ea11468ea5204ed2093dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WSA: {fileID: 11400000, guid: ac31b5b4dcd303947943daf1bbc8bbae, type: 2}
+  currentWeaponId:
+    m_InternalValue: 0
