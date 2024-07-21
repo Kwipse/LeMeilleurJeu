@@ -15,12 +15,6 @@ public interface IWaitForGameSync { } //Pour les objets qui doivent attendre la 
 public class SyncedBehaviour : NetworkBehaviour
 {
 
-    //Called before OnNetworkSpawn()
-    protected override void OnSynchronize<T>(ref BufferSerializer<T> serializer)
-    {
-
-    }
-
     //N'oubliez pas de mettre "base.OnNetworkSpawn();" dans la classe dérivée si vous overridez
     public override void OnNetworkSpawn()
     {
@@ -62,7 +56,7 @@ public class SyncedBehaviour : NetworkBehaviour
     public virtual void StartAfterGameSync() { }
 
     //Call this from the synced object to signal end of sync
-    public void EndSync() 
+    public virtual void EndSync() 
     {
         //Debug.Log($"{this.GetType().Name} : Ending sync");
         GameManager.OnBehaviourSynchronized((SyncedBehaviour)this);

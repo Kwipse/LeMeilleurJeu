@@ -1,7 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
 using systems;
-using managers;
 
 public class Explosion : NetworkBehaviour
 {
@@ -39,7 +38,6 @@ public class Explosion : NetworkBehaviour
             PushTarget(target, outwardForce, col.ClosestPoint(transform.position)); }
 
         //Debug.Log($"Explosion dealt {dmg}pv to {target.name}");
-        //target.GetComponent<IHealth>()?.LoosePv(dmg);
         target.GetComponent<HealthSystem>()?.LoosePv(dmg);
 	}
 
@@ -47,13 +45,13 @@ public class Explosion : NetworkBehaviour
     void PushTarget(GameObject target, int force, Vector3 expCenter)
     {
         //Debug.Log($"Explosion : Pushing {target.name}");
-        if (target) PushTargetRPC(target, force, expCenter);
+        PushTargetRPC(ObjectManager.GetObjectId(target), force, expCenter);
     }
 
     [Rpc(SendTo.Everyone)]
-    void PushTargetRPC(NetworkObjectReference targetNor, int force, Vector3 expPosition)
+    void PushTargetRPC(int targetID, int force, Vector3 expPosition)
     {
-        GameObject target = targetNor;
+        GameObject target = ObjectManager.GetObjectById(targetID);
         if (!target) { return; }
         if (!target.GetComponent<NetworkObject>().IsOwner) { return; }
 

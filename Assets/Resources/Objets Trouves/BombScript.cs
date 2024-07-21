@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
-using managers;
 
 public class BombScript : NetworkBehaviour
 {
@@ -43,7 +42,7 @@ public class BombScript : NetworkBehaviour
     void OnCollisionEnter(Collision collision)
     {    
             DestroyCubeServerRpc();
-            SpawnManager.SpawnObjectByName("BigExplosion", transform.position, transform.rotation);
+            SpawnManager.SpawnObject("BigExplosion", transform.position, transform.rotation);
     }
 
     [ServerRpc(RequireOwnership = false)]

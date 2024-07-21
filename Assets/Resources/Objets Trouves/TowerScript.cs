@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
-using managers;
 
 public class TowerScript : MonoBehaviour
 {
@@ -34,7 +33,7 @@ public class TowerScript : MonoBehaviour
         {
             nextAttackTick = Time.time+attaqueRate;
             //SM.Spawn("Bomb", transform.Find("GunPoint").position, localId, transform.Find("GunPoint").rotation);
-            SpawnManager.SpawnObjectByName("Bomb", new Vector3(0,30,40), Quaternion.identity);
+            SpawnManager.SpawnObject("Bomb", new Vector3(0,30,40), Quaternion.identity);
         }
 
     }

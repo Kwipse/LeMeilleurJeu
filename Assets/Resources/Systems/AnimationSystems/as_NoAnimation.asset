@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c43b39cb9a171a46a05c74f7ed9cf8a, type: 3}
+  m_Name: as_NoAnimation
+  m_EditorClassIdentifier: 
+  rac: {fileID: 9100000, guid: 88cd9144736b8a541b32991a1bbfae00, type: 2}
+  aIdle: {fileID: 7400000, guid: 66cdc66b1a4ce5b429c5c7c5e3e9a1f3, type: 2}
+  aRunning: {fileID: 7400000, guid: fab48cd8465517641a02ac6fbcaff8c6, type: 2}
+  aFalling: {fileID: 7400000, guid: 8f776f59c37426b4da3b07db3fb255da, type: 2}
+  aJumping: {fileID: 7400000, guid: 13a23ff12e04e07429e9001415936f9a, type: 2}

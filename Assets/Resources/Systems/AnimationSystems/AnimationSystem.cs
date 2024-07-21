@@ -17,7 +17,7 @@ public class AnimationSystem : ScriptableObject
 
     GameObject unit;
     Animator anim; 
-    WeaponSystem wb;
+    WeaponSystem WS;
     Vector3 position;
 
     AnimatorOverrideController aoc;
@@ -28,7 +28,7 @@ public class AnimationSystem : ScriptableObject
     public void StartAnimations(GameObject unitToAnimate, WeaponSystem weaponSystem = null) 
     {
         unit = unitToAnimate;
-        wb = weaponSystem;
+        WS = weaponSystem;
         anim = unitToAnimate.GetComponent<Animator>();
         if (!anim) { anim = unitToAnimate.AddComponent<Animator>(); }
 
@@ -68,7 +68,7 @@ public class AnimationSystem : ScriptableObject
 
     public void UpdateWeaponIK()
     {
-        wb?.UpdateHandlesIK();
+        WS?.UpdateHandlesIK();
     }
 
 

@@ -6,8 +6,7 @@ using scriptablesobjects;
 
     public class SpawnManager : SyncedBehaviour, ISyncBeforeGame
     {
-        //Enable global access to static 
-        //functions as SpawnManager.function()
+        //Enable global access to static functions as SpawnManager.function()
         static SpawnManager SM;
         void Awake()
         { 
@@ -22,11 +21,9 @@ using scriptablesobjects;
 
 
 
-        //Basic Spawn function (executed by server)
-        int ServerSpawnPrefabByName(string prefabName, Vector3 spawnPos, Quaternion spawnRot, ulong clientId)
-        {
-            return ServerSpawnPrefab(PrefabManager.GetPrefab(prefabName), spawnPos, spawnRot, clientId);
-        }
+        //Basic Spawn functions (executed by server)
+        int ServerSpawnPrefab(string prefabName, Vector3 spawnPos, Quaternion spawnRot, ulong clientId) {
+            return ServerSpawnPrefab(PrefabManager.GetPrefab(prefabName), spawnPos, spawnRot, clientId); }
 
         int ServerSpawnPrefab(GameObject prefab, Vector3 spawnPos, Quaternion spawnRot, ulong clientId)
         {
@@ -35,12 +32,12 @@ using scriptablesobjects;
 
             go = Instantiate(prefab, spawnPos, spawnRot);
             go.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+            //Debug.Log($"SpawnManager : Spawned {go.name}, for client {clientId}"); 
+
             id = ObjectManager.AddObjectToList(go);
-            //Debug.Log($"SpawnManager : Spawned Id {id} : {go.name}, for client {clientId}"); 
             return id;
         }
 
-        //Basic Despawn function (executed by server)
         void ServerDespawnObject(GameObject go)
         {
             if (go) {
@@ -50,32 +47,26 @@ using scriptablesobjects;
 
 
 
-        //DESTROY
-        public static void DestroyObject(GameObject go) 
-        {
-            if (go.GetComponent<NetworkObject>().IsSpawned) { SM.DestroyObjectRpc(go); }
-        }
+        //DESTROY OBJECT
+        public static void DestroyObject(GameObject go) {
+            if (go.GetComponent<NetworkObject>().IsSpawned) { SM.DestroyObjectRpc(go); } }
 
         [Rpc(SendTo.Server, RequireOwnership = false)]
-        void DestroyObjectRpc(NetworkObjectReference nor)	
-        {
-            ServerDespawnObject((GameObject) nor); 
-        }
+        void DestroyObjectRpc(NetworkObjectReference nor)	{ ServerDespawnObject((GameObject) nor); }
 
 
 
         //SPAWN OBJECT
         public static void SpawnObject(GameObject go, Vector3 SpawnLocation, Quaternion SpawnRotation)
-        {SM.SpawnObjectByNameServerRpc(go.name, SpawnLocation, SpawnRotation);}
+        {SpawnObject(go.name, SpawnLocation, SpawnRotation);}
 
-        //SPAWN OBJECT BY NAME
-        public static void SpawnObjectByName(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation)
-        {SM.SpawnObjectByNameServerRpc(PrefabName, SpawnLocation, SpawnRotation);}
+        public static void SpawnObject(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation)
+        {SM.SpawnObjectServerRpc(PrefabName, SpawnLocation, SpawnRotation);}
 
         [ServerRpc(RequireOwnership = false)]
-        void SpawnObjectByNameServerRpc(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation, ServerRpcParams serverRpcParams = default)
+        void SpawnObjectServerRpc(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation, ServerRpcParams serverRpcParams = default)
         {
-            int objectId = ServerSpawnPrefabByName(PrefabName, SpawnLocation, SpawnRotation, serverRpcParams.Receive.SenderClientId);
+            int objectId = ServerSpawnPrefab(PrefabName, SpawnLocation, SpawnRotation, serverRpcParams.Receive.SenderClientId);
         }
 
 
@@ -101,7 +92,7 @@ using scriptablesobjects;
                 int initialForce,
                 RpcParams rpcParams = default)
         {
-            int projectileId = ServerSpawnPrefabByName(projectileName, position, rotation, rpcParams.Receive.SenderClientId);
+            int projectileId = ServerSpawnPrefab(projectileName, position, rotation, rpcParams.Receive.SenderClientId);
             GameObject projectile = ObjectManager.GetObjectById(projectileId);
             Projectile projectileStats = projectile.GetComponent<Projectile>();
             projectileStats.initialForce = initialForce;
@@ -124,16 +115,16 @@ using scriptablesobjects;
         public static void SpawnWeapon(GameObject weaponPrefab, GameObject weaponHolder)
         {
             //Debug.Log($"Client : J'ai donné ordre de spawn {weaponPrefab.name} pour {weaponHolder.name}");
-            SM.SpawnWeaponServerRpc(weaponPrefab.name, weaponHolder);
+            SM.SpawnWeaponRpc(weaponPrefab.name, weaponHolder);
         }
 
         [Rpc(SendTo.Server, RequireOwnership = false)]
-        void SpawnWeaponServerRpc(
+        void SpawnWeaponRpc(
                 string weaponPrefabName, 
                 NetworkObjectReference holderNor,
                 RpcParams rpcParams = default)
         {
-            int weaponId = ServerSpawnPrefabByName(weaponPrefabName, Vector3.zero , Quaternion.identity, rpcParams.Receive.SenderClientId);
+            int weaponId = ServerSpawnPrefab(weaponPrefabName, Vector3.zero , Quaternion.identity, rpcParams.Receive.SenderClientId);
             GameObject holder = holderNor;
             holder.GetComponent<WeaponSystem>().currentWeaponId.Value = weaponId;
             //SyncWeaponRpc(holderNor, weaponId);
@@ -155,18 +146,18 @@ using scriptablesobjects;
                 GameObject unitPrefab, Vector3 spawnPosition,
                 Quaternion spawnRotation = default(Quaternion), Vector3 rallyPosition = default(Vector3)) 
         { 
-            SM.SpawnUnitByNameServerRpc(unitPrefab.name, spawnPosition, spawnRotation, rallyPosition);
+            SpawnUnit(unitPrefab.name, spawnPosition, spawnRotation, rallyPosition);
         }
 
-        public static void SpawnUnitByName(
+        public static void SpawnUnit(
                 string unitPrefabName, Vector3 spawnPosition,
                 Quaternion spawnRotation = default(Quaternion), Vector3 rallyPosition = default(Vector3))
         { 
-            SM.SpawnUnitByNameServerRpc(unitPrefabName, spawnPosition, spawnRotation, rallyPosition);
+            SM.SpawnUnitServerRpc(unitPrefabName, spawnPosition, spawnRotation, rallyPosition);
         }
 
         [ServerRpc(RequireOwnership = false)]
-        void SpawnUnitByNameServerRpc(
+        void SpawnUnitServerRpc(
                 string PrefabName, Vector3 SpawnLocation,
                 Quaternion SpawnRotation = default(Quaternion), Vector3 rallyPosition = default(Vector3),
                 ServerRpcParams serverRpcParams = default)
@@ -206,16 +197,13 @@ using scriptablesobjects;
         {
             var clientId = rpcParams.Receive.SenderClientId;
 
-            //Destroy current player if it exists
-            GameObject currentPlayerObject = PlayerList.PlayerListinstance.GetPlayerObject(clientId);
-            if (currentPlayerObject) { DestroyPlayer(currentPlayerObject); }
+            //Destroy current obj if it exist
+            if (PlayerManager.GetPlayerObjectID(clientId) > 0) {
+                DestroyPlayer(PlayerManager.GetPlayerObject(clientId)); }
 
-            //Spawn player
-            int playerObjectId = ServerSpawnPrefabByName(PlayerPrefabName, SpawnLocation, Quaternion.identity, clientId);
-            currentPlayerObject = ObjectManager.GetObjectById(playerObjectId);
-
-            //Register in Player List
-            PlayerList.PlayerListinstance.AddPlayerObject(clientId, currentPlayerObject);
+            //Spawn player & Register in Player List
+            int playerObjectId = ServerSpawnPrefab(PlayerPrefabName, SpawnLocation, Quaternion.identity, clientId);
+            PlayerManager.SetPlayerObjectID(clientId, playerObjectId);
         }
 
 
@@ -229,9 +217,9 @@ using scriptablesobjects;
         void DestroyPlayerRPC(NetworkObjectReference nor, RpcParams rpcParams = default)
         { 
             GameObject go = nor;
-            var playerId = PlayerList.PlayerListinstance.GetPlayerId(go);
-            PlayerList.PlayerListinstance.RemovePlayerObject((ulong) playerId);
             ServerDespawnObject(go);
+            //var playerId = PlayerManager.GetPlayerId(go);
+            //PlayerManager.RemovePlayerObject((ulong) playerId);
         }
 
     }

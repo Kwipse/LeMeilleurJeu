@@ -21,27 +21,35 @@ public class WeaponSystem : SyncedBehaviour, IWaitForGameSync
         AvailableWeapons = WSA.AvailableWeapons;
         BackpackAmmos = WSA.BackpackAmmos;
         currentWeaponId = new NetworkVariable<int>();
-        InitBackpack();
-        InitHolderStands();
-        InitHolderHandles();
+
+        if (AvailableWeapons.Count != 0)
+        {
+            InitBackpack();
+            InitHolderStands();
+            InitHolderHandles();
+        }
     }
 
     public override void StartAfterGameSync()
     {
         InitWeapon();
-
     }
 
     void InitWeapon()
     {
         if (IsServer) { currentWeaponId.Value = -1; }
         currentWeaponId.OnValueChanged += OnWeaponChanged;
-        if (IsOwner) { EquipWeaponNumber(0); }
-        if (!IsServer && !IsOwner) { OnWeaponChanged(-2, currentWeaponId.Value); }
+        if (AvailableWeapons.Count != 0)
+        {
+            if (IsOwner) { EquipWeaponNumber(0); } 
+            if (!IsServer) { OnWeaponChanged(-2, currentWeaponId.Value); }
+        }
     }
 
     void OnWeaponChanged(int previous, int current) //Called on currentWeaponId change
     {
+        if (current < 0) { return; } //Do nothing if no weapon
+
         //Debug.Log($"WeaponId changed from {previous} to {current}");
         UpdateWeaponInfo(current);
         UpdateWeaponStands();

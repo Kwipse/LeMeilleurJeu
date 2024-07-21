@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796b75e345bd64d47a31edd757bd2670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 1
+  m_Weight: 0
   m_Data:
     m_Root: {fileID: 5432414386824026002}
     m_Tip: {fileID: 1985796999389137601}
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeda7bfbf984f2a4da5ab4b8967b115d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 1
+  m_Weight: 0
   m_Data:
     m_Root: {fileID: 7297960102908606760}
     m_Mid: {fileID: 4813028258829184794}
@@ -764,6 +764,9 @@ PrefabInstance:
       addedObject: {fileID: 8702900510550747837}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 691acf92dccc6a7498c7462104ca3ec5, type: 3}
       insertIndex: -1
+      addedObject: {fileID: -5363862378355366910}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 691acf92dccc6a7498c7462104ca3ec5, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 2624307834948922435}
   m_SourcePrefab: {fileID: 100100000, guid: 691acf92dccc6a7498c7462104ca3ec5, type: 3}
 --- !u!4 &53979453432506985 stripped
@@ -1089,6 +1092,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HSA: {fileID: 11400000, guid: ee503a61b9b2397459641793dfcd1dd1, type: 2}
+--- !u!114 &-5363862378355366910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861338350176694483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cef9177c8d7ea11468ea5204ed2093dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WSA: {fileID: 11400000, guid: 3043562b3d6c04b4a877521ba3bdecf9, type: 2}
+  currentWeaponId:
+    m_InternalValue: 0
 --- !u!114 &2624307834948922435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,7 +1126,6 @@ MonoBehaviour:
   unitSpeed: 15
   unitAngularSpeed: 1000
   unitAcceleration: 1000
-  <WS>k__BackingField: {fileID: 11400000, guid: 9399d35754310ab44baec09d27b141e6, type: 2}
   AS: {fileID: 11400000, guid: 6725ff9f4e766b04982616e85733c161, type: 2}
 --- !u!4 &927680113959184955 stripped
 Transform:

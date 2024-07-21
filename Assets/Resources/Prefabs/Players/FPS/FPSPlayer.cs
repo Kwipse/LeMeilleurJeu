@@ -1,42 +1,32 @@
 using UnityEngine;
 using Unity.Netcode;
-using scriptablesobjects;
 
 [RequireComponent(typeof(FPSCamera))]
 [RequireComponent(typeof(HealthSystem))]
 [RequireComponent(typeof(WeaponSystem))]
 
-public class FPSPlayer : SyncedBehaviour, IWaitForGameSync, IWeaponizable//, IHealth
+public class FPSPlayer : SyncedBehaviour, IWaitForGameSync
 {
     public FPSUI UI;
     public FPSMovement MV;
     public AnimationSystem AS;
-    [field:SerializeField] public WeaponSystem WS {get; set;}
-    //[field:SerializeField] public HealthSystem_wip HS {get; set;}
+    WeaponSystem WS;
     HealthSystem HS;
-
-
-
-    NetworkObject no;
 
     void Awake()
     {
         enabled = false;
         AS = ScriptableObject.Instantiate(AS);
         UI = ScriptableObject.Instantiate(UI);
-        //WS = ScriptableObject.Instantiate(WS);
-        //HS = ScriptableObject.Instantiate(HS);
+        MV = ScriptableObject.Instantiate(MV);
         WS = GetComponent<WeaponSystem>();
         HS = GetComponent<HealthSystem>();
-        MV = ScriptableObject.Instantiate(MV);
     }
 
     public override void StartAfterGameSync()
     {
         ColorManager.SetObjectColors(gameObject);
         AS.StartAnimations(gameObject, WS);
-        //WS.StartWeaponSystem(gameObject);
-        //HS.Init(gameObject);
 
         if (IsOwner)
         {

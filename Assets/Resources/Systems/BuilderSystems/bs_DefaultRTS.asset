@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ec78de96b6edcc40a77ab0c37934542, type: 3}
-  m_Name: bs_RTS
+  m_Name: bs_DefaultRTS
   m_EditorClassIdentifier: 
   AvailableBuildings:
   - {fileID: 6117278076527145797, guid: ea8d60ec94f3f1249ab46e6c55cd7410, type: 3}

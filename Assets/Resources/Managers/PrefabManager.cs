@@ -35,7 +35,7 @@ public class PrefabManager : ScriptableObject
 
         //Populate NetworkPrefab list
         foreach (GameObject go in PrefabList.Values) {
-            if (go.GetComponent<NetworkObject>() && (go.name != "PlayerManager")) {
+            if (go.GetComponent<NetworkObject>() && (go.name != "PlayerController")) {
                 NetworkManager.Singleton.AddNetworkPrefab(go); 
                 //Debug.Log($"{go.name} added to NetworkPrefab list");
             } 

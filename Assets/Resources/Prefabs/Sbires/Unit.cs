@@ -4,12 +4,12 @@ using UnityEngine.AI;
 using Unity.Netcode;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using systems;
-using managers;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(NetworkObject))]
 [RequireComponent(typeof(ClientNetworkTransform))]
+[RequireComponent(typeof(WeaponSystem))]
 [RequireComponent(typeof(HealthSystem))]
 
 public abstract class Unit : SyncedBehaviour, IWaitForGameSync
@@ -36,7 +36,7 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
     {
         enabled = false;
 
-        Debug.Log($"{gameObject.name} is awake");
+        //Debug.Log($"{gameObject.name} is awake");
 
         WS = GetComponent<WeaponSystem>();
         AS = ScriptableObject.Instantiate(AS);
@@ -90,8 +90,8 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
 
     public virtual void FixedUpdate()
     {
-        //AS.UpdateMovementAnimations();
-        //AS.UpdateWeaponIK();
+        AS.UpdateMovementAnimations();
+        AS.UpdateWeaponIK();
     }
 
 

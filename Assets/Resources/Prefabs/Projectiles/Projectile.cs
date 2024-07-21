@@ -1,9 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
-using managers;
-
-namespace classes {
 
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
@@ -70,5 +67,4 @@ namespace classes {
 
 
     }
-}
 

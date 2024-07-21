@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using managers;
 
 public class MobCreationScript : StateMachineBehaviour
 {
@@ -34,7 +33,7 @@ public class MobCreationScript : StateMachineBehaviour
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             if (plane.Raycast(ray, out entry))
             {
-                SpawnManager.SpawnObjectByName(mob.name, ray.GetPoint(entry), Quaternion.identity);
+                SpawnManager.SpawnObject(mob.name, ray.GetPoint(entry), Quaternion.identity);
             }
         }
     }

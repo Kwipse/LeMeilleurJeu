@@ -9,29 +9,36 @@ public class FPSUI : UI
 {
     FPSPlayer player;
     WeaponSystem WS;
+    HealthSystem HS;
 
     AmmoSystem weaponAmmo;
     AmmoSystem backpackAmmo;
 
-
     public override void OnSetUI(GameObject FPSPlayer) 
     {
         player = FPSPlayer.GetComponent<FPSPlayer>();
-        WS = FPSPlayer.GetComponent<IWeaponizable>().WS;
-        //Debug.Log($"{FPSPlayer.name} {WS}");
+        WS = FPSPlayer.GetComponent<WeaponSystem>();
+        HS = FPSPlayer.GetComponent<HealthSystem>();
 
         //Subscribe to weapon system events
         WS.NewWeaponEquippedEvent += OnWeaponEquipped;
         WS.WeaponDestructionEvent += OnWeaponUnequipped;
 
-        if (WS.GetCurrentWeapon())
-        {
-            OnWeaponEquipped(WS.GetCurrentWeapon());
-        }
+        //Subscribe to health events
+        HS.pv.OnValueChanged += OnHealthChanged;
+        HS.pvMax.OnValueChanged += OnHealthChanged;
+
+        if (WS.GetCurrentWeapon()) { OnWeaponEquipped(WS.GetCurrentWeapon()); }
+        if (HS) { OnHealthChanged(0,0); }
+
+        //Debug.Log($"{FPSPlayer.name} {WS}");
     }
+
+
 
     void UpdateAllTexts()
     {
+        SetUIText("Health", $"{HS.pv.Value} / {HS.pvMax.Value}");
         SetUIText("AmmoType", $"{WS.GetCurrentAmmoType()}");  
         SetUIText("WeaponAmmo", $"{weaponAmmo.GetAmmo()}");  
         SetUIText("BackpackAmmo", $" / {backpackAmmo.GetAmmo()}");  
@@ -64,5 +71,5 @@ public class FPSUI : UI
 
     void OnNewWeaponAmmo(int newWeaponAmmo) { SetUIText("WeaponAmmo", $"{newWeaponAmmo}");  }
     void OnNewBackpackAmmo(int newBackpackAmmo) { SetUIText("BackpackAmmo", $" / {newBackpackAmmo}"); }
-
+    void OnHealthChanged(int previous, int current) { SetUIText("Health", $"{HS.pv.Value} / {HS.pvMax.Value}"); }
 }

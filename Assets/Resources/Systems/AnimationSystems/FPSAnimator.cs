@@ -3,7 +3,6 @@ using Unity.Netcode;
 using classes;
 using systems;
 using scriptablesobjects;
-using managers;
 
 
 public class FPSAnimator : NetworkBehaviour 

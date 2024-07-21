@@ -1,7 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
 using systems;
-using managers;
 
 public class Saucisse : NetworkBehaviour
 {
