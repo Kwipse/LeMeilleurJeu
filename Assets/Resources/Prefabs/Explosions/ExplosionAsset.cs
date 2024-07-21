@@ -7,9 +7,10 @@ namespace scriptablesobjects
 {
     [CreateAssetMenu]
     public class ExplosionAsset : ScriptableObject
-    {
+    { 
         public GameObject explosionPrefab;
         Explosion explosion;
+        public bool resizable=true;
         public float size;
         public float duration;
         public int dmgUnit;
@@ -19,7 +20,7 @@ namespace scriptablesobjects
 
         public void ExplodeAtPos(Vector3 pos)
         {
-            explosionPrefab.transform.localScale = new Vector3 (size, size, size);
+            if(resizable)explosionPrefab.transform.localScale = new Vector3 (size, size, size);
             explosion = explosionPrefab.GetComponent<Explosion>();
             explosion.ExplosionDuration = duration;
             explosion.damageToUnit = dmgUnit;
