@@ -49,16 +49,20 @@ Le RTS est en mode selection par defaut.
 - Clic Gauche : Selection d'unités/batiments
 - Clic Droit : Ordonne le déplacement des unités selectionnees
 - Maj : Permet d'enchainer plusieurs ordres de déplacement aux unités
+- S : Utilise le skill des unités
 
 ### Mode construction de batiments
 
 - Molette haut/bas : Choisit le blueprint a construire
 - Clic Gauche : Construction du batiment choisi
+- W : Spawn le 1er batiment
+- X : Spawn le 2e batiment
 
 ### Mode Création d'unités
 
 - W : Spawn la 1er unité du batiment
 - X : Spawn la 2nd unité du batiment
+
 
 # TAGS
 
@@ -87,25 +91,80 @@ string tag = go.tag;
 
 # SYSTEMES
 
-Pour faciliter la création d'objets, on peut ajouter des fonctionnalites a un prefab
+Pour faciliter la création d'objets, on peut ajouter des fonctionnalites a un prefab.
+La plupart de ces systemes implémentent des scriptables objects, ce qui nous permet de créer facilement des assets dans l'editeur (Dans la fenetre "Project" > Clic-droit > Create > FaisTonChoix)
+
+Systemes a ajouter comme component :
+- WeaponSystem
+- HealthSystem
+- UnitSpawnerSystem
+- BuilderSystem
+
+Systemes a instancier par script :
+- AnimationSystem 
+- UI (FPSUI/RTSUI)
+- SelectionSystem (RTSSelection)
+- MovementSystem (FPSMovement)
+- Ressource (AmmoSystem, GoldSystem)
+
+
+## WeaponSystem
+
+Ce script donne un systeme d'armes a l'objet qui le possède. 
+Par defaut, l'unité n'aura pas d'arme.
+Dans l'editeur, vous pouvez créer/recuperer un nouveau WeaponSystemAsset pour donner des armes par defaut.
+
+
+```csharp
+    public void AddAvailableWeapon(GameObject weaponPrefab) 
+    public void RemoveAvailableWeapon(GameObject weaponPrefab) 
+
+    public void AddAvailableAmmo(string ammoType, int maxAmmo) 
+    public void RemoveAvailableAmmo(string ammoType) 
+    public bool IsAmmoAvailable(string ammoType) 
+    public AmmoSystem GetBackpackAmmo(string ammoType) 
+
+    public void AddAmmoInBackpack(int amount) 
+    public void SetBackpackMaxAmmo(int maxAmount) 
+    public void RemoveAmmoFromBackpack(int amount) 
+    public bool IsEnoughBackpackAmmo(int testAmount) 
+
+    public void UpdateHandlesIK() //Call this in a fixedUpdate to Update weapon IKs positions
+
+    public GameObject GetCurrentWeapon() 
+    public int GetCurrentWeaponNumber() 
+    public Arme GetCurrentWeaponScript() 
+    public AmmoSystem GetCurrentWeaponAmmo() 
+    public AmmoSystem GetCurrentBackpackAmmo() 
+    public string GetCurrentAmmoType() 
+
+    public void EquipNextWeapon() 
+    public void EquipPreviousWeapon() 
+    public void EquipWeaponNumber(int weaponNumber) 
+    public void EquipWeapon(GameObject weaponPrefab) 
+    public void UnequipWeapon() 
+
+    public void ShootWeapon() 
+    public void ShootAltWeapon() 
+    public void ReloadWeapon() 
+```
 
 
 ## HealthSystem 
 
 Ce script donne un systeme de vie a l'objet qui le possède. 
-Il suffit de placer ce component sur un objet.
 
 ```csharp
 //Faire perdre des points de vie a un objet
 GameObject cible;
-cible.GetComponent<HealthSystem>().LoosePv(int dmg)
+cible.GetComponent<HealthSystem>()?.LoosePv(int dmg)
 ```
 
 
 ## UnitSpawnerSystem
 
 Ce script donne un systeme de création d'unité à l'objet qui le possède.
-Dans l'editeur, vous pouvez ajouter des unités à la liste pour que le batiment puisse les produire.
+Dans l'editeur, vous pouvez ajouter des unités à la liste des unités disponibles par defaut .
 
 ```csharp
     public class UnitSpawnerSystem : NetworkBehaviour 
@@ -141,6 +200,7 @@ Dans l'editeur, vous pouvez ajouter des unités à la liste pour que le batiment
 ## BuilderSystem
 
 Component qui donne un systeme de construction de batiments.
+Dans l'editeur, vous pouvez ajouter des batiments à la liste des batiments disponibles par defaut .
 
 ```csharp
     public class BuilderSystem : NetworkBehaviour 
@@ -256,12 +316,97 @@ public class ExempleClass :
     }
 }
 
-
-
-
-
 ```
 
+
+# MANAGERS
+
+Pour faciliter le code, il y a des objets préplacés dans la scène, qui possedent des fonctions accessibles dans tout le projet.
+
+
+## OBJECT MANAGER
+
+Gere la liste des objets :
+
+```csharp
+//Syntaxe d'appel
+ObjectManager.fonctionAUtiliser();
+
+public static GameObject GetObjectById(int id) 
+public static int GetObjectId(GameObject go) 
+public static int AddObjectToList(GameObject go, int id = -1)
+public static void RemoveObjectFromList(GameObject go)
+public static void ClearObjectList() 
+```
+
+
+## SPAWN MANAGER
+
+Gere le spawn et despawn des objets :
+
+```csharp
+//Syntaxe d'appel
+SpawnManager.fonctionAUtiliser();
+
+public static void DestroyObject(GameObject go)
+public static void SpawnObject(GameObject go, Vector3 SpawnLocation, Quaternion SpawnRotation)
+public static void SpawnObject(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation)
+public static void SpawnProjectile(GameObject projectilePrefab, GameObject weapon, int initialForce = 0) 
+public static void SpawnProjectile(GameObject projectilePrefab, GameObject weapon, Transform altGunpoint, int initialForce = 0) 
+public static void SpawnProjectile(GameObject projectilePrefab, GameObject weapon, Vector3 position, Quaternion rotation, int initialForce = 0) 
+public static void SpawnWeapon(GameObject weaponPrefab, GameObject weaponHolder)
+public static void SpawnUnit(GameObject unitPrefab, Vector3 spawnPosition, Quaternion spawnRotation = default(Quaternion), Vector3 rallyPosition = default(Vector3)) 
+public static void SpawnUnit(string unitPrefabName, Vector3 spawnPosition, Quaternion spawnRotation = default(Quaternion), Vector3 rallyPosition = default(Vector3)) 
+public static void SpawnPlayer(string PlayerPrefabName, Vector3 SpawnLocation)
+public static void DestroyPlayer(GameObject go)
+```
+
+
+## TEAM MANAGER
+
+Gere les équipes :
+
+```csharp
+//Syntaxe d'appel
+TeamManager.fonctionAUtiliser();
+
+public static void SetTeam(ulong clientId, int teamId) 
+public static int GetTeam(ulong clientId) 
+public static bool AreObjectsEnnemies(GameObject go1, GameObject go2)
+```
+
+
+## COLOR MANAGER
+
+Gère les couleurs des objets en fonction du joueur et de son équipe :
+
+```csharp
+//Syntaxe d'appel
+ColorManager.fonctionAUtiliser();
+
+public static void SetPlayerMaterial(int playerId, int matId) 
+public static void SetTeamMaterial(int teamId, int matId) 
+public static void SetObjectColors(GameObject objectToColor)
+public static void SetBlueprintColor(GameObject go, bool Allowed)
+public static void SetPlayerColors(ulong clientId)
+public static void DrawBox(Vector3 p1, Vector3 p2)
+public static void DrawBounds(Bounds b)
+```
+
+## PLAYER MANAGER
+
+Gère les infos des joueurs 
+
+```csharp
+//Syntaxe d'appel
+PlayerManager.fonctionAUtiliser();
+
+public static void SetPlayerObjectID(ulong clientId, int playerObjectId)
+public static int GetPlayerObjectID(ulong clientID)
+public static GameObject GetPlayerObject(ulong clientID)
+public static Camera GetPlayerCamera(ulong clientID)
+public static int GetPlayerTeam(ulong clientID)
+```
 
 # HERITAGE
 
@@ -339,7 +484,7 @@ public class ClasseHeritante : ClasseAbstraite
 ```
 
 
-## Nos classes
+## Nos classes abstraites
 
 ### Arme : 
 
@@ -373,79 +518,6 @@ public abstract void OnProjectileCollision;
 Donne les proprietes de batiment à un objet.
 
 
-# MANAGERS
-
-Pour faciliter le code, il y a des objets préplacés dans la scène, qui possedent des fonctions accessibles dans tout le projet.
-
-
-## SPAWN MANAGER
-
-Gere le spawn et despawn des objets :
-
-```csharp
-//Syntaxe d'appel
-SpawnManager.fonctionAUtiliser();
-
-//Crée un nouvel objet, qui appartient au client qui l'appelle
-SpawnObject(GameObject Prefab, Vector3 SpawnLocation, Quaternion SpawnRotation);
-SpawnObjectByName(string PrefabName, Vector3 SpawnLocation, Quaternion SpawnRotation);
-
-//Crée une explosion
-SpawnExplosion(Vector3 position, int size, int unitDmg, int buildingDmg, float duration, int outwardForce);
-
-//Crée un projectile
-//initialForce donne une impulsion en avant au projectile
-SpawnProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation, int initialForce = 0);
-
-//Crée et assigne une arme a un objet
-SpawnWeapon(GameObject weaponPrefab, GameObject weaponHolder)
-
-//Détruit un objet
-DestroyObject(GameObject go);
-
-//Détruit l'objet joueur, et en crée un nouveau
-//PlayerPrefabName = "FPSPlayer" || "RTSPlayer"
-SpawnPlayer(string PlayerPrefabName, Vector3 SpawnLocation);
-
-//Détruit l'objet joueur
-DestroyPlayer();
-```
-
-
-## TEAM MANAGER
-
-Gere les équipes :
-
-```csharp
-//Syntaxe d'appel
-TeamManager.fonctionAUtiliser();
-
-//Assigne un joueur à une équipe
-SetTeam(ulong clientId, int teamId);
-
-//Retourne l'équipe du joueur
-int team = GetTeam(ulong clientId);
-```
-
-
-## COLOR MANAGER
-
-Gère les couleurs des objets en fonction du joueur et de son équipe :
-
-```csharp
-//Syntaxe d'appel
-ColorManager.fonctionAUtiliser();
-
-//Assigne un material a un joueur
-SetPlayerMaterial(int playerId, int matId);
-
-//Assigne un material a une équipe
-SetTeamMaterial(int teamId, int matId);
-
-//Applique les couleurs de joueur et d'équipe à
-//un objet, en fonction des infos joueur/team
-SetObjectColors(GameObject objectToColor)
-```
 
 
 # CREER UN NOUVEL OBJET
