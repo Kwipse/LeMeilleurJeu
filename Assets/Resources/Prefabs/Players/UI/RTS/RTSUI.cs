@@ -1,14 +1,6 @@
-using Unity.Netcode;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using System.Linq;
-using systems;
-using classes;
-using scriptablesobjects;
-
-
-[RequireComponent(typeof(RTSSelection))]
 
 [CreateAssetMenu]
 public class RTSUI : UI 

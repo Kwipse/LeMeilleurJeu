@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2378828062
+  GlobalObjectIdHash: 2489991252
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -231,7 +231,7 @@ MonoBehaviour:
   autoReloadOnMagasineNotFull: 1
   keepMagAmmoOnReload: 1
   projectile: {fileID: 4941722590205295700, guid: 4cf761aa484e09b4194df952df1c77b1, type: 3}
-  projectileSpeed: 1000
+  projectileSpeed: 5000
 --- !u!1 &2186605785939200082
 GameObject:
   m_ObjectHideFlags: 0

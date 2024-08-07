@@ -2,6 +2,9 @@ using Unity.Netcode;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.AI.Navigation;
+using UnityEngine.AI;
+
 
 
 public class RTSCamera : NetworkBehaviour
@@ -29,10 +32,13 @@ public class RTSCamera : NetworkBehaviour
 
     float timer;
 
+    NavMeshSurface navmesh;
+
 
     void Awake() 
     {
         cam = GetComponentInChildren<Camera>(); 
+        navmesh = GameObject.FindGameObjectWithTag("ground").GetComponent<NavMeshSurface>(); 
     }
 
     public override void OnNetworkSpawn()
@@ -228,6 +234,19 @@ public class RTSCamera : NetworkBehaviour
         return hit; }
 
 
+    public Vector3 GetMouseHitPosition()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out RaycastHit hit, 3000.0f);
+        return hit.point; 
+    }
+
+    public Vector3 GetMouseNavmeshPosition()
+    {
+        Vector3 pos = GetMouseHitPosition();
+        NavMesh.SamplePosition(pos, out NavMeshHit hit, 1f, NavMesh.AllAreas) ;
+        return hit.position; 
+    }
 }
 
 

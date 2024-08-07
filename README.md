@@ -114,7 +114,6 @@ Ce script donne un systeme d'armes a l'objet qui le possède.
 Par defaut, l'unité n'aura pas d'arme.
 Dans l'editeur, vous pouvez créer/recuperer un nouveau WeaponSystemAsset pour donner des armes par defaut.
 
-
 ```csharp
     public void AddAvailableWeapon(GameObject weaponPrefab) 
     public void RemoveAvailableWeapon(GameObject weaponPrefab) 

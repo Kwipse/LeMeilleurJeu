@@ -115,8 +115,8 @@ GameObject:
   - component: {fileID: 5095495299012725171}
   - component: {fileID: -3181902887744652081}
   - component: {fileID: 109094754512732368}
-  - component: {fileID: 8730154184895055430}
   - component: {fileID: 1891120395832447798}
+  - component: {fileID: 8730154184895055430}
   m_Layer: 0
   m_Name: RTSPlayer
   m_TagString: Player
@@ -179,6 +179,21 @@ MonoBehaviour:
   vitesseZoom: 4
   InitialCameraPosition: {x: 0, y: 80, z: -80}
   InitialCameraRotation: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}
+--- !u!114 &1891120395832447798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672819253296030723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5051b051dbcc24aa770ffa75a2b346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  builder: {fileID: 11400000, guid: 1dfc5068e12a0484c9e40556319f9e13, type: 2}
+  gold: {fileID: 11400000, guid: 3abf177df468f484b87cb0f49f246a73, type: 2}
+  UI: {fileID: 11400000, guid: 5971f5bce4709bb48b56ea19cdd65f9f, type: 2}
 --- !u!114 &8730154184895055430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,18 +213,4 @@ MonoBehaviour:
   canSelectUnit: 1
   canSelectBuilding: 1
   canSelectWeapon: 1
---- !u!114 &1891120395832447798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6672819253296030723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5051b051dbcc24aa770ffa75a2b346, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  builder: {fileID: 11400000, guid: 1dfc5068e12a0484c9e40556319f9e13, type: 2}
-  gold: {fileID: 11400000, guid: 3abf177df468f484b87cb0f49f246a73, type: 2}
-  UI: {fileID: 11400000, guid: 5971f5bce4709bb48b56ea19cdd65f9f, type: 2}
+  isAddingToWaypoints: 0

@@ -1,5 +1,5 @@
 using UnityEngine;
-using classes;
+
 
 public class Flingue : Arme
 {	

@@ -8,9 +8,18 @@ public class FPSMovement : MovementSystem
     public int nbJumpMax;
     public float jumpForce;
     int nbJump = 0;
+    bool sprint = false;
 
+    public override void OnSetMovement(GameObject movingGo)
+    {
 
-    //Common functions
+    }
+
+    public override void OnGettingToGround(RaycastHit hit)
+    {
+        nbJump = 0;
+    }
+
     public void MoveForward() { Move(movingTr.forward); }
     public void MoveBackward() { Move(-movingTr.forward); }
     public void MoveLeft() { Move(-movingTr.right); }
@@ -18,10 +27,15 @@ public class FPSMovement : MovementSystem
 
     public void Jump() {
         if (nbJumpMax > nbJump ) {
-            AddForce(new Vector3(0, jumpForce, 0));
+            AddForce(new Vector3(0, jumpForce * 1000, 0));
             nbJump += 1; } }
 
-    public void RechargeJumps() {
-        nbJump = 0; }
+    public void ToggleSprint()
+    {
+        sprint = !sprint;
+        if (sprint) { moveSpeed *= 2; }
+        if (!sprint) { moveSpeed /= 2; }
+    }
+
 }
 

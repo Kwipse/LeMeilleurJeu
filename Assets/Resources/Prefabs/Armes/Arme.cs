@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
-using scriptablesobjects;
 
 [RequireComponent(typeof(NetworkObject))]
 [RequireComponent(typeof(ClientNetworkTransform))]

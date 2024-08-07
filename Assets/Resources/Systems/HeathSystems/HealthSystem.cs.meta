@@ -4,7 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - lifeBar: {fileID: 11400000, guid: d4ca009390534b841b1562ee25049d00, type: 2}
+  - HSA: {fileID: 11400000, guid: ee503a61b9b2397459641793dfcd1dd1, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

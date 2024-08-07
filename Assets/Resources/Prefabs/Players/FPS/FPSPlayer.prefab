@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -1691503365646156680}
   - component: {fileID: 2234592717053340947}
   - component: {fileID: -7087016986273575220}
-  - component: {fileID: 6755854563512652133}
+  - component: {fileID: 6163489229773751694}
   - component: {fileID: -4104517608457937230}
   - component: {fileID: 6842901276005354989}
   - component: {fileID: 2170701393772319652}
@@ -184,8 +184,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &6755854563512652133
-BoxCollider:
+--- !u!136 &6163489229773751694
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -202,9 +202,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.0175338, y: 5.423755, z: 0.52908176}
-  m_Center: {x: 0, y: 2.7118776, z: 0}
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 5.41
+  m_Direction: 1
+  m_Center: {x: 0, y: 2.7, z: 0}
 --- !u!54 &-4104517608457937230
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -213,9 +215,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461714475075685670}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 120
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -229,9 +231,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!114 &6842901276005354989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,7 +263,6 @@ MonoBehaviour:
   UI: {fileID: 11400000, guid: 0d9434c5c5900f94e9d96c754181fb60, type: 2}
   MV: {fileID: 11400000, guid: 06e899a45c46c534eb942030543190bc, type: 2}
   AS: {fileID: 11400000, guid: e3c5aa26b95de13429605a4c128de42f, type: 2}
-  <WS>k__BackingField: {fileID: 11400000, guid: 801d9eb2d96e89f408fc82c07271b4d5, type: 2}
 --- !u!114 &3104513804266187867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,6 +276,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HSA: {fileID: 11400000, guid: ee503a61b9b2397459641793dfcd1dd1, type: 2}
+  pv:
+    m_InternalValue: 0
+  pvMax:
+    m_InternalValue: 0
 --- !u!114 &1453010873842497701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +293,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WSA: {fileID: 11400000, guid: 3043562b3d6c04b4a877521ba3bdecf9, type: 2}
+  currentWeaponId:
+    m_InternalValue: 0
 --- !u!1 &628852257493769497
 GameObject:
   m_ObjectHideFlags: 0
