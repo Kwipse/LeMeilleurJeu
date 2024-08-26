@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cb43eef58855347a90ae9435afa7cd, type: 3}
   m_Name: mv_StandardFPS
   m_EditorClassIdentifier: 
-  showMovementLogs: 1
+  showMovementLogs: 0
   moveSpeed: 30
   slideSpeed: 50
   movingTr: {fileID: 0}
   movingRb: {fileID: 0}
   movingCol: {fileID: 0}
   nbJumpMax: 3
-  jumpForce: 5
+  jumpForce: 50

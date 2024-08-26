@@ -768,6 +768,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 691acf92dccc6a7498c7462104ca3ec5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2624307834948922435}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 691acf92dccc6a7498c7462104ca3ec5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2140527350813601753}
   m_SourcePrefab: {fileID: 100100000, guid: 691acf92dccc6a7498c7462104ca3ec5, type: 3}
 --- !u!4 &53979453432506985 stripped
 Transform:
@@ -1014,7 +1017,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 861338350176694483}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 2
+  m_Radius: 3
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1023,7 +1026,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 7
   m_BaseOffset: 5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -1092,6 +1095,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HSA: {fileID: 11400000, guid: ee503a61b9b2397459641793dfcd1dd1, type: 2}
+  pv:
+    m_InternalValue: 0
+  pvMax:
+    m_InternalValue: 0
 --- !u!114 &-5363862378355366910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1127,6 +1134,25 @@ MonoBehaviour:
   unitAngularSpeed: 1000
   unitAcceleration: 1000
   AS: {fileID: 11400000, guid: 6725ff9f4e766b04982616e85733c161, type: 2}
+--- !u!114 &2140527350813601753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861338350176694483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e8f1af218b48764c8dbfb964f2f1476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Method: 3
+  m_Curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &927680113959184955 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 858700291510757305, guid: 691acf92dccc6a7498c7462104ca3ec5, type: 3}

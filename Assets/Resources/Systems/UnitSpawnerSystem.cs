@@ -103,9 +103,11 @@ public class UnitSpawnerSystem : NetworkBehaviour
 
 
 
+
     //Unit Spawning
     public void SpawnUnit(GameObject unitPrefab, GameObject specificSpawner = null) 
     {
+
         if (!AvailableUnits.Contains(unitPrefab)) {
             Debug.Log($"Tried to spawn unit prefab \"{unitPrefab.name}\", but it is not available");
             return; }

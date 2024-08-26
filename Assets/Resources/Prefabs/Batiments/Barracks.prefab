@@ -336,6 +336,7 @@ MonoBehaviour:
   AvailableUnits:
   - {fileID: 861338350176694483, guid: 0b97593f1adbeca4eb6d4cf36de40ec8, type: 3}
   - {fileID: 2309037950584785878, guid: f81cbfc9900fa474285a58503767ad3a, type: 3}
+  PlayerSpawner: 0
   isMatchUnitToSpawner: 1
 --- !u!114 &-3125215787690252328
 MonoBehaviour:

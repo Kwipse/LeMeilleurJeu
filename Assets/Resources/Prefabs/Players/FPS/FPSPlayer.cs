@@ -71,6 +71,7 @@ public class FPSPlayer : SyncedBehaviour, IWaitForGameSync
         if (Input.mouseScrollDelta.y < 0) { WS.EquipPreviousWeapon(); }
 
         if (Input.GetKeyDown(KeyCode.Space)) { MV.Jump(); }
+        if (Input.GetKey(KeyCode.Space)) { MV.jumpmaintained(); }
         if (Input.GetKey(KeyCode.Z)) { MV.MoveForward(); }
         if (Input.GetKey(KeyCode.Q)) { MV.MoveLeft(); }
         if (Input.GetKey(KeyCode.S)) { MV.MoveBackward(); }

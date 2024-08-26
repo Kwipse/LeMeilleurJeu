@@ -23,8 +23,11 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
     public float unitAcceleration = 1000.0f;
 
     NavMeshAgent agent;
+    NavMeshObstacle obstacle;
     WeaponSystem WS;
     public AnimationSystem AS;
+
+    Vector3 lastWaypoint;
 
     List<Vector3> waypoints;
     Collider[] nearbyColliders;
@@ -43,6 +46,8 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
 
         InitWaypoints();
         InitNavmeshAgent();
+
+        obstacle = GetComponent<NavMeshObstacle>();
     }
 
     void InitWaypoints()
@@ -97,11 +102,18 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
 
     void MoveToDestination() 
     {
+        
         //Reactualise la destination si elle a changee
         if (Vector3.SqrMagnitude(agent.destination - waypoints[0]) > 1 ) {
-            agent.destination = waypoints[0];
             //Debug.Log($"Agent moving to new waypoint : {agent.destination}");
-            agent.isStopped = false; }
+            if (obstacle)
+            {
+                obstacle.enabled = false;
+                agent.enabled = true;
+            }
+            agent.destination = waypoints[0];
+            agent.isStopped = false;
+        }
 
         //Continuer si l'agent n'est pas arrivé au Waypoint
         if (Vector3.SqrMagnitude(agent.transform.position - new Vector3(0,agent.baseOffset,0) - agent.destination) > agent.stoppingDistance + 1 ) {
@@ -115,10 +127,16 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
             return; }
 
         //Stopper l'agent quand il est arrivé
-        if (!agent.isStopped) {
-            //Debug.Log($"Agent reached destination");
+        if (!agent.isStopped)
+        {
             attackMode = true; 
-            agent.isStopped = true; }
+            agent.isStopped = true;
+
+            //Debug.Log($"Agent reached destination");
+            if (obstacle) {
+                agent.enabled = false;
+                obstacle.enabled = true; }
+        }
     }
 
 

@@ -120,9 +120,11 @@ public class RTSPlayer : SyncedBehaviour, IWaitForGameSync
 
         //Blueprint Inputs 
         if (Input.GetKeyDown(KeyCode.W)) { builder.SelectBlueprint(0); }
-        if (Input.GetKeyDown(KeyCode.X)) builder.SelectBlueprint(1);
-        if (Input.mouseScrollDelta.y < 0) builder.SelectNextBlueprint();
-        if (Input.mouseScrollDelta.y > 0) builder.SelectPreviousBlueprint();
+        if (Input.GetKeyDown(KeyCode.X)) { builder.SelectBlueprint(1); }
+        if (Input.GetKey(KeyCode.A)) { builder.RotateBlueprint(true); }
+        if (Input.GetKey(KeyCode.E)) { builder.RotateBlueprint(false); }
+        if (Input.mouseScrollDelta.y < 0) { builder.SelectNextBlueprint(); }
+        if (Input.mouseScrollDelta.y > 0) { builder.SelectPreviousBlueprint(); }
 
         //Construction Input
         if (Input.GetKeyDown(KeyCode.LeftShift))  builder.keepBlueprintOnConstruction = true; 

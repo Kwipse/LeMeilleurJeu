@@ -15,6 +15,7 @@ MonoBehaviour:
   AvailableBuildings:
   - {fileID: 6117278076527145797, guid: ea8d60ec94f3f1249ab46e6c55cd7410, type: 3}
   - {fileID: 3764548900306691348, guid: 88e4eb239da42cf4c968524cf664f333, type: 3}
+  - {fileID: 6179331823867752489, guid: 4726ffb5b4a2eb240869b63678a5ad15, type: 3}
   currentBlueprint: {fileID: 0}
   isBlueprintAllowed: 1
   keepBlueprintOnConstruction: 0

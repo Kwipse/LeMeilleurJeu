@@ -81,7 +81,6 @@ public class HealthSystem : SyncedBehaviour, IWaitForGameSync
         switch (gameObject.tag)
         {
             case  "Player":
-                //SpawnManager.DestroyPlayer(gameObject);
                 SpawnManager.SpawnPlayer("FPSPlayer", Vector3.zero);
                 break;
 

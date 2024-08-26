@@ -30,6 +30,11 @@ public class FPSMovement : MovementSystem
             AddForce(new Vector3(0, jumpForce * 1000, 0));
             nbJump += 1; } }
 
+    public  void jumpmaintained()
+    {
+
+    }
+
     public void ToggleSprint()
     {
         sprint = !sprint;

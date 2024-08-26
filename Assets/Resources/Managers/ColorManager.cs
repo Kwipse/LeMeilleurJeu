@@ -40,13 +40,18 @@ using Unity.Netcode;
             //Debug.Log($"{this.GetType().Name} : J'existe !");
         }
 
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
+
         public override void InitializeBeforeSync()
         {
             Materials = new Material[10];
             InitializeMaterials();
 
-            PlayerMaterial.OnListChanged += OnPlayerMaterialChanged;
             TeamMaterial.OnListChanged += OnTeamMaterialChanged;
+            PlayerMaterial.OnListChanged += OnPlayerMaterialChanged;
 
             var clientId = NetworkManager.Singleton.LocalClientId;
 

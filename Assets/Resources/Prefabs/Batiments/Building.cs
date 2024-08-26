@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using UnityEngine.AI;
@@ -15,6 +16,10 @@ public class Building : SyncedBehaviour, IWaitForGameSync
     Rigidbody rb;
     Collider col;
 
+    NavMeshSurface nms;
+    NavMeshModifier nmm;
+    NavMeshLinks_AutoPlacer nmlinker;
+
     public delegate void TriggerEvent(Collider col);
     public event TriggerEvent TriggerEnterEvent;
     public event TriggerEvent TriggerExitEvent;
@@ -25,10 +30,14 @@ public class Building : SyncedBehaviour, IWaitForGameSync
     public virtual void Awake() 
     {
         rb = gameObject.GetComponent<Rigidbody>();
-        //col = gameObject.GetComponent<Collider>();
+        nms = GameObject.Find("Sol").GetComponent<NavMeshSurface>();
+        nmm = gameObject.AddComponent<NavMeshModifier>();
+        //nmlinker = gameObject.AddComponent<NavMeshLinks_AutoPlacer>();
 
+        //nmm.overrideGenerateLinks = true;
+        //nmm.generateLinks = true;
+        
         tmpKinematic = rb.isKinematic;
-        //tmpTrigger = col.isTrigger;
 
         //Set this for blueprint
         rb.isKinematic = true;
@@ -39,9 +48,6 @@ public class Building : SyncedBehaviour, IWaitForGameSync
                 c.GetComponent<MeshCollider>().convex = true;
                 c.isTrigger = true; }
         }
-
-
-        //col.isTrigger = true;
     }
 
     public override void StartAfterGameSync()
@@ -50,26 +56,51 @@ public class Building : SyncedBehaviour, IWaitForGameSync
 
         foreach (Collider c in gameObject.GetComponentsInChildren<Collider>())
         {
-            if (c.GetType() == typeof(MeshCollider))
-            {
+            if (c.GetType() == typeof(MeshCollider)) {
                 c.isTrigger = false;
-                c.GetComponent<MeshCollider>().convex = false;
-            }
+                c.GetComponent<MeshCollider>().convex = false; }
         }
 
         //Go back to physics as set in editor
         rb.isKinematic = tmpKinematic;
-        //col.isTrigger = tmpTrigger;
-
-        if (!IsOwner) { this.enabled = false; }
 
 
         //Update the navmesh
-        NavMeshSurface nms = GameObject.Find("Sol").GetComponent<NavMeshSurface>();
         nms.UpdateNavMesh(nms.navMeshData);
+
+        //Bounds b = new Bounds(gameObject.transform.position, new Vector3(500,500,500));
+        //List<NavMeshBuildSource> sources = new List<NavMeshBuildSource>();
+        //NavMeshBuilder.CollectSources(null, 1, NavMeshCollectGeometry.PhysicsColliders, 0, true,  new List<NavMeshBuildMarkup>(), false, sources);
+        //NavMeshBuilder.UpdateNavMeshDataAsync(nms.navMeshData, nms.GetBuildSettings(), sources, b);
+
+        //Debug.Log($"{sources.Count}");
+        //foreach (var s in sources)
+        //{
+        //    if (s.sourceObject) {
+        //        Debug.Log($"{s.sourceObject.name}"); }
+        //}
+
+        Invoke("UpdateLinks",1);
+        //nmlinker.Generate();
+        
+        //gameObject.GetComponent<NavMeshLinks_AutoPlacer>().Generate();
     }
 
     //Send events on triggers (for blueprints)
     void OnTriggerEnter(Collider col) { if (TriggerEnterEvent != null) TriggerEnterEvent(col); }
     void OnTriggerExit(Collider col) { if (TriggerExitEvent != null) TriggerExitEvent(col); }
+
+    public override void OnDestroy()
+    {
+        nms.UpdateNavMesh(nms.navMeshData);
+
+        Invoke("UpdateLinks",1);
+        //base.OnDestroy();
+
+    }
+
+    void UpdateLinks()
+    {
+        GameObject.Find("Sol").GetComponent<NavMeshLinks_AutoPlacer>().Generate();
+    }
 }

@@ -16,6 +16,8 @@ public class BuilderSystem : ScriptableObject
 
     List<Collider> currentBlueprintTriggers = new List<Collider>();
 
+    float rotationSpeed = 1;
+
 
 
     //Availables Buildings
@@ -86,6 +88,10 @@ public class BuilderSystem : ScriptableObject
     public void RotateBlueprintToQuaternion(Quaternion rotation) {
         currentBlueprint.transform.rotation = rotation; }
 
+    public void RotateBlueprint(bool rotateClockwise)
+    {
+        currentBlueprint.transform.Rotate(Vector3.up * rotationSpeed/5 * (rotateClockwise?1:-1));
+    }
 
 
 
