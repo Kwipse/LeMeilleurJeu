@@ -7,6 +7,8 @@ public class HealthSystem : SyncedBehaviour, IWaitForGameSync
     HealthBar HB;
     bool showLifeBar = true;
     bool setToDie = false;
+    public GameObject FPSDeathUI ;
+
 
     Camera cam;
 
@@ -82,7 +84,10 @@ public class HealthSystem : SyncedBehaviour, IWaitForGameSync
         {
             case  "Player":
                 //SpawnManager.DestroyPlayer(gameObject);
-                SpawnManager.SpawnPlayer("FPSPlayer", Vector3.zero);
+               
+                ModeManager _modeManager = NetworkManager.LocalClient.PlayerObject.GetComponent<ModeManager>();
+                _modeManager.BecomeGhost();
+
                 break;
 
             default:

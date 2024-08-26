@@ -59,7 +59,7 @@ public class FPSPlayer : SyncedBehaviour, IWaitForGameSync
         base.OnDestroy();
     }
 
-    void PlayerInputs()
+   void PlayerInputs()
     {
         if (Input.GetMouseButton(0)) { WS.ShootWeapon(); }
         if (Input.GetMouseButton(1)) { WS.ShootAltWeapon(); }
