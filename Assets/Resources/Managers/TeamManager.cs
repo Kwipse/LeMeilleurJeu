@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class TeamManager : SyncedBehaviour, ISyncBeforeGame 
+public class TeamManager : SyncedBehaviour, ISyncBeforeGame
 {
     static NetworkList<int> ClientTeam;	
 
@@ -21,6 +21,7 @@ public class TeamManager : SyncedBehaviour, ISyncBeforeGame
 
     public override void InitializeBeforeSync()
     {
+        
         ClientTeam.OnListChanged += OnClientTeamChanged;
 
         if (IsServer)
@@ -32,6 +33,38 @@ public class TeamManager : SyncedBehaviour, ISyncBeforeGame
     }
 
 
+    public override void StartSync()
+    {
+        if (IsServer) { EndSync(); }
+        if (!IsServer) { InitSpawnersRpc(); }
+    }
+
+    //Ask Server for spawners sync
+    [Rpc(SendTo.Server, RequireOwnership = false)]
+    void InitSpawnersRpc(RpcParams rpcParams = default)
+    {
+        var clientId = rpcParams.Receive.SenderClientId;
+
+        foreach (var spawner in spawners) {
+            SyncSpawnerRpc(spawner.Key, spawner.Value, NetworkManager.Singleton.RpcTarget.Single(clientId, RpcTargetUse.Temp)); }
+
+        //SendSynchronizedEventRpc(NetworkManager.Singleton.RpcTarget.Single(clientId, RpcTargetUse.Temp));
+        SendSynchronizedEventRpc(RpcTarget.Single(clientId, RpcTargetUse.Temp));
+    }
+
+    //Send 1 spawners
+    [Rpc(SendTo.SpecifiedInParams)]
+    void SyncSpawnerRpc(NetworkObjectReference nor, int team, RpcParams rpcParams) 
+    {
+        spawners.Add((GameObject) nor, team);
+    }
+
+    //Fire synchronized event on client
+    [Rpc(SendTo.SpecifiedInParams)]
+    void SendSynchronizedEventRpc(RpcParams rpcParams) 
+    {
+        EndSync();
+    }
 
 
 
@@ -83,39 +116,43 @@ public class TeamManager : SyncedBehaviour, ISyncBeforeGame
 
 
     //SPAWNERS
-    public static void AddSpawner(GameObject spawner, int team)
-    {
-        spawners.Add(spawner, team);
-        ShowSpawnerList();
-    }
-    public static void RemoveSpawner(GameObject spawner)
-    {
-        spawners.Remove(spawner);
-    }
-    public static void SetSpawnerTeam(GameObject spawner, int team)
-    {
-        spawners[spawner] = team;
-    }
+    public static void AddSpawner(GameObject spawner, int team) {
+        TM.AddSpawnerRpc(spawner, team); }
 
-    public static void ShowSpawnerList()
-    {
-        foreach (var spawner in spawners)
-        {
-            Debug.Log($"{spawner.Key.name}/Team{spawner.Value}");
-        }
-    }
+    public static void RemoveSpawner(GameObject spawner) {
+        TM.RemoveSpawnerRpc(spawner); }
 
+    public static void SetSpawnerTeam(GameObject spawner, int team) {
+        TM.AddSpawnerRpc(spawner, team); }
+
+
+    [Rpc(SendTo.Everyone, RequireOwnership = false)]
+    void AddSpawnerRpc(NetworkObjectReference nor, int team) {
+        spawners.Add((GameObject) nor, team);
+        ShowSpawnerList(); }
+
+    [Rpc(SendTo.Everyone, RequireOwnership = false)]
+    void RemoveSpawnerRpc(NetworkObjectReference nor) {
+        spawners.Remove((GameObject) nor);
+        ShowSpawnerList(); }
+
+    [Rpc(SendTo.Everyone, RequireOwnership = false)]
+    void SetSpawnerRpc(NetworkObjectReference nor, int team) {
+        spawners[(GameObject) nor] = team;
+        ShowSpawnerList(); }
+
+    static void ShowSpawnerList() {
+        foreach (var spawner in spawners) {
+            Debug.Log($"{spawner.Key.name}/Team{spawner.Value}"); } }
 
     public static List<GameObject> GetPlayerSpawners(ulong clientId)
     {
         int clientTeam = GetTeam(clientId);
         List<GameObject> playerSpawners = new List<GameObject>();
 
-        foreach (var spawner in spawners)
-        {
+        foreach (var spawner in spawners) {
             if (spawner.Value == clientTeam) {
-                playerSpawners.Add(spawner.Key); }
-        }
+                playerSpawners.Add(spawner.Key); } }
 
         return playerSpawners;
     }

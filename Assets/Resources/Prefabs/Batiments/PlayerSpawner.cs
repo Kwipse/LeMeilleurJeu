@@ -7,14 +7,16 @@ public class PlayerSpawner : SyncedBehaviour, IWaitForGameSync
     //is available gerer ici
     bool isAvailable = true;
 
-    int currentTeam;
+    public int currentTeam = 0;
     
     public override void StartAfterGameSync()
     {
         if (IsOwner)
         {
-            currentTeam = TeamManager.GetTeam(NetworkManager.LocalClientId);
+            if (currentTeam == 0) {
+                currentTeam = TeamManager.GetTeam(NetworkManager.LocalClientId); }
             TeamManager.AddSpawner(gameObject, currentTeam);
+            //Debug.Log($"adding player spawner");
         }
     }
 

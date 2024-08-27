@@ -71,7 +71,11 @@ public class ModeManager : SyncedBehaviour, IWaitForGameSync
     {
         List<GameObject> spawners = TeamManager.GetPlayerSpawners(OwnerClientId);
         if (spawners.Count != 0) { SpawnManager.SpawnPlayer(FPS,spawners[0].transform.position); }
-        if (spawners.Count == 0) { SpawnManager.SpawnPlayer(FPS,Vector3.zero); }
+        if (spawners.Count == 0)
+        {
+            Debug.Log($"no spawner found");
+            SpawnManager.SpawnPlayer(FPS,Vector3.zero);
+        }
     }
 
     void SpawnRTS()

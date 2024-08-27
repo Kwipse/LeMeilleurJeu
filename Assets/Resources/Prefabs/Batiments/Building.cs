@@ -106,3 +106,4 @@ public class Building : SyncedBehaviour, IWaitForGameSync
         GameObject.Find("Sol").GetComponent<NavMeshLinks_AutoPlacer>().Generate();
     }
 }
+
