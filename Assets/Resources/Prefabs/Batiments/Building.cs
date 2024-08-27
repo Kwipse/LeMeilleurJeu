@@ -31,8 +31,8 @@ public class Building : SyncedBehaviour, IWaitForGameSync
     {
         rb = gameObject.GetComponent<Rigidbody>();
         nms = GameObject.Find("Sol").GetComponent<NavMeshSurface>();
+        nmlinker = GameObject.Find("Sol").AddComponent<NavMeshLinks_AutoPlacer>();
         nmm = gameObject.AddComponent<NavMeshModifier>();
-        //nmlinker = gameObject.AddComponent<NavMeshLinks_AutoPlacer>();
 
         //nmm.overrideGenerateLinks = true;
         //nmm.generateLinks = true;
@@ -90,17 +90,19 @@ public class Building : SyncedBehaviour, IWaitForGameSync
     void OnTriggerEnter(Collider col) { if (TriggerEnterEvent != null) TriggerEnterEvent(col); }
     void OnTriggerExit(Collider col) { if (TriggerExitEvent != null) TriggerExitEvent(col); }
 
-    public override void OnDestroy()
+    public override void OnNetworkDespawn()
     {
-        nms.UpdateNavMesh(nms.navMeshData);
+        nmm.ignoreFromBuild = true;
 
+        //Destroy(nmm);
+        //nms.RemoveData();
+        nms.UpdateNavMesh(nms.navMeshData);
         Invoke("UpdateLinks",1);
-        //base.OnDestroy();
 
     }
 
     void UpdateLinks()
     {
-        GameObject.Find("Sol").GetComponent<NavMeshLinks_AutoPlacer>().Generate();
+        nmlinker.Generate();
     }
 }

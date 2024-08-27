@@ -11,8 +11,6 @@ public class TeamManager : SyncedBehaviour, ISyncBeforeGame
     void Awake() 
     { 
         TM = this;
-        //Debug.Log("TeamManager : J'existe !");
-
         ClientTeam = new NetworkList<int>();
     }
 

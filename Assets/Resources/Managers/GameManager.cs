@@ -2,6 +2,7 @@ using Unity.Netcode;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.AI.Navigation;
 
 
 //Game Manager
@@ -69,11 +70,23 @@ public class GameManager : NetworkBehaviour
         foreach(var b in behavioursWaitingSync) {
             //Debug.Log($"{b.GetType().Name} : Game is synced"); 
             b.StartAfterGameSync(); }
+
+      GameObject.Find("Sol").GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
 
     public static bool isGameSynchronized()
     {
         return isGameSynced;
+    }
+
+    //void OnApplicationQuit()
+    public override void OnNetworkDespawn()
+    {
+      GameObject sol = GameObject.Find("Sol");
+        sol.GetComponent<NavMeshSurface>().UpdateNavMesh(sol.GetComponent<NavMeshSurface>().navMeshData);
+        //sol.GetComponent<NavMeshSurface>().BuildNavMesh();
+        sol.GetComponent<NavMeshLinks_AutoPlacer>().ClearLinks();
+
     }
 }
