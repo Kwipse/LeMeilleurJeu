@@ -52,6 +52,7 @@ public class GameManager : NetworkBehaviour
         foreach(var b in behavioursToSync) {
             //Debug.Log($"{b.GetType().Name} : Initializing sync"); 
             b.InitializeBeforeSync(); }
+
     }
 
     static void StartGameSynchronization()

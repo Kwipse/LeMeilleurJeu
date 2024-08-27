@@ -68,9 +68,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0672e6b268d952043ac0c7a3b6868d8d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2499778525568107214}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0672e6b268d952043ac0c7a3b6868d8d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6613583913841749708}
     - targetCorrespondingSourceObject: {fileID: -3647958981525801224, guid: 0672e6b268d952043ac0c7a3b6868d8d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1028323903525829675}
@@ -294,31 +291,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6613583913841749708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3764548900306691348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc862ae8588a42a47a487f21f1865c54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  linkPrefab: {fileID: 8099749895713115615, guid: 3a890480f73585240a6b2cc7d955a8f3, type: 3}
-  OnewayLinkPrefab: {fileID: 8099749895713115615, guid: 1528c351ed75835428aefca073e44dc1, type: 3}
-  tileWidth: 5
-  maxJumpHeight: 30
-  maxJumpDist: 10
-  raycastLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  sphereCastRadius: 10
-  cheatOffset: 0.25
-  wallCheckYOffset: 0.5
-  invertFacingNormal: 0
-  dontAllignYAxis: 0
 --- !u!1 &8388422134920821022 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5518772024080179547, guid: 0672e6b268d952043ac0c7a3b6868d8d, type: 3}

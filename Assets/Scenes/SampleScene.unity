@@ -410,7 +410,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 1b0d88c558a902d48ac0fa311e156448, type: 2}
   m_BuildHeightMesh: 1
 --- !u!114 &587235828
 MonoBehaviour:
@@ -432,7 +432,7 @@ MonoBehaviour:
   raycastLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  sphereCastRadius: 0.5
+  sphereCastRadius: 0.1
   cheatOffset: 0.25
   wallCheckYOffset: 0.5
   invertFacingNormal: 0

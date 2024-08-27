@@ -1095,6 +1095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HSA: {fileID: 11400000, guid: ee503a61b9b2397459641793dfcd1dd1, type: 2}
+  FPSDeathUI: {fileID: 0}
   pv:
     m_InternalValue: 0
   pvMax:
@@ -1146,7 +1147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e8f1af218b48764c8dbfb964f2f1476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Method: 3
+  m_Method: 1
   m_Curve:
     serializedVersion: 2
     m_Curve: []

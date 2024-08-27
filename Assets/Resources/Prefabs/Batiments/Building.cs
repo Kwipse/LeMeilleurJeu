@@ -103,6 +103,6 @@ public class Building : SyncedBehaviour, IWaitForGameSync
 
     void UpdateLinks()
     {
-        nmlinker.Generate();
+        GameObject.Find("Sol").GetComponent<NavMeshLinks_AutoPlacer>().Generate();
     }
 }
