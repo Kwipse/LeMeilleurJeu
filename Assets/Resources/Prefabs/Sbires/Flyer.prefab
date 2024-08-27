@@ -1129,7 +1129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sightRange: 50
   hasProjectileAttack: 0
-  attackRange: 2
+  attackRange: 20
   attackCooldown: 1
   unitSpeed: 15
   unitAngularSpeed: 1000

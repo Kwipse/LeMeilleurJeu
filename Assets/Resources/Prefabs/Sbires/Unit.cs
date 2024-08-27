@@ -165,6 +165,7 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
 
     void AttackTargetObject(GameObject targetGo)
     {
+        agent.destination = transform.position;
         if (WS.GetCurrentWeapon()) {
             WS.GetCurrentWeaponScript().ShootTargetObject(targetGo); }
         else {
