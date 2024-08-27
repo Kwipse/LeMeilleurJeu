@@ -23,7 +23,7 @@ public class FPSCamera : NetworkBehaviour
     {
         cam = GetComponentInChildren<Camera>();
         cam.transform.SetParent(transform); //Parent player to camera
-        cam.transform.position = InitialCameraPosition;
+        //cam.transform.position = InitialCameraPosition;
 
         Cursor.lockState = CursorLockMode.Locked; //Bloque la souris au centre
         Cursor.visible = false; // Fait disparaitre le curseur de la souris

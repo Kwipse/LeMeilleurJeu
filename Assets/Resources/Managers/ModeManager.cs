@@ -15,7 +15,6 @@ public class ModeManager : SyncedBehaviour, IWaitForGameSync
 
     // ghost
     float GhostDuration = 3.0f;
-    float GhostTimer;
 
     public override void StartAfterGameSync()
     {
@@ -25,7 +24,8 @@ public class ModeManager : SyncedBehaviour, IWaitForGameSync
 
         //Spawn FPS Player
         PlayMode = FPS ;
-        SpawnManager.SpawnPlayer(FPS,Vector3.zero);
+        SpawnFPS();
+        //SpawnManager.SpawnPlayer(FPS,Vector3.zero);
     }
 
 
@@ -49,22 +49,38 @@ public class ModeManager : SyncedBehaviour, IWaitForGameSync
         if(currentPlayMode == RTS) { PlayMode=FPS; }
         if(currentPlayMode == FPS) { PlayMode=RTS; }
 
-        if (PlayMode == FPS) {SpawnManager.SpawnPlayer(FPS,Vector3.zero);}
-        if (PlayMode == RTS) {SpawnManager.SpawnPlayer(RTS,Vector3.zero);}
-        //Debug.Log($"Client {NetworkManager.Singleton.LocalClientId} has switched mode");
+        if (PlayMode == FPS) {SpawnFPS();}
+        if (PlayMode == RTS) {SpawnRTS();}
     }
 
     public void BecomeGhost()
     {
         PlayMode = Ghost;
-        GhostTimer = Time.time + GhostDuration ;
-        SpawnManager.SpawnPlayer(Ghost,Vector3.zero);
+        SpawnGhost();
         Invoke("Revive",GhostDuration);
     }
 
     public void Revive()
     {
         PlayMode = FPS;
-        SpawnManager.SpawnPlayer(FPS,Vector3.zero);
+        SpawnFPS();
+    }
+
+
+    void SpawnFPS()
+    {
+        List<GameObject> spawners = TeamManager.GetPlayerSpawners(OwnerClientId);
+        if (spawners.Count != 0) { SpawnManager.SpawnPlayer(FPS,spawners[0].transform.position); }
+        if (spawners.Count == 0) { SpawnManager.SpawnPlayer(FPS,Vector3.zero); }
+    }
+
+    void SpawnRTS()
+    {
+        SpawnManager.SpawnPlayer(RTS,Vector3.zero);
+    }
+
+    void SpawnGhost()
+    {
+        SpawnManager.SpawnPlayer(Ghost, PlayerManager.GetPlayerObject(OwnerClientId).transform.position);
     }
 }
