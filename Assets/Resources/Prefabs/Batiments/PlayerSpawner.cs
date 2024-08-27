@@ -1,14 +1,21 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class PlayerSpawner : MonoBehaviour
+public class PlayerSpawner : SyncedBehaviour, IWaitForGameSync
 {
     //quand construit se declare au teammanager
     //is available gerer ici
     bool isAvailable = true;
 
-    void Awake()
+    int currentTeam;
+    
+    public override void StartAfterGameSync()
     {
-        TeamManager.AddSpawner();
+        if (IsOwner)
+        {
+            currentTeam = TeamManager.GetTeam(NetworkManager.LocalClientId);
+            TeamManager.AddSpawner(gameObject, currentTeam);
+        }
     }
 
     public void SwitchAvailability()

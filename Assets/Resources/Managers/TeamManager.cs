@@ -7,11 +7,16 @@ public class TeamManager : SyncedBehaviour, ISyncBeforeGame
 {
     static NetworkList<int> ClientTeam;	
 
+    static Dictionary<GameObject, int> spawners;
+
+
+
     static TeamManager TM;
     void Awake() 
     { 
         TM = this;
         ClientTeam = new NetworkList<int>();
+        spawners = new Dictionary<GameObject, int>();
     }
 
     public override void InitializeBeforeSync()
@@ -25,6 +30,7 @@ public class TeamManager : SyncedBehaviour, ISyncBeforeGame
             //Debug.Log($"ColorManager : Team set to {ClientTeam[(int) clientId]}");
         }
     }
+
 
 
 
@@ -73,6 +79,45 @@ public class TeamManager : SyncedBehaviour, ISyncBeforeGame
             return true;
 
         return false;
+    }
+
+
+    //SPAWNERS
+    public static void AddSpawner(GameObject spawner, int team)
+    {
+        spawners.Add(spawner, team);
+        ShowSpawnerList();
+    }
+    public static void RemoveSpawner(GameObject spawner)
+    {
+        spawners.Remove(spawner);
+    }
+    public static void SetSpawnerTeam(GameObject spawner, int team)
+    {
+        spawners[spawner] = team;
+    }
+
+    public static void ShowSpawnerList()
+    {
+        foreach (var spawner in spawners)
+        {
+            Debug.Log($"{spawner.Key.name}/Team{spawner.Value}");
+        }
+    }
+
+
+    public static List<GameObject> GetPlayerSpawners(ulong clientId)
+    {
+        int clientTeam = GetTeam(clientId);
+        List<GameObject> playerSpawners = new List<GameObject>();
+
+        foreach (var spawner in spawners)
+        {
+            if (spawner.Value == clientTeam) {
+                playerSpawners.Add(spawner.Key); }
+        }
+
+        return playerSpawners;
     }
 
 
