@@ -5,7 +5,7 @@ public class HealthSystem : SyncedBehaviour, IWaitForGameSync
 {
     public HealthSystemAsset HSA;
     HealthBar HB;
-    bool showLifeBar = true;
+    public bool showLifeBar = true;
     bool setToDie = false;
     public GameObject FPSDeathUI ;
 

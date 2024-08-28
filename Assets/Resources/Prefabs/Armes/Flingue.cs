@@ -16,6 +16,7 @@ public class Flingue : Arme
         if (Physics.Raycast(ray, out RaycastHit hit, 3000f))
         {
             Debug.Log($"Hit {hit.transform.gameObject.name} at {hit.point}");
+            SpawnManager.SpawnObject("Trace", hit.point, Quaternion.LookRotation(hit.normal));
         }
     }
 	

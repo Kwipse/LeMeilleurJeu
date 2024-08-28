@@ -33,6 +33,7 @@ public class FistOfFury : Arme
         if (col.gameObject == GetWeaponSystem().gameObject) { return; }
         //Debug.Log($"Fist of fury : trigger on {col.gameObject.name}");
         col.gameObject.GetComponent<HealthSystem>()?.LoosePv(25);
+        //col.gameObject.GetComponent<Rigidbody>()?.AddForce(Vector3.up);
     }
 }
 
