@@ -9,6 +9,9 @@ public class PrefabManager : ScriptableObject
 	// Declare le dictionnaire  ObjCode-Obj
 	public static Dictionary<int, GameObject> PrefabList = new Dictionary<int, GameObject>();
 
+    static int amountToPool = 20;
+    static List<GameObject> objectsToPool;
+    static Dictionary<GameObject, List<GameObject>> pools;
 
 	public static void LoadAllPrefabs()
 	{
@@ -27,8 +30,8 @@ public class PrefabManager : ScriptableObject
         Object[] ObjectArray = Resources.LoadAll(PrefabPath,typeof(GameObject));
 
         //Populate PrefabList
-		foreach (Object o in ObjectArray) {
-			if(!PrefabList.ContainsKey(o.name.GetHashCode())) {
+		foreach (Object o in ObjectArray)   {
+			if(!PrefabList.ContainsKey(o.name.GetHashCode()))   {
 				PrefabList.Add(o.name.GetHashCode(),(GameObject) o); 
                 //Debug.Log($"{o.name} added to Prefab list");
             } }
@@ -45,7 +48,46 @@ public class PrefabManager : ScriptableObject
             }
         }
 
+        LoadPools();
+
 	}
+
+    static void LoadPools()
+    {
+        //Pooling
+        objectsToPool = new List<GameObject>();
+        pools = new Dictionary<GameObject, List<GameObject>>();
+
+        foreach (GameObject go in PrefabList.Values)
+        {
+            if (go.tag == "Projectile")
+            {
+                objectsToPool.Add(go);
+                Debug.Log($"ohé ");
+            }
+        }
+
+        foreach (GameObject go in objectsToPool)
+        {
+            GameObject tmpGo;
+            List<GameObject> tmpPool = new List<GameObject>();
+
+            for(int i = 0; i < amountToPool; i++)
+            {
+                tmpGo = Instantiate(go);
+                tmpGo.GetComponent<NetworkObject>().Spawn();
+                int id = ObjectManager.AddObjectToList(tmpGo);
+                tmpGo.GetComponent<NetworkObject>().Despawn(false);
+
+
+                tmpGo.SetActive(false);
+                tmpPool.Add(tmpGo);
+            }
+            pools.Add(go,tmpPool);
+        }
+        Debug.Log($"POOLS ARE READY, {pools.Count} POOLS !!");
+    }
+
 
 
 	public static GameObject GetPrefab(string prefabName)
@@ -61,4 +103,14 @@ public class PrefabManager : ScriptableObject
 		}
 	}
 
+    public static GameObject GetPooledObject(GameObject prefab)
+    {
+        List<GameObject> pool = pools[prefab];
+
+        for (int i=0 ; i < amountToPool ; i++) {
+            if (!pool[i].activeInHierarchy) {
+                return pool[i]; } }
+
+        return null;
+    }
 }

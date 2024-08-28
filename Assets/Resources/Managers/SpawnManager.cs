@@ -1,8 +1,15 @@
 using UnityEngine;
 using Unity.Netcode;
+using System.Collections.Generic;
 
 public class SpawnManager : SyncedBehaviour, ISyncBeforeGame
 {
+    int amountToPool = 20;
+    List<GameObject> objectsToPool;
+    Dictionary<GameObject, List<GameObject>> pools;
+
+
+
     //Enable global access to static functions as SpawnManager.function()
     static SpawnManager SM;
     void Awake()
@@ -11,11 +18,13 @@ public class SpawnManager : SyncedBehaviour, ISyncBeforeGame
         //Debug.Log("SpawnManager : J'existe !");
     }
 
+
+
+
     public override void InitializeBeforeSync()
     {
         PrefabManager.LoadAllPrefabs();
     }
-
 
 
     //Basic Spawn functions (executed by server)
@@ -27,19 +36,44 @@ public class SpawnManager : SyncedBehaviour, ISyncBeforeGame
         GameObject go;
         int id;
 
-        go = Instantiate(prefab, spawnPos, spawnRot);
-        go.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
-        //Debug.Log($"SpawnManager : Spawned {go.name}, for client {clientId}"); 
+        if (prefab.tag == "Projectile")
+        {
+            //Pool spawning
+            GameObject projectile = PrefabManager.GetPooledObject(prefab); 
+            if (projectile != null) {
+                projectile.transform.position = spawnPos;
+                projectile.transform.rotation = spawnRot;
+                projectile.SetActive(true);
+                projectile.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+            }
+            return ObjectManager.GetObjectId(projectile);
+        }
 
-        id = ObjectManager.AddObjectToList(go);
-        return id;
+        else
+        {
+            go = Instantiate(prefab, spawnPos, spawnRot);
+            go.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+            //Debug.Log($"SpawnManager : Spawned {go.name}, for client {clientId}"); 
+
+            id = ObjectManager.AddObjectToList(go);
+            return id;
+        }
+
     }
 
     void ServerDespawnObject(GameObject go)
     {
-        if (go) {
-            ObjectManager.RemoveObjectFromList(go);
-            go.GetComponent<NetworkObject>().Despawn(); }
+        if (go)
+        {
+            if (go.tag == "Projectile") {
+                //ObjectManager.RemoveObjectFromList(go);
+                go.GetComponent<NetworkObject>().Despawn(false); }
+            else
+            {
+                ObjectManager.RemoveObjectFromList(go);
+                go.GetComponent<NetworkObject>().Despawn();
+            }
+        }
     }
 
 
