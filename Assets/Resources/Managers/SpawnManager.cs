@@ -4,12 +4,6 @@ using System.Collections.Generic;
 
 public class SpawnManager : SyncedBehaviour, ISyncBeforeGame
 {
-    int amountToPool = 20;
-    List<GameObject> objectsToPool;
-    Dictionary<GameObject, List<GameObject>> pools;
-
-
-
     //Enable global access to static functions as SpawnManager.function()
     static SpawnManager SM;
     void Awake()
