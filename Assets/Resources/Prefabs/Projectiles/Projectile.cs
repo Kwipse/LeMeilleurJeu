@@ -35,9 +35,10 @@ public abstract class Projectile : NetworkBehaviour
     public void FireProjectile(GameObject firingWeapon)
     {
         weapon = firingWeapon;
-        //weaponHolder = weapon.GetComponent<Arme>().GetWeaponSystem().gameObject;
+        weaponHolder = weapon.GetComponent<Arme>().GetWeaponSystem().gameObject;
 
         rb.isKinematic = false;
+        rb.velocity = Vector3.zero;
         rb.AddForce(gameObject.transform.forward * initialForce); //Todo : initialForce devrait venir de l'arme, et pas du projectile
         col.enabled = true;
     }
