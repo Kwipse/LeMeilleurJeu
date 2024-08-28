@@ -56,6 +56,7 @@ public class FPSPlayer : SyncedBehaviour, IWaitForGameSync
     public override void OnDestroy()
     {
         Destroy(WS);
+
         base.OnDestroy();
     }
 
