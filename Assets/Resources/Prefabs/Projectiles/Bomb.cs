@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bomb : Projectile 
 {
-    public override OnProjectileCollision(GameObject Go)
+    public override void OnProjectileCollision(GameObject Go)
     {
         
     }

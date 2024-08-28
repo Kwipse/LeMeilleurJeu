@@ -11,7 +11,7 @@ public class BombAvertizer : MonoBehaviour
     {
         if(gunPoint == null)
         {
-            SpawnManager.SpawnObject( _bomb, GameObject weapon, Transform altGunpoint, int initialForce = 0);
+            //SpawnManager.SpawnObject( _bomb, GameObject weapon, Transform altGunpoint, int initialForce = 0);
         }
     }
 }
