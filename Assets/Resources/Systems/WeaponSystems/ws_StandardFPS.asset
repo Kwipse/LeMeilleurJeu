@@ -15,6 +15,8 @@ MonoBehaviour:
   AvailableWeapons:
   - {fileID: 1659970368866776838, guid: 839f198c10492f44bb7e5cb570c7d66a, type: 3}
   - {fileID: 4842200263782335624, guid: 6dd708c2105816b47820a68f96dabb50, type: 3}
+  - {fileID: 5019264571705499319, guid: 5d58f2cfcf696344b984e6cc738a0648, type: 3}
   BackpackAmmos:
   - {fileID: 11400000, guid: 2d99d55cf78043c49ad72da34716b3a1, type: 2}
   - {fileID: 11400000, guid: c31907d5566e92b47ba66f4c8e4cfa20, type: 2}
+  - {fileID: 11400000, guid: 2d42dd7bededf5f4f87f0d48f8e38d20, type: 2}
