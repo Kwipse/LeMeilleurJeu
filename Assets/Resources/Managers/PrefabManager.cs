@@ -58,14 +58,9 @@ public class PrefabManager : ScriptableObject
         objectsToPool = new List<GameObject>();
         pools = new Dictionary<GameObject, List<GameObject>>();
 
-        foreach (GameObject go in PrefabList.Values)
-        {
-            if (go.tag == "Projectile")
-            {
-                objectsToPool.Add(go);
-                Debug.Log($"ohé ");
-            }
-        }
+        foreach (GameObject go in PrefabList.Values) {
+            if (go.tag == "Projectile") {
+                objectsToPool.Add(go); } }
 
         foreach (GameObject go in objectsToPool)
         {
@@ -78,8 +73,6 @@ public class PrefabManager : ScriptableObject
                 tmpGo.GetComponent<NetworkObject>().Spawn();
                 int id = ObjectManager.AddObjectToList(tmpGo);
                 tmpGo.GetComponent<NetworkObject>().Despawn(false);
-
-
                 tmpGo.SetActive(false);
                 tmpPool.Add(tmpGo);
             }

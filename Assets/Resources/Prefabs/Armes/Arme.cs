@@ -65,7 +65,7 @@ public abstract class Arme : SyncedBehaviour, IWaitForGameSync
 
         if (weaponStands.Count == 0) { Debug.Log("Weapon has no stand"); }
         if (weaponHandles.Count == 0) { Debug.Log("Weapon has no handle"); }
-        if (!weaponGunpoint) { Debug.Log("Weapon has no handle"); }
+        if (!weaponGunpoint) { Debug.Log("Weapon has no gunpoint"); }
     }
 
 

@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class FistOfFury : Arme
 {
-    public GameObject FofPolygone;
       
     public override void OnShoot()
     {
-        Debug.Log("fist of fury" );
-        // instantiate
-        //GameObject _fofPolygone = Instantiate(FofPolygone,transform.position,Quaternion.identity);
-        gameObject.GetComponent<Animation>().Play();
+                
+        ActivateCollider();
+        Animation anim = gameObject.GetComponentInChildren<Animation>();
+        anim.Play();
+        Invoke("DeactivateCollider", 0.5f);
 
+    }
+    
+    void ActivateCollider()
+    {
+        Collider col = gameObject.GetComponentInChildren<Collider>();
+        col.enabled = true;
+    }
+
+    void DeactivateCollider()
+    {
+        Collider col = gameObject.GetComponentInChildren<Collider>();
+        col.enabled = false;
+
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject == GetWeaponSystem().gameObject) { return; }
+        //Debug.Log($"Fist of fury : trigger on {col.gameObject.name}");
+        col.gameObject.GetComponent<HealthSystem>()?.LoosePv(25);
     }
 }
 
