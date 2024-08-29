@@ -31,9 +31,11 @@ public class FistOfFury : Arme
     void OnTriggerEnter(Collider col)
     {
         if (col.gameObject == GetWeaponSystem().gameObject) { return; }
-        //Debug.Log($"Fist of fury : trigger on {col.gameObject.name}");
+        Debug.Log($"Fist of fury : trigger on {col.gameObject.name}");
         col.gameObject.GetComponent<HealthSystem>()?.LoosePv(25);
-        //col.gameObject.GetComponent<Rigidbody>()?.AddForce(Vector3.up);
+
+        Vector3 force = col.transform.position - transform.position;
+        PhysicsManager.AddForce(col.gameObject, force * 300);
     }
 }
 
