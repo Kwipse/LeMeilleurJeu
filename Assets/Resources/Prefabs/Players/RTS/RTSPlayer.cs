@@ -53,6 +53,7 @@ public class RTSPlayer : SyncedBehaviour, IWaitForGameSync
     void Update()
     {
         ModeInputs();
+        GroupControlInputs();
 
         if (rtsMode == "Selection") {
             SelectionInputs();
@@ -80,6 +81,21 @@ public class RTSPlayer : SyncedBehaviour, IWaitForGameSync
     {
         if (Input.GetKeyDown(KeyCode.B)) {SwitchRtsMode("Construction"); }
         if (Input.GetKeyDown(KeyCode.Escape)) { SwitchRtsMode("Selection"); } 
+    }
+
+    void GroupControlInputs()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1   )   )    
+        {
+            Debug.Log($"cg_fillgroupcontrol");
+            selection.FillGroupControl();
+
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2   )  ) 
+        {
+            Debug.Log($"cg_loadgroupcontrol");
+            selection.LoadGroupControl();
+        }
     }
 
     void SelectionVideInputs()
