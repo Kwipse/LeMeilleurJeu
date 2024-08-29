@@ -5,7 +5,7 @@ using Unity.Netcode;
 public class SelectionSystem : NetworkBehaviour
 {
     //Selection
-    [HideInInspector] public List<GameObject> selection = new List<GameObject>();
+    /*[HideInInspector]*/ public List<GameObject> selection = new List<GameObject>();
 
     //Selection properties
     [HideInInspector] public bool isAddingToSelection = false;

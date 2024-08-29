@@ -1,9 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic; 
 
 public class RTSSelection : SelectionSystem
 {
     [HideInInspector] public bool isAddingToWaypoints;
 
+    public List<GameObject> groupControl;
     string selectionMode;
 
     Vector3 boxSelectStartPoint;
@@ -58,7 +60,22 @@ public class RTSSelection : SelectionSystem
         if (selectionMode == "SelectionArmee") { }
     }
 
+    public void FillGroupControl()
+    {
+        groupControl = new List<GameObject>(GetSelection());
+    }
 
+    public void LoadGroupControl()
+    {
+        if(groupControl != null) 
+        {
+            SelectList(groupControl);
+        }
+        else
+        {
+            Debug.Log($"groupcontrolempty");
+        }
+    }
 
     //Switch selection mode
     void SwitchSelectionMode(string mode)
