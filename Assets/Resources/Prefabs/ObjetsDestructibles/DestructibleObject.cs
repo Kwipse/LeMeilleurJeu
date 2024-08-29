@@ -17,7 +17,7 @@ public class DestructibleObject : SyncedBehaviour, IWaitForGameSync
 
     public override void OnDestroy()
     {
-        SpawnManager.SpawnObject("CaisseDetruite",transform.position, transform.rotation);
+        EffectManager.ReplaceDestructibleObject(gameObject, "CaisseDetruite");
         base.OnDestroy();
     }
 
