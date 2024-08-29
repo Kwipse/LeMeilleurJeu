@@ -21,6 +21,9 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
     public float unitSpeed = 15.0f;
     public float unitAngularSpeed = 1000.0f;
     public float unitAcceleration = 1000.0f;
+    public int aiProc= 12;
+
+    private int aiProcCounter=0;
 
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
@@ -39,7 +42,7 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
     {
         enabled = false;
 
-        //Debug.Log($"{gameObject.name} is awake");
+        Debug.Log($"{gameObject.name} is awake");
 
         WS = GetComponent<WeaponSystem>();
         AS = ScriptableObject.Instantiate(AS);
@@ -81,16 +84,25 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
     public virtual void Update()
     {
         //Debug.Log($"{gameObject.transform.GetChild(2).name} : {gameObject.transform.GetChild(2).transform.localScale}"); 
-
-        if ((ennemiTarget) && (attackMode))
+        if(aiProcCounter==aiProc)
         {
-            //Debug.Log($"{gameObject.name} is targetting {ennemiTarget.name}");
-            AttackEnnemiTarget(ennemiTarget); 
-            return;
+            aiProcCounter=0;
+
+            if ((ennemiTarget) && (attackMode))
+            {
+                //Debug.Log($"{gameObject.name} is targetting {ennemiTarget.name}");
+                AttackEnnemiTarget(ennemiTarget); 
+                return;
+            }
+
+            ennemiTarget = FindClosestEnnemiInSightRange();
+            MoveToDestination(); 
+        }
+        else
+        {
+            aiProcCounter+=1;
         }
 
-        ennemiTarget = FindClosestEnnemiInSightRange();
-        MoveToDestination(); 
     }
 
     public virtual void FixedUpdate()
