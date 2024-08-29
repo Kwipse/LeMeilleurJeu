@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 702433522353967781}
   - component: {fileID: 8284561549944088288}
   - component: {fileID: 308265632994970791}
-  - component: {fileID: 1517806905866495278}
+  - component: {fileID: 3039883560181570219}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -83,7 +83,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &1517806905866495278
+--- !u!144 &3039883560181570219
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,29 +95,29 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.609195, y: 1.1986374, z: -0.000000029802322}
+  m_ConnectedAnchor: {x: 0.60919344, y: 1.1986346, z: -0.00000078976154}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -40
+    limit: -20
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 25
+    limit: 70
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 25
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_EnableProjection: 0
@@ -126,7 +126,7 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &557467855399208526
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 8503605613041552261}
   - component: {fileID: 2760657353959566529}
   - component: {fileID: 7084376336862655211}
-  - component: {fileID: 1583745130269221427}
+  - component: {fileID: 6594589294556377744}
   m_Layer: 0
   m_Name: JambeD1
   m_TagString: Untagged
@@ -276,7 +276,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &1583745130269221427
+--- !u!144 &6594589294556377744
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -286,11 +286,11 @@ CharacterJoint:
   m_ConnectedBody: {fileID: 5475349283823026017}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: -1, y: 0, z: 0}
+  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -1.6349561, y: 1.4356121, z: 0.5227345}
+  m_ConnectedAnchor: {x: -1.6349554, y: 1.4356132, z: 0.5227356}
   serializedVersion: 2
-  m_SwingAxis: {x: 0, y: -1, z: 0}
+  m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
@@ -306,11 +306,11 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 30
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_EnableProjection: 0
@@ -319,7 +319,7 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &1565790619384348064
@@ -333,8 +333,8 @@ GameObject:
   - component: {fileID: 1620765395679350383}
   - component: {fileID: 7236235477121643895}
   - component: {fileID: 4291482677087055692}
-  - component: {fileID: 5241212803872609492}
   - component: {fileID: 1959731064780074199}
+  - component: {fileID: -7787620118845194016}
   m_Layer: 0
   m_Name: FPSPlayerRagdoll
   m_TagString: Untagged
@@ -351,7 +351,7 @@ Transform:
   m_GameObject: {fileID: 1565790619384348064}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38.635113, y: 0.0074999332, z: -50.321503}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2236542384
+  GlobalObjectIdHash: 884120667
   InScenePlacedSourceGlobalObjectIdHash: 884120667
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -411,18 +411,6 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &5241212803872609492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1565790619384348064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1959731064780074199
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -446,10 +434,22 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7787620118845194016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565790619384348064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf7a93608db4834aabc1d4d8877b0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1650480324178345782
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 6501674460543891922}
   - component: {fileID: 2175867296597256089}
   - component: {fileID: 3600585205318918713}
-  - component: {fileID: 5201571830285917083}
+  - component: {fileID: 3198928916912157448}
   m_Layer: 0
   m_Name: JambeG1
   m_TagString: Untagged
@@ -566,7 +566,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &5201571830285917083
+--- !u!144 &3198928916912157448
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -576,11 +576,11 @@ CharacterJoint:
   m_ConnectedBody: {fileID: 5475349283823026017}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: -1, y: 0, z: 0}
+  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -1.6349564, y: 1.4356121, z: -0.52273667}
+  m_ConnectedAnchor: {x: -1.6349562, y: 1.4356133, z: -0.5227392}
   serializedVersion: 2
-  m_SwingAxis: {x: 0, y: -1, z: 0}
+  m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
@@ -596,11 +596,11 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 30
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_EnableProjection: 0
@@ -609,7 +609,7 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &1862645917899328331
@@ -655,7 +655,7 @@ GameObject:
   - component: {fileID: 6988130787107554280}
   - component: {fileID: 4255200807554373110}
   - component: {fileID: 8973918547881862982}
-  - component: {fileID: 2464158048117028621}
+  - component: {fileID: 6753941804257923259}
   m_Layer: 0
   m_Name: JambeG2
   m_TagString: Untagged
@@ -729,7 +729,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &2464158048117028621
+--- !u!144 &6753941804257923259
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -739,31 +739,31 @@ CharacterJoint:
   m_ConnectedBody: {fileID: 3600585205318918713}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: 1}
+  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000011064113, y: 1.1169757, z: 0.0000006556511}
+  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
   serializedVersion: 2
-  m_SwingAxis: {x: 0, y: -1, z: 0}
+  m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -80
+    limit: -20
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 0
+    limit: 70
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_EnableProjection: 0
@@ -772,7 +772,7 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &3303659416333274844
@@ -817,7 +817,7 @@ GameObject:
   - component: {fileID: 7655573069852607150}
   - component: {fileID: 1047002291158908825}
   - component: {fileID: 6606811523657981687}
-  - component: {fileID: 4500690206671900539}
+  - component: {fileID: 918039733443627011}
   m_Layer: 0
   m_Name: BrasG1
   m_TagString: Untagged
@@ -892,7 +892,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &4500690206671900539
+--- !u!144 &918039733443627011
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -902,31 +902,31 @@ CharacterJoint:
   m_ConnectedBody: {fileID: 5475349283823026017}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: 1}
+  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.6295195, y: 1.1965841, z: -0.7841035}
+  m_ConnectedAnchor: {x: 0.62951964, y: 1.1965849, z: -0.7841029}
   serializedVersion: 2
-  m_SwingAxis: {x: 0, y: -1, z: 0}
+  m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -70
+    limit: -20
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 10
+    limit: 70
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 50
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_EnableProjection: 0
@@ -935,7 +935,7 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &3578655701473192942
@@ -997,7 +997,7 @@ Transform:
   m_GameObject: {fileID: 3854247245572245862}
   serializedVersion: 2
   m_LocalRotation: {x: 0.50000006, y: -0.49999994, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.67, z: -1.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1063,7 +1063,7 @@ GameObject:
   - component: {fileID: 2788921572377446816}
   - component: {fileID: 525313463567452544}
   - component: {fileID: 9015426706847861679}
-  - component: {fileID: 835099605715259812}
+  - component: {fileID: 5313763310019631695}
   m_Layer: 0
   m_Name: BrasD2
   m_TagString: Untagged
@@ -1138,7 +1138,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &835099605715259812
+--- !u!144 &5313763310019631695
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1148,31 +1148,31 @@ CharacterJoint:
   m_ConnectedBody: {fileID: 2584648137426616204}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: -1, z: 0}
+  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000010356307, y: 1.0854365, z: 0.00000082701456}
+  m_ConnectedAnchor: {x: 0.000001039356, y: 1.0854369, z: 0.0000005289913}
   serializedVersion: 2
-  m_SwingAxis: {x: -1, y: 0, z: 0}
+  m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -90
+    limit: -20
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 0
+    limit: 70
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_EnableProjection: 0
@@ -1181,7 +1181,7 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &4786391750234336381
@@ -1278,7 +1278,7 @@ GameObject:
   - component: {fileID: 1137753463857320155}
   - component: {fileID: 4080391396616388118}
   - component: {fileID: 8344042617162128051}
-  - component: {fileID: 4261023099709308974}
+  - component: {fileID: 4716621092425203235}
   m_Layer: 0
   m_Name: JambeD2
   m_TagString: Untagged
@@ -1352,7 +1352,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &4261023099709308974
+--- !u!144 &4716621092425203235
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1362,31 +1362,31 @@ CharacterJoint:
   m_ConnectedBody: {fileID: 7084376336862655211}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: 1}
+  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0000002970919, y: 1.1169753, z: -0.00000068545336}
+  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
   serializedVersion: 2
-  m_SwingAxis: {x: 0, y: -1, z: 0}
+  m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -80
+    limit: -20
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 0
+    limit: 70
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_EnableProjection: 0
@@ -1395,7 +1395,7 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &5088666582528643994
@@ -1492,7 +1492,6 @@ GameObject:
   - component: {fileID: 4831486947512212714}
   - component: {fileID: 942408798046291307}
   - component: {fileID: 5475349283823026017}
-  - component: {fileID: 7779124382343007146}
   m_Layer: 0
   m_Name: Bone
   m_TagString: Untagged
@@ -1508,8 +1507,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5097651528179685321}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.47366923, y: -0.5250117, z: 0.52501196, w: 0.47366935}
-  m_LocalPosition: {x: 1.2235712, y: -0.0000005735291, z: 4.2460313}
+  m_LocalRotation: {x: 0.4777144, y: -0.5213339, z: 0.5213339, w: 0.4777144}
+  m_LocalPosition: {x: 0, y: -0, z: 1.69}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1519,7 +1518,7 @@ Transform:
   - {fileID: 8503605613041552261}
   - {fileID: 6501674460543891922}
   m_Father: {fileID: 736578674729609694}
-  m_LocalEulerAnglesHint: {x: 90, y: -95.88598, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: -95, z: 0}
 --- !u!65 &942408798046291307
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1539,8 +1538,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.1322379, z: 1.5682068}
-  m_Center: {x: -2.8665626, y: 0.71780604, z: -0.00000011920929}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &5475349283823026017
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1568,52 +1567,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &7779124382343007146
-CharacterJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5097651528179685321}
-  m_ConnectedBody: {fileID: 7738552533261327349}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 1.2235718, y: -0.00000047683716, z: 4.2460318}
-  serializedVersion: 2
-  m_SwingAxis: {x: 0, y: 1, z: 0}
-  m_TwistLimitSpring:
-    spring: 0
-    damper: 0
-  m_LowTwistLimit:
-    limit: -20
-    bounciness: 0
-    contactDistance: 0
-  m_HighTwistLimit:
-    limit: 70
-    bounciness: 0
-    contactDistance: 0
-  m_SwingLimitSpring:
-    spring: 0
-    damper: 0
-  m_Swing1Limit:
-    limit: 40
-    bounciness: 0
-    contactDistance: 0
-  m_Swing2Limit:
-    limit: 40
-    bounciness: 0
-    contactDistance: 0
-  m_EnableProjection: 0
-  m_ProjectionDistance: 0.1
-  m_ProjectionAngle: 180
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!1 &5839490545968928768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,7 +1843,7 @@ GameObject:
   - component: {fileID: 1001349345418010817}
   - component: {fileID: 895087534450270129}
   - component: {fileID: 1611525282474520855}
-  - component: {fileID: 7824236744938365715}
+  - component: {fileID: 3648853018045090629}
   m_Layer: 0
   m_Name: BrasG2
   m_TagString: Untagged
@@ -1965,7 +1918,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &7824236744938365715
+--- !u!144 &3648853018045090629
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1975,31 +1928,31 @@ CharacterJoint:
   m_ConnectedBody: {fileID: 6606811523657981687}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: -1, z: 0}
+  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.00000078231096, y: 1.0854368, z: -0.00000011175871}
+  m_ConnectedAnchor: {x: 0.0000005438924, y: 1.0854362, z: 0.00000024586916}
   serializedVersion: 2
-  m_SwingAxis: {x: -1, y: 0, z: 0}
+  m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -90
+    limit: -20
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 0
+    limit: 70
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_EnableProjection: 0
@@ -2008,7 +1961,7 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &7226860884288118108
@@ -2105,7 +2058,7 @@ GameObject:
   - component: {fileID: 418956468473791307}
   - component: {fileID: 8575961748106122571}
   - component: {fileID: 2584648137426616204}
-  - component: {fileID: 7147960806099445211}
+  - component: {fileID: 8757183164969355180}
   m_Layer: 0
   m_Name: BrasD1
   m_TagString: Untagged
@@ -2180,7 +2133,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &7147960806099445211
+--- !u!144 &8757183164969355180
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2190,31 +2143,31 @@ CharacterJoint:
   m_ConnectedBody: {fileID: 5475349283823026017}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: 1}
+  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.62951905, y: 1.1965842, z: 0.78410333}
+  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
   serializedVersion: 2
-  m_SwingAxis: {x: 0, y: -1, z: 0}
+  m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -70
+    limit: -20
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 10
+    limit: 70
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 50
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_EnableProjection: 0
@@ -2223,6 +2176,6 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1

@@ -14,7 +14,7 @@ public class ModeManager : SyncedBehaviour, IWaitForGameSync
     string Ghost = "GhostPlayer";
 
     // ghost
-    float GhostDuration = 3.0f;
+    float GhostDuration = 10.0f;
 
     public override void StartAfterGameSync()
     {
