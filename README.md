@@ -645,4 +645,5 @@ Recuperer toutes les animations d'un .blend:
 "I FIGURED IT OUT. Apparently Unity can recognise animations set up this way but as of version 2019.3 it’s disabled by default and there’s no way to enable it within the editor. In order to enable it, you must navigate to /Data/Tools/ in your installation directory (I installed it using the default path so for me it was C:\Program Files\2019.3.0f6\Editor\Data), open Unity-BlenderToFBX.py and change bake_anim_use_all_actions=False, (it should be on line 43) to bake_anim_use_all_actions=True,. This lets unity properly recognise your actions."
 
 
-
+Ragdolls :
+Il y a un component "Articulation Body", qui pourrait aider a automatiser le process de ragdoll
