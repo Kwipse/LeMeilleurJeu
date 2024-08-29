@@ -328,7 +328,7 @@ MonoBehaviour:
   ExpUnitDmg: 20
   ExpBuildingDmg: 20
   ExpDuration: 0.25
-  outwardForce: 300
+  outwardForce: 1000
 --- !u!1 &4952539135333016345
 GameObject:
   m_ObjectHideFlags: 0
