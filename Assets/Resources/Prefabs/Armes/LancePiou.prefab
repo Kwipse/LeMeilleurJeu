@@ -231,7 +231,7 @@ MonoBehaviour:
   autoReloadOnMagasineNotFull: 1
   keepMagAmmoOnReload: 1
   projectile: {fileID: 4941722590205295700, guid: 4cf761aa484e09b4194df952df1c77b1, type: 3}
-  projectileSpeed: 5000
+  projectileSpeed: 10000
 --- !u!1 &2186605785939200082
 GameObject:
   m_ObjectHideFlags: 0

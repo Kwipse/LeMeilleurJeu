@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: PiouExplosion
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 6326067666519825528, guid: c6516393c6baa0c47aa7c74b79116edf, type: 3}
-  size: 2.72
-  duration: 0.5
+  resizable: 1
+  size: 10
+  duration: 0.1
+  defaultDmg: 100
   dmgUnit: 25
   dmgBat: 10
-  force: 666
+  force: 1000

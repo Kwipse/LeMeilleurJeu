@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.72, y: 2.72, z: 2.72}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -140,7 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f70846311b2d44e94dc99e0f038430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExplosionDuration: 0.5
+  ExplosionDuration: 0.1
+  defaultDamage: 100
   damageToUnit: 25
   damageToBuilding: 10
-  outwardForce: 666
+  outwardForce: 1000

@@ -13,8 +13,9 @@ namespace scriptablesobjects
         public bool resizable=true;
         public float size;
         public float duration;
-        public int dmgUnit;
-        public int dmgBat;
+        public int defaultDmg = 0;
+        public int dmgUnit = 1;
+        public int dmgBat = 1;
         public int force;
 
 
@@ -23,6 +24,7 @@ namespace scriptablesobjects
             if(resizable)explosionPrefab.transform.localScale = new Vector3 (size, size, size);
             explosion = explosionPrefab.GetComponent<Explosion>();
             explosion.ExplosionDuration = duration;
+            explosion.defaultDamage = defaultDmg;
             explosion.damageToUnit = dmgUnit;
             explosion.damageToBuilding = dmgBat;
             explosion.outwardForce = force;

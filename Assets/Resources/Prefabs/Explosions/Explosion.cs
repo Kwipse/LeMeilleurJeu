@@ -5,6 +5,8 @@ using Unity.Netcode;
 public class Explosion : NetworkBehaviour
 {
     [HideInInspector] public float ExplosionDuration;
+
+    [HideInInspector] public int defaultDamage = 0;
     [HideInInspector] public int damageToUnit;
     [HideInInspector] public int damageToBuilding;
     [HideInInspector] public int outwardForce;
@@ -28,7 +30,7 @@ public class Explosion : NetworkBehaviour
         GameObject target = col.gameObject;
         string tag = target.tag;
 
-        int dmg = 0;
+        int dmg = defaultDamage;
         if (tag == "Player") dmg = damageToUnit;
         if (tag == "Unit") dmg = damageToUnit;
         if (tag == "Building") dmg = damageToBuilding;
@@ -45,7 +47,12 @@ public class Explosion : NetworkBehaviour
     void PushTarget(GameObject target, int force, Vector3 expCenter)
     {
         //Debug.Log($"Explosion : Pushing {target.name}");
-        PushTargetRPC(ObjectManager.GetObjectId(target), force, expCenter);
+        Vector3 targetCenter = target.GetComponent<Collider>().bounds.center;
+        Vector3 pushDirection = targetCenter - expCenter;
+        Vector3 push = Vector3.Normalize(pushDirection) * force;
+
+        PhysicsManager.AddForce(target, push);
+        //PushTargetRPC(ObjectManager.GetObjectId(target), force, expCenter);
     }
 
     [Rpc(SendTo.Everyone)]
