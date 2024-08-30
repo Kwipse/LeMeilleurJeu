@@ -53,6 +53,11 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
         obstacle = GetComponent<NavMeshObstacle>();
     }
 
+    public GameObject GetOwnerPlayerObject()
+    {
+        return PlayerManager.GetPlayerObject(OwnerClientId);
+    }
+
     void InitWaypoints()
     {
         waypoints = new List<Vector3>();
