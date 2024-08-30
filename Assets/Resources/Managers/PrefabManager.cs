@@ -48,11 +48,10 @@ public class PrefabManager : ScriptableObject
             }
         }
 
-        LoadPools();
 
 	}
 
-    static void LoadPools()
+    public static void LoadPools()
     {
         //Pooling
         objectsToPool = new List<GameObject>();

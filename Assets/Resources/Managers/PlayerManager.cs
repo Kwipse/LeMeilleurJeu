@@ -62,7 +62,7 @@ public class PlayerManager : SyncedBehaviour, ISyncBeforeGame, IWaitForGameSync
         SetPlayerObject(clientID, ObjectManager.GetObjectById(GetPlayerObjectID(clientID)));
         SetPlayerCamera(clientID, GetPlayerObject(clientID)?.GetComponentInChildren<Camera>());
         SetPlayerTeam(clientID, TeamManager.GetTeam(clientID));
-        Debug.Log($"{this.GetType()} : Updated player {clientID} infos, with object id {GetPlayerObjectID(clientID)} ({GetPlayerObject(clientID).name} - {GetPlayerCamera(clientID).name} - Team {GetPlayerTeam(clientID)})");
+        //Debug.Log($"{this.GetType()} : Updated player {clientID} infos, with object id {GetPlayerObjectID(clientID)} ({GetPlayerObject(clientID).name} - {GetPlayerCamera(clientID).name} - Team {GetPlayerTeam(clientID)})");
     }
 
     public static void SetPlayerObjectID(ulong clientId, int playerObjectId) { PlayerObjectIDs[(int) clientId] = playerObjectId; }

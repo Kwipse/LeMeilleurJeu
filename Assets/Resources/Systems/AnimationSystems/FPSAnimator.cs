@@ -2,9 +2,6 @@ using UnityEngine;
 using Unity.Netcode;
 
 
-using scriptablesobjects;
-
-
 public class FPSAnimator : NetworkBehaviour 
 {
 	Animator Anim;

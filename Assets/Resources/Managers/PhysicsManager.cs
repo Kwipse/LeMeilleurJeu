@@ -18,6 +18,7 @@ public class PhysicsManager : SyncedBehaviour
         go.GetComponent<Rigidbody>()?.AddForce(force);
         if (!isOwner)
         {
+            if (!go.GetComponent<NetworkObject>()) { return; }
             PM.AddForceRpc(go, force);
             return;
         }

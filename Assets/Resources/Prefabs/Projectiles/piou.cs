@@ -1,7 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
 
-using scriptablesobjects;
 
 public class piou : Projectile
 {
@@ -14,6 +13,12 @@ public class piou : Projectile
     public float ExpDuration;
     public int outwardForce;
 
+    public override void Awake()
+    {
+        base.Awake();
+        Invoke("SelfDestroy", 5);
+    }
+    
     public override void OnProjectileCollision(GameObject target)
     {
         if ((target.tag == "Player" ) && (target.GetComponent<NetworkObject>().IsOwner)) return;
@@ -29,6 +34,16 @@ public class piou : Projectile
         gameObject.SetActive(false);
     }
 
+    public override void OnDestroy()
+    {
+        SelfDestroy();
+        base.OnDestroy();
+    }
+
+    void SelfDestroy()
+    {
+        SpawnManager.DestroyObject(gameObject);
+    }
 }
 
 

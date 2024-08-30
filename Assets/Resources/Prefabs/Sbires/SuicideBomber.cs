@@ -1,8 +1,6 @@
 using UnityEngine;
 
 
-using scriptablesobjects;
-
 public class SuicideBomber : Unit
 {
     public ExplosionAsset explosion;

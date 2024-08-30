@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class FistOfFury : Arme
 {
+    public override void Awake()
+    {
+        DeactivateCollider();
+        base.Awake();
+    }
       
     public override void OnShoot()
     {
-                
         ActivateCollider();
         Animation anim = gameObject.GetComponentInChildren<Animation>();
         anim.Play();
@@ -30,6 +34,9 @@ public class FistOfFury : Arme
 
     void OnTriggerEnter(Collider col)
     {
+        if (!IsOwner) { return; }
+        Debug.Log($"{col.gameObject}");
+        Debug.Log($"{GetWeaponSystem().gameObject}");
         if (col.gameObject == GetWeaponSystem().gameObject) { return; }
         Debug.Log($"Fist of fury : trigger on {col.gameObject.name}");
         col.gameObject.GetComponent<HealthSystem>()?.LoosePv(25);

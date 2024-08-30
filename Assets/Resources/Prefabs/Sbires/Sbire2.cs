@@ -1,10 +1,5 @@
 using UnityEngine;
 
-
-using scriptablesobjects;
-
-namespace LesMeilleursScripts
-{
     public class Sbire2 : Unit
     {
         //on experimente le minage
@@ -44,4 +39,3 @@ namespace LesMeilleursScripts
     {}
 
     }
-}

@@ -1,17 +1,20 @@
+using Unity.Netcode;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ragdoll : MonoBehaviour
+public class Ragdoll : NetworkBehaviour
 {
-    void Awake()
+    public override void OnNetworkSpawn()
     {
         ColorManager.SetObjectColors(gameObject);
-        Invoke("SelfDestroy", 60);
+        if (IsOwner)
+        {
+            Invoke("SelfDestroy", 15);
+        }
     }
-
     void SelfDestroy()
     {
-        Destroy(gameObject);
+        SpawnManager.DestroyObject(gameObject);
     }
 }
