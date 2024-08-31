@@ -981,7 +981,7 @@ Animator:
   m_GameObject: {fileID: 861338350176694483}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 88cd9144736b8a541b32991a1bbfae00, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1095,6 +1095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HSA: {fileID: 11400000, guid: ee503a61b9b2397459641793dfcd1dd1, type: 2}
+  showLifeBar: 1
   FPSDeathUI: {fileID: 0}
   pv:
     m_InternalValue: 0
@@ -1134,6 +1135,7 @@ MonoBehaviour:
   unitSpeed: 15
   unitAngularSpeed: 1000
   unitAcceleration: 1000
+  aiProc: 12
   AS: {fileID: 11400000, guid: 6725ff9f4e766b04982616e85733c161, type: 2}
 --- !u!114 &2140527350813601753
 MonoBehaviour:

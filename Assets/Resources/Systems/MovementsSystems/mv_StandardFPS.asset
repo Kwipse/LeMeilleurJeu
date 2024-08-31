@@ -19,4 +19,4 @@ MonoBehaviour:
   movingRb: {fileID: 0}
   movingCol: {fileID: 0}
   nbJumpMax: 3
-  jumpForce: 50
+  jumpForce: 150

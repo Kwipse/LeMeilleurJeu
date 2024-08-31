@@ -1,41 +1,34 @@
 using UnityEngine;
 
-    public class Sbire2 : Unit
-    {
-        //on experimente le minage
-        HealthSystem health;
-        public GameObject nexus, mine;
-        public RTSRessourceManager _rM;
-        public int loadCapacity = 10, load = 0;
+[RequireComponent(typeof(MiningAbility))]
+[RequireComponent(typeof(AIStateController))]
+public class Sbire2 : Unit
+{
 
-        public GoldSystem Gold;
+    //on experimente le minage
+    HealthSystem health;
+    public AIStateController _aisc; 
+    public MiningAbility _ma;
 
     public override void Awake()
     {
         health = GetComponent<HealthSystem>();
-        base.Awake();foreach(GameObject obj in FindObjectsOfType<GameObject>())
+        if( _aisc == null)
         {
-            if (obj.name == "Nexus")
-            {
-                Debug.Log("miningSbire.cs : nexus found");
-                nexus = obj;
-            }
-            if (obj.name == "GoldMine")
-            {
-                Debug.Log("miningSbire.cs : GoldMine found");
-                mine = obj;
-            }
-            if (obj.name == "RTSManager")
-            {
-                Debug.Log("miningSbire.cs : RtsManager found");
-               _rM = obj.GetComponent<RTSRessourceManager>();
-            }
+            Debug.Log($"heu___yapasd'ia");
         }
+        _ma = GetComponent<MiningAbility>();
+        base.Awake();
         
-    } 
-
-
-    public override void AttackAction() 
-    {}
 
     }
+
+
+public override void AttackAction() 
+{}
+
+public void LaunchAnimationByName(string _name)
+{
+    gameObject.GetComponent<Animator>().Play(_name);
+}
+}

@@ -11,6 +11,10 @@ public class PlayerSpawner : SyncedBehaviour, ISyncBeforeGame, IWaitForGameSync
     
     public override void InitializeBeforeSync()
     {
+    }
+
+    public override void StartAfterGameSync()
+    {
         if (IsOwner)
         {
             if (currentTeam == 0) {
@@ -18,11 +22,6 @@ public class PlayerSpawner : SyncedBehaviour, ISyncBeforeGame, IWaitForGameSync
             TeamManager.AddSpawner(gameObject, currentTeam);
             //Debug.Log($"adding player spawner");
         }
-
-    }
-
-    public override void StartAfterGameSync()
-    {
     }
 
     public void SwitchAvailability()
