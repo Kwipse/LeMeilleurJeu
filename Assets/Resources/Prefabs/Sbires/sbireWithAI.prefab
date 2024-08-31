@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 904767927
+  GlobalObjectIdHash: 3167309739
   InScenePlacedSourceGlobalObjectIdHash: 3167309739
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -186,7 +186,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HSA: {fileID: 11400000, guid: ee503a61b9b2397459641793dfcd1dd1, type: 2}
   showLifeBar: 1
-  FPSDeathUI: {fileID: 0}
   pv:
     m_InternalValue: 0
   pvMax:
@@ -280,7 +279,10 @@ MonoBehaviour:
   mine: {fileID: 0}
   loadCapacity: 10
   load: 0
+  mineCooldown: 1
+  loadByProc: 1
   _gold: {fileID: 0}
+  isFull: 0
 --- !u!114 &8706507048333555846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,6 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a470bbb8183b2c649bfaedcec7fdace8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deltaTime: 0
 --- !u!114 &7233438912260795233
 MonoBehaviour:
   m_ObjectHideFlags: 0
