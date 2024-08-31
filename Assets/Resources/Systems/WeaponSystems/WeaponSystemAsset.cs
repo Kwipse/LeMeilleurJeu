@@ -3,7 +3,6 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.Animations;
 using UnityEngine.Animations.Rigging;
-using scriptablesobjects;
 
 [CreateAssetMenu]
 public class WeaponSystemAsset : ScriptableObject

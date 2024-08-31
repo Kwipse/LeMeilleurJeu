@@ -31,7 +31,7 @@ public class Building : SyncedBehaviour, IWaitForGameSync
     {
         rb = gameObject.GetComponent<Rigidbody>();
         nms = GameObject.Find("Sol").GetComponent<NavMeshSurface>();
-        nmlinker = GameObject.Find("Sol").AddComponent<NavMeshLinks_AutoPlacer>();
+        nmlinker = GameObject.Find("Sol").GetComponent<NavMeshLinks_AutoPlacer>();
         nmm = gameObject.AddComponent<NavMeshModifier>();
 
         //nmm.overrideGenerateLinks = true;
@@ -103,7 +103,7 @@ public class Building : SyncedBehaviour, IWaitForGameSync
 
     void UpdateLinks()
     {
-        GameObject.Find("Sol").GetComponent<NavMeshLinks_AutoPlacer>().Generate();
+        //GameObject.Find("Sol").GetComponent<NavMeshLinks_AutoPlacer>().Generate();
     }
 }
 

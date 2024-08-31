@@ -126,7 +126,7 @@ using UnityEditor;
             Vector3 startPos = pos + normal * Vector3.forward * agentRadius * 2;
             Vector3 endPos = startPos - Vector3.up * maxJumpHeight * 1.1f;
 
-            //Debug.DrawLine ( pos + Vector3.right * 0.2f, endPos, Color.white, 2 );
+            //Debug.DrawLine ( pos + Vector3.right * 0.2f, endPos, Color.white, 10 );
 
 
             NavMeshHit navMeshHit;
@@ -175,9 +175,9 @@ using UnityEditor;
             Vector3 endPos = startPos - normal * Vector3.back * maxJumpDist * 1.1f;
             // Cheat forward a little bit so the sphereCast doesn't touch this ledge.
             Vector3 cheatStartPos = LerpByDistance(startPos, endPos, cheatOffset);
-            //Debug.DrawRay(endPos, Vector3.up, Color.blue, 2);
-            //Debug.DrawLine ( cheatStartPos , endPos, Color.white, 2 );
-            //Debug.DrawLine(startPos, endPos, Color.white, 2);
+            //Debug.DrawRay(endPos, Vector3.up, Color.blue, 5);
+            //Debug.DrawLine ( cheatStartPos , endPos, Color.white, 5 );
+            //Debug.DrawLine(startPos, endPos, Color.white, 5);
 
 
             NavMeshHit navMeshHit;

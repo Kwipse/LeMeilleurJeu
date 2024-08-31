@@ -1,7 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
 
-public class PlayerSpawner : SyncedBehaviour, IWaitForGameSync
+public class PlayerSpawner : SyncedBehaviour, ISyncBeforeGame, IWaitForGameSync
 {
     //quand construit se declare au teammanager
     //is available gerer ici
@@ -9,6 +9,10 @@ public class PlayerSpawner : SyncedBehaviour, IWaitForGameSync
 
     public int currentTeam = 0;
     
+    public override void InitializeBeforeSync()
+    {
+    }
+
     public override void StartAfterGameSync()
     {
         if (IsOwner)

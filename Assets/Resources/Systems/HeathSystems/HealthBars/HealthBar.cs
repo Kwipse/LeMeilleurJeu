@@ -19,7 +19,7 @@ public class HealthBar : ScriptableObject
     Image missingHealthImage;
 
     Bounds ownerBounds;
-    
+
     public void CreateHealthBar(GameObject healthOwner)
     {
         ownerBounds = healthOwner.GetComponent<Collider>().bounds;
@@ -62,4 +62,8 @@ public class HealthBar : ScriptableObject
         Destroy(healthBarGo);
     } 
     
+    public GameObject GetHealthBarObject()
+    {
+        return healthBarGo;
+    }
 }

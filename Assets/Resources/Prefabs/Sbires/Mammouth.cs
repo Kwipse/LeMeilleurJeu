@@ -1,7 +1,4 @@
 using UnityEngine;
-
-
-using scriptablesobjects;
 using System;
 
 public class Mammouth : Unit

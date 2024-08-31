@@ -34,6 +34,7 @@ public class ObjectManager : SyncedBehaviour, ISyncBeforeGame, IWaitForGameSync
 
     public override void StartAfterGameSync()
     {
+
         //Add scene objects to list
         if (IsServer) {
             foreach (NetworkObject no in FindObjectsOfType<NetworkObject>()) {
@@ -48,13 +49,27 @@ public class ObjectManager : SyncedBehaviour, ISyncBeforeGame, IWaitForGameSync
     void InitObjectManagerRpc(RpcParams rpcParams = default)
     {
         var clientId = rpcParams.Receive.SenderClientId;
-        //Debug.Log($"Object Manager : Initialising ObjectList with {ObjectIdList.Count} items for client {clientId}");
+        Debug.Log($"Object Manager : Initialising ObjectList with {ObjectIdList.Count} items for client {clientId}");
         foreach (var obj in ObjectIdList) 
         {
             //Debug.Log($"Object Manager : Sending {obj.ToString()} to client {clientId}");
             if (obj.Value)
             {
-                AddObjectToListRpc(obj.Key, obj.Value, NetworkManager.Singleton.RpcTarget.Single(clientId, RpcTargetUse.Temp)); 
+                //Debug.Log($"obj {obj.Value}");
+                if (!obj.Value.activeSelf)
+                {
+                    obj.Value.SetActive(true);
+                    obj.Value.GetComponent<NetworkObject>().Spawn();
+                    AddObjectToListRpc(obj.Key, obj.Value, NetworkManager.Singleton.RpcTarget.Single(clientId, RpcTargetUse.Temp)); 
+                    obj.Value.GetComponent<NetworkObject>().Despawn(false);
+                    obj.Value.SetActive(false);
+                }
+                else
+                {
+                    AddObjectToListRpc(obj.Key, obj.Value, NetworkManager.Singleton.RpcTarget.Single(clientId, RpcTargetUse.Temp)); 
+                }
+
+
             }
         }
 

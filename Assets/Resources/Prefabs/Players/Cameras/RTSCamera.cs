@@ -220,12 +220,13 @@ public class RTSCamera : NetworkBehaviour
         return max;
     }
 
+
     public Vector3 GetMouseGroundHitPosition() {
         return GetMouseGroundHit().point; }
 
     public RaycastHit GetMouseGroundHit() {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out RaycastHit hit, 3000.0f, (1<<8));
+        Physics.Raycast(ray, out RaycastHit hit, 8000.0f, (1<<8));
         return hit; }
 
     public RaycastHit GetCameraCenterHit() {

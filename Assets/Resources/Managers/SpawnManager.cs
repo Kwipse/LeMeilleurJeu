@@ -18,6 +18,10 @@ public class SpawnManager : SyncedBehaviour, ISyncBeforeGame
     public override void InitializeBeforeSync()
     {
         PrefabManager.LoadAllPrefabs();
+        if (IsServer)
+        {
+            PrefabManager.LoadPools();
+        }
     }
 
 
@@ -39,6 +43,7 @@ public class SpawnManager : SyncedBehaviour, ISyncBeforeGame
                 projectile.transform.rotation = spawnRot;
                 projectile.SetActive(true);
                 projectile.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+                //Debug.Log($"Projectile {projectile.name}, owner :{projectile.GetComponent<NetworkObject>().OwnerClientId}, projectile active : {projectile.activeSelf}");
             }
             return ObjectManager.GetObjectId(projectile);
         }
@@ -61,7 +66,9 @@ public class SpawnManager : SyncedBehaviour, ISyncBeforeGame
         {
             if (go.tag == "Projectile") {
                 //ObjectManager.RemoveObjectFromList(go);
-                go.GetComponent<NetworkObject>().Despawn(false); }
+                go.SetActive(false);
+                go.GetComponent<NetworkObject>().Despawn(false);
+            }
             else
             {
                 ObjectManager.RemoveObjectFromList(go);
@@ -129,8 +136,7 @@ public class SpawnManager : SyncedBehaviour, ISyncBeforeGame
         GameObject projectile = projectileNor;
         GameObject weapon = weaponNor;
         if (projectile.GetComponent<NetworkObject>().IsOwner) {
-            //Projectile projectileStats = projectile.GetComponent<Projectile>();
-            //projectileStats.initialForce = initialForce;
+            //Debug.Log($"Projectile callback RPC"); 
             projectile.GetComponent<Projectile>().FireProjectile(weapon); }
     }
 

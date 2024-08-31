@@ -56,7 +56,11 @@ public class FPSPlayer : SyncedBehaviour, IWaitForGameSync
     public override void OnDestroy()
     {
         Destroy(WS);
-        EffectManager.SpawnRagdoll(gameObject, "FPSPlayerRagdoll");
+        if (IsOwner)
+        {
+            GetComponent<Ragdoller>().TurnRagdoll();
+            //EffectManager.SpawnRagdoll(gameObject, "FPSPlayerRagdoll");
+        }
 
         base.OnDestroy();
     }

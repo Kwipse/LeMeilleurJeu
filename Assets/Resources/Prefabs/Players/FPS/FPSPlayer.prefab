@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 2170701393772319652}
   - component: {fileID: 3104513804266187867}
   - component: {fileID: 1453010873842497701}
+  - component: {fileID: -480303878876284590}
   m_Layer: 0
   m_Name: FPSPlayer
   m_TagString: Player
@@ -111,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3058936074
+  GlobalObjectIdHash: 1622434571
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -277,7 +278,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HSA: {fileID: 11400000, guid: ee503a61b9b2397459641793dfcd1dd1, type: 2}
   showLifeBar: 1
-  FPSDeathUI: {fileID: 4347804225041319694, guid: 1c7abf28e1ea67649849cdf2f8018bc1, type: 3}
   pv:
     m_InternalValue: 0
   pvMax:
@@ -297,6 +297,19 @@ MonoBehaviour:
   WSA: {fileID: 11400000, guid: 3043562b3d6c04b4a877521ba3bdecf9, type: 2}
   currentWeaponId:
     m_InternalValue: 0
+--- !u!114 &-480303878876284590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461714475075685670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dc44f94bd4bdb944be9062b9e4c2396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ragdollTime: 5
 --- !u!1 &628852257493769497
 GameObject:
   m_ObjectHideFlags: 0

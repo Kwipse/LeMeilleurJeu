@@ -1,5 +1,4 @@
 using UnityEngine;
-using scriptablesobjects;
 
 [RequireComponent(typeof(MiningAbility))]
 [RequireComponent(typeof(AIStateController))]

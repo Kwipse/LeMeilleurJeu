@@ -18,6 +18,6 @@ public class DestructedObject : MonoBehaviour
 
     void SelfDestroy()
     {
-        Destroy(gameObject);
+        SpawnManager.DestroyObject(gameObject);
     }
 }

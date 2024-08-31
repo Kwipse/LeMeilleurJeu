@@ -18,25 +18,29 @@ public abstract class Projectile : NetworkBehaviour
 
     public virtual void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        col = GetComponent<Collider>();
-        col.enabled = false;
-        rb.isKinematic = true;
-        gameObject.tag = "Projectile";
     }
 
     public override void OnNetworkSpawn() 
     {
-        ColorManager.SetObjectColors(gameObject);
     }
 
 
     //Callback from SpawnManager
     public void FireProjectile(GameObject firingWeapon)
     {
+        gameObject.SetActive(true);
         weapon = firingWeapon;
-        weaponHolder = weapon.GetComponent<Arme>().GetWeaponSystem().gameObject;
+        weaponHolder = PlayerManager.GetPlayerObject(gameObject.GetComponent<NetworkObject>().OwnerClientId);
 
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
+        col.enabled = false;
+        rb.isKinematic = true;
+
+        ColorManager.SetObjectColors(gameObject);
+
+
+        //Debug.Log($"Firing {gameObject.name}/{gameObject.GetComponent<NetworkObject>().OwnerClientId}");
         rb.isKinematic = false;
         rb.velocity = Vector3.zero;
         rb.AddForce(gameObject.transform.forward * initialForce); //Todo : initialForce devrait venir de l'arme, et pas du projectile
@@ -47,12 +51,15 @@ public abstract class Projectile : NetworkBehaviour
 
     void OnCollisionEnter(Collision col)
     {
+        //Debug.Log($"{NetworkManager.LocalClientId}/{gameObject.GetComponent<NetworkObject>().OwnerClientId} collision");
+        if (NetworkManager.LocalClientId != gameObject.GetComponent<NetworkObject>().OwnerClientId) { return; }
+
         //Don't hit owner
         if (col.gameObject == weapon) { return; }
         if (col.gameObject == weaponHolder) { return; }
         //if (col.gameObject.tag == "Projectile") { return; }
 
-        Debug.Log($"{gameObject.name} collided with {col.gameObject.name}");
+        //Debug.Log($"{gameObject.name}/{gameObject.GetComponent<NetworkObject>().OwnerClientId} of {weaponHolder.name}/{weaponHolder.GetComponent<NetworkObject>().OwnerClientId} collided with {col.gameObject.name}/{col.gameObject.GetComponent<NetworkObject>().OwnerClientId}");
         OnProjectileCollision(col.gameObject);
     }
 

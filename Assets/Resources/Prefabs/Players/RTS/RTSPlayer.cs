@@ -105,9 +105,9 @@ public class RTSPlayer : SyncedBehaviour, IWaitForGameSync
 
     void SelectionInputs()
     {
-        if (Input.GetMouseButtonDown(0)) { selection.StartBoxSelection(GetMouseGroundPos()); }
-        if (Input.GetMouseButton(0)) { selection.UpdateBoxSelection(GetMouseGroundPos()); }
-        if (Input.GetMouseButtonUp(0)) { selection.EndBoxSelection(GetMouseGroundPos()); }
+        if (Input.GetMouseButtonDown(0)) { selection.StartBoxSelection(cam.GetMouseGroundHitPosition()); }
+        if (Input.GetMouseButton(0)) { selection.UpdateBoxSelection(cam.GetMouseGroundHitPosition()); }
+        if (Input.GetMouseButtonUp(0)) { selection.EndBoxSelection(cam.GetMouseGroundHitPosition()); }
         if (Input.GetKeyDown(KeyCode.LeftShift)) { selection.isAddingToSelection = true ; }
         if (Input.GetKeyUp(KeyCode.LeftShift)) { selection.isAddingToSelection = false ; }
     }
@@ -115,16 +115,16 @@ public class RTSPlayer : SyncedBehaviour, IWaitForGameSync
     void SelectionArmeeInputs()
     {
         //SelectionArmee inputs
-        if (Input.GetMouseButtonDown(1)) { selection.OrderSelectedUnitsToMove(GetMouseNavmeshPos()); }
+        if (Input.GetMouseButtonDown(1)) { selection.OrderSelectedUnitsToMove(cam.GetMouseNavmeshPosition()); }
         if (Input.GetKeyDown(KeyCode.LeftShift)) { selection.isAddingToWaypoints = true ; }
         if (Input.GetKeyUp(KeyCode.LeftShift)) { selection.isAddingToWaypoints = false ; }
-        if (Input.GetKeyUp(KeyCode.S)) { selection.OrderSelectedUnitsToSkill(GetMouseNavmeshPos()); }
+        if (Input.GetKeyUp(KeyCode.S)) { selection.OrderSelectedUnitsToSkill(cam.GetMouseNavmeshPosition()); }
     }
 
     void SelectionBatimentInputs()
     {
         //SelectionBatiment inputs
-        if (Input.GetMouseButtonDown(1)) { selection.OrderSelectedBuildingsToMoveRallyPoint(GetMouseGroundPos()); } 
+        if (Input.GetMouseButtonDown(1)) { selection.OrderSelectedBuildingsToMoveRallyPoint(cam.GetMouseGroundHitPosition()); } 
         if (Input.GetKeyDown(KeyCode.W)) { selection.OrderSelectedSpawnersToCreateUnit(0); }
         if (Input.GetKeyDown(KeyCode.X)) { selection.OrderSelectedSpawnersToCreateUnit(1); }
     }
@@ -191,7 +191,7 @@ public class RTSPlayer : SyncedBehaviour, IWaitForGameSync
 
     void ConstructionUpdate() {
         if (builder.currentBlueprint) {
-            builder.MoveBlueprintToPosition(GetMouseGroundPos()); } }
+            builder.MoveBlueprintToHit(cam.GetMouseGroundHit()); } }
 
     void OnConstructionEnd() {
         builder.ClearBlueprint();
@@ -200,7 +200,6 @@ public class RTSPlayer : SyncedBehaviour, IWaitForGameSync
 
 
     //Misc
-    public Vector3 GetMouseGroundPos() { return cam.GetMouseGroundHitPosition(); }
-    public Vector3 GetMouseNavmeshPos() { return cam.GetMouseNavmeshPosition(); }
+    public RTSCamera GetCamera() { return cam; }
 }
 
