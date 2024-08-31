@@ -9,6 +9,7 @@ public class Sbire2 : Unit
     HealthSystem health;
     public AIStateController _aisc; 
     public MiningAbility _ma;
+    public Animator _anim;
 
     public override void Awake()
     {
@@ -18,8 +19,9 @@ public class Sbire2 : Unit
             Debug.Log($"heu___yapasd'ia");
         }
         _ma = GetComponent<MiningAbility>();
+        _anim = gameObject.GetComponent<Animator>();
         base.Awake();
-        
+       
 
     }
 
@@ -29,6 +31,11 @@ public override void AttackAction()
 
 public void LaunchAnimationByName(string _name)
 {
-    gameObject.GetComponent<Animator>().Play(_name);
+  _anim.Play(_name);
 }
+
+public void SetupNewStateForAnimation(string name,AnimationClip clip) 
+{
+}
+
 }

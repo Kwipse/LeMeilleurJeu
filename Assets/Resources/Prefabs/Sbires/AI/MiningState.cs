@@ -8,7 +8,7 @@ using UnityEngine;
         //joue l'animation de minage
         //check si on est plein
         MiningAbility _ma;
-        float mineTimer=0f;
+       [HideInInspector]public float mineTimer=0f;
 
         public override void OnEnter()
         {
@@ -20,11 +20,23 @@ using UnityEngine;
         }
         public override void OnUpdate()
         {
-            //mineTimer+=
-            if(mineTimer<=0)
+            mineTimer -= sc.deltaTime;
+ _ma = sc.gameObject.GetComponent<MiningAbility>(); _ma = sc.gameObject.GetComponent<MiningAbility>();          if(mineTimer<=0)
             {
                _ma.GetRessource(); 
+
+                if(_ma.IsFull())  
+                {
+                    sc.ChangeState("GoToNexusState");
+                    
+                }
+
                 mineTimer += _ma.mineCooldown;
             }
+        }
+
+        public override void OnExit()
+        {
+            
         }
     }

@@ -246,7 +246,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 933c55ce1f682e7439a333d49597a5e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HSA: {fileID: 0}
+  HSA: {fileID: 11400000, guid: ee503a61b9b2397459641793dfcd1dd1, type: 2}
+  showLifeBar: 1
+  FPSDeathUI: {fileID: 0}
   pv:
     m_InternalValue: 0
   pvMax:

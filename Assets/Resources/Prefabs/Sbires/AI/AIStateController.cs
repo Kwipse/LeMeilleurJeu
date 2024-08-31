@@ -2,22 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Unit))]
 public class AIStateController : MonoBehaviour
 {
     int procCounter=0,procRate=12;
 
-    AIState currentState;
+    public  AIState currentState;
 
     public MiningState miningState = new MiningState();
+    public GoToNexusState gtnState = new GoToNexusState();
+    public GoToMineState gtmState = new GoToMineState();
+    public UnloadState unloadState = new UnloadState();
 
     public SleepState sleepState = new SleepState();
     public HurtState hurtState = new HurtState();
 
-    public float deltaTime=0f;
+    // this is for aiState which all have lower rate than update
+    [HideInInspector]public float deltaTime=0f;
+    private float stackedDelta=0f;
 
     private void Start()
     {
-        ChangeState(sleepState);
+        Debug.Log($"Bonjour");
+        ChangeState(miningState);
     }
 
     void Update()
@@ -26,14 +33,17 @@ public class AIStateController : MonoBehaviour
         {
             if(procCounter == procRate)
             {
+                
+
                 //les states utilisent deltaTime pour les durées d'animation
                 procCounter = 0;
 
-                currentState.OnUpdate();
-
+                currentState.OnStateUpdate();
+                ResetDeltaTime();
             }
             else
             {
+                StackDeltaTime();
                 procCounter += 1;
             }
         }
@@ -44,10 +54,24 @@ public class AIStateController : MonoBehaviour
     {
         if (currentState != null)
         {
-            currentState.OnExit();
+            currentState.OnStateExit();
         }
         currentState = newState;
-        currentState.OnEnter();
+        currentState.OnStateEnter(this);
+    }
+    public void ChangeState(string _name)
+    {
+
+    }
+
+    private void StackDeltaTime()
+    {
+        deltaTime += stackedDelta;   
+    }
+
+    private void ResetDeltaTime()
+    {
+        deltaTime = 0f;
     }
 
 }

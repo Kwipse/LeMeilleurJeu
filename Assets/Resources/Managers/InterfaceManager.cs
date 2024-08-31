@@ -1,11 +1,16 @@
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Networking;
 
-namespace LeMeilleurJeu
-{
+
+
     public class InterfaceManager : MonoBehaviour
     {
+
+        void Awake()
+        {
+            Debug.Log($"Au secours");
+        }
+
         // UI
         void OnGUI()
         {
@@ -29,4 +34,4 @@ namespace LeMeilleurJeu
         
 
     }
-}
+
