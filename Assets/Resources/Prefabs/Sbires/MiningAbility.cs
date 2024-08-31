@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class MiningAbility : MonoBehaviour
+public class MiningAbility : SyncedBehaviour, IWaitForGameSync
 {   
     public List<AIState> _aiStates;
     private Sbire2 _unitHandler;
@@ -19,7 +19,7 @@ public class MiningAbility : MonoBehaviour
     
     public bool isFull=false;
 
-    void Awake()
+    public override void StartAfterGameSync()
     {
         //ce truc est dangeureux vvvvvv
         //                       vv  vv 
@@ -72,11 +72,11 @@ public class MiningAbility : MonoBehaviour
     {
         string actionName= "Mining";
         PlayTheAction(actionName);
-       
+
     }
     public void PlayTheAction(string _name)
     {
- _unitHandler.LaunchAnimationByName(_name);
+        _unitHandler.LaunchAnimationByName(_name);
     }
     public void StopTheAction()
     {

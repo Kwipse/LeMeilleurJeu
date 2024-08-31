@@ -23,6 +23,7 @@ public class AIStateController : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log($"Bonjour");
         ChangeState(miningState);
     }
 
