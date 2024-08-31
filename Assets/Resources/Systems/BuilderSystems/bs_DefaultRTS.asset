@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: bs_DefaultRTS
   m_EditorClassIdentifier: 
   AvailableBuildings:
-  - {fileID: 0}
+  - {fileID: 6117278076527145797, guid: 1b9ede021ce85cb49aded32e60312ddf, type: 3}
   - {fileID: 3764548900306691348, guid: 88e4eb239da42cf4c968524cf664f333, type: 3}
   - {fileID: 6179331823867752489, guid: 4726ffb5b4a2eb240869b63678a5ad15, type: 3}
   currentBlueprint: {fileID: 0}
