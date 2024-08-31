@@ -25,7 +25,10 @@ public class TeamManager : SyncedBehaviour, ISyncBeforeGame
         ClientTeam.OnListChanged += OnClientTeamChanged;
 
         if (IsServer)
+        {
             InitializeClientTeam();
+
+        }
 
         if (IsClient) {
             //Debug.Log($"ColorManager : Team set to {ClientTeam[(int) clientId]}");
@@ -127,21 +130,27 @@ public class TeamManager : SyncedBehaviour, ISyncBeforeGame
 
 
     [Rpc(SendTo.Everyone, RequireOwnership = false)]
-    void AddSpawnerRpc(NetworkObjectReference nor, int team) {
+    void AddSpawnerRpc(NetworkObjectReference nor, int team)
+    {
         spawners.Add((GameObject) nor, team);
-        ShowSpawnerList(); }
+        //ShowSpawnerList();
+    }
 
     [Rpc(SendTo.Everyone, RequireOwnership = false)]
-    void RemoveSpawnerRpc(NetworkObjectReference nor) {
+    void RemoveSpawnerRpc(NetworkObjectReference nor)
+    {
         spawners.Remove((GameObject) nor);
-        ShowSpawnerList(); }
+        //ShowSpawnerList();
+    }
 
     [Rpc(SendTo.Everyone, RequireOwnership = false)]
-    void SetSpawnerRpc(NetworkObjectReference nor, int team) {
+    void SetSpawnerRpc(NetworkObjectReference nor, int team)
+    {
         spawners[(GameObject) nor] = team;
-        ShowSpawnerList(); }
+        //ShowSpawnerList();
+    }
 
-    static void ShowSpawnerList() {
+    public static void ShowSpawnerList() {
         foreach (var spawner in spawners) {
             Debug.Log($"{spawner.Key.name}/Team{spawner.Value}"); } }
 

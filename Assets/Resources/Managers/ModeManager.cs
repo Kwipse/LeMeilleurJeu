@@ -25,7 +25,6 @@ public class ModeManager : SyncedBehaviour, IWaitForGameSync
         //Spawn FPS Player
         PlayMode = FPS ;
         SpawnFPS();
-        //SpawnManager.SpawnPlayer(FPS,Vector3.zero);
     }
 
 

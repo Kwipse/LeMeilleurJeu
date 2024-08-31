@@ -7,7 +7,7 @@ public class HealthSystem : SyncedBehaviour, IWaitForGameSync
     HealthBar HB;
     public bool showLifeBar = true;
     bool setToDie = false;
-    public GameObject FPSDeathUI ;
+    //public GameObject FPSDeathUI ;
 
 
     Camera cam;
@@ -62,6 +62,8 @@ public class HealthSystem : SyncedBehaviour, IWaitForGameSync
     }
 
 
+    public HealthBar GetHealthBar() { return HB; }
+
 
     public void UpdateCurrentCamera()
     {
@@ -70,6 +72,7 @@ public class HealthSystem : SyncedBehaviour, IWaitForGameSync
 
     void Update()
     {
+        if (!HB.GetHealthBarObject()) { return; }
         if (cam) { HB.LookAtPosition(cam.transform.position); }
         if (!cam) { UpdateCurrentCamera(); }
     }
@@ -83,14 +86,15 @@ public class HealthSystem : SyncedBehaviour, IWaitForGameSync
         switch (gameObject.tag)
         {
             case  "Player":
-                //SpawnManager.DestroyPlayer(gameObject);
-               
                 ModeManager _modeManager = NetworkManager.LocalClient.PlayerObject.GetComponent<ModeManager>();
-                _modeManager.BecomeGhost();
-
+                gameObject.GetComponent<Ragdoller>()?.TurnRagdoll();
+                //_modeManager.BecomeGhost();
                 break;
 
             default:
+                if (gameObject.GetComponent<Ragdoller>()) {
+                    gameObject.GetComponent<Ragdoller>().TurnRagdoll();
+                    break; }
                 SpawnManager.DestroyObject(gameObject);
                 break;
         }

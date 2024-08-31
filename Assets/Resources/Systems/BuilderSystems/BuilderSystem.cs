@@ -82,6 +82,12 @@ public class BuilderSystem : ScriptableObject
 
 
     //Blueprint Movement
+    //
+    public void MoveBlueprintToHit(RaycastHit hit) {
+        currentBlueprint.transform.position = hit.point;
+        currentBlueprint.transform.rotation *= Quaternion.FromToRotation(currentBlueprint.transform.up, hit.normal);
+    }
+
     public void MoveBlueprintToPosition(Vector3 position) {
         currentBlueprint.transform.position = position; }
 
@@ -90,7 +96,7 @@ public class BuilderSystem : ScriptableObject
 
     public void RotateBlueprint(bool rotateClockwise)
     {
-        currentBlueprint.transform.Rotate(Vector3.up * rotationSpeed/5 * (rotateClockwise?1:-1));
+        currentBlueprint.transform.Rotate(Vector3.up * rotationSpeed/3 * (rotateClockwise?1:-1), Space.Self);
     }
 
 

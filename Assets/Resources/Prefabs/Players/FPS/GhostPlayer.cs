@@ -20,7 +20,9 @@ public class GhostPlayer : SyncedBehaviour, IWaitForGameSync
         }
 
         if (!IsOwner) {
-            GetComponentInChildren<Camera>().enabled = false; }
+            GetComponentInChildren<Camera>().enabled = false;
+            GetComponentInChildren<Canvas>().enabled = false;
+        }
 
         enabled = true;
     }
