@@ -66,7 +66,7 @@ using System;
 
     public void Immobilize()
     {
-        MoveOrder(this.gameObject.transform.position,false);
+        MoveAction(this.gameObject.transform.position,false);
         SetAgentParameterTo(0.0f,0.0f,0.0f);
     }
 

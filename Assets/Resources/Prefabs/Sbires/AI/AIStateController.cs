@@ -8,10 +8,12 @@ public class AIStateController : MonoBehaviour
     int procCounter=0,procRate=12;
 
     public  AIState currentState;
+    [SerializeField]
+    public string currentStateName;
 
     public MiningState miningState = new MiningState();
-    public GoToNexusState gtnState = new GoToNexusState();
-    public GoToMineState gtmState = new GoToMineState();
+    public GoToNexusState goToNexusState = new GoToNexusState();
+    public GoToMineState goToMineState = new GoToMineState();
     public UnloadState unloadState = new UnloadState();
 
     public SleepState sleepState = new SleepState();
@@ -19,12 +21,13 @@ public class AIStateController : MonoBehaviour
 
     // this is for aiState which all have lower rate than update
     [HideInInspector]public float deltaTime=0f;
-    private float stackedDelta=0f;
+    //private float stackedDelta=0f;
 
     private void Start()
     {
         Debug.Log($"Bonjour");
-        ChangeState(miningState);
+        ChangeState(sleepState);
+        currentStateName= currentState.name;
     }
 
     void Update()
@@ -59,14 +62,16 @@ public class AIStateController : MonoBehaviour
         currentState = newState;
         currentState.OnStateEnter(this);
     }
+
     public void ChangeState(string _name)
     {
 
     }
 
     private void StackDeltaTime()
-    {
-        deltaTime += stackedDelta;   
+    { 
+       
+        deltaTime += Time.deltaTime;   
     }
 
     private void ResetDeltaTime()

@@ -1,9 +1,10 @@
 public abstract class AIState  
 {
     public AIStateController sc;
-
+    public string name;
     public void OnStateEnter(AIStateController stateController)
     {
+        name=this.GetType().Name;
         // Code placed here will always run
         sc = stateController;
         OnEnter();

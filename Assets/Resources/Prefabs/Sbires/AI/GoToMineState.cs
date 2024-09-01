@@ -11,21 +11,36 @@ public class GoToMineState : AIState
     [HideInInspector] public bool isArrived=false;
     public override void OnEnter()
     {
+
         _ma = sc.gameObject.GetComponent<MiningAbility>();
         distanceToStop= _ma.distanceToStop;
-        _ma.MoveOrder(_ma.mine.transform.position, false);
+        if(_ma.mine !=null)
+        {
+            _ma.MoveActionInSequence(_ma.mine.transform.position, false);
+        }
+        else
+        {
+            Debug.Log(" mine destroyed, improve code here");
+             
+        }
+
+        
+
     }
 
     public override void OnUpdate()  
     {
+
         Vector3 gap = _ma.mine.transform.position - sc.transform.position;
         float distanceGap = gap.sqrMagnitude;
+
         if(distanceToStop*distanceToStop>distanceGap)
         {
-            sc.ChangeState("MiningState");
+
+            sc.ChangeState(sc.miningState);
         } 
-                
-   }
-  
+
+    }
+
 }
 
