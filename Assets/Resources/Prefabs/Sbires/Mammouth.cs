@@ -43,7 +43,7 @@ public class Mammouth : Unit
         if(ChargeMode=="ready") 
             {
                 ChargeModeEnter();
-                MoveOrder(pos,false);
+                MoveAction(pos,false);
             }
 
     }

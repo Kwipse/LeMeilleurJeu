@@ -213,7 +213,7 @@ public class SpawnManager : SyncedBehaviour, ISyncBeforeGame
         //Debug.Log($"SpawnManager : Received order to move {go.name} to rally point {rallyPosition}");
         if (no.IsOwner)
         {
-            go.GetComponent<Unit>()?.MoveOrder(rallyPosition, false);
+            go.GetComponent<Unit>()?.MoveAction(rallyPosition, false);
         }
     }
 

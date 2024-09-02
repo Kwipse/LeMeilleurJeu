@@ -14,6 +14,7 @@ public class UnloadState : AIState
 
     public override void OnEnter()
     {
+              
        // ulong id = sc.gameObject.GetComponent<NetworkObject>().OwnerClientId;
         //GoldSystem gold = PlayerManager.GetPlayerObject(id).GetComponent<RTSPlayer>().gold;
 
@@ -24,9 +25,11 @@ public class UnloadState : AIState
 
     public override void OnUpdate()  
     { 
+         
         if(_unloadDuration<=0f)
         {
-            sc.ChangeState("GoToMineState");
+            _ma.GetGold();
+           sc.ChangeState(sc.goToMineState);
         }
         else
         {
@@ -35,6 +38,12 @@ public class UnloadState : AIState
 
                 
    }
+ 
+        public override void OnExit()
+        {
+          
+
+        }
   
 }
 

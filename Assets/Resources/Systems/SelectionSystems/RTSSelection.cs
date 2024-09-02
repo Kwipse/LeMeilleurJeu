@@ -138,7 +138,7 @@ public class RTSSelection : SelectionSystem
     public void OrderSelectedUnitsToMove(Vector3 pos) 
     {
         foreach (GameObject go in selection) {
-            go.GetComponent<Unit>()?.MoveOrder(pos, isAddingToWaypoints); } 
+            go.GetComponent<Unit>()?.MoveAction(pos, isAddingToWaypoints); } 
     }
 
     public void OrderSelectedBuildingsToMoveRallyPoint(Vector3 pos) 

@@ -12,7 +12,7 @@ using UnityEngine;
 
         public override void OnEnter()
         {
-            Debug.Log($"MiningStateEnter");
+           
             _ma = sc.gameObject.GetComponent<MiningAbility>();
             _ma.PlayTheAction();
             mineTimer += _ma.mineCooldown;
@@ -20,15 +20,18 @@ using UnityEngine;
         }
         public override void OnUpdate()
         {
+         
             mineTimer -= sc.deltaTime;
- _ma = sc.gameObject.GetComponent<MiningAbility>(); _ma = sc.gameObject.GetComponent<MiningAbility>();          if(mineTimer<=0)
+            
+            if(mineTimer<=0)
             {
-               _ma.GetRessource(); 
+
+                _ma.GetRessource(); 
 
                 if(_ma.IsFull())  
                 {
-                    sc.ChangeState("GoToNexusState");
-                    
+                    sc.ChangeState(sc.goToNexusState);
+
                 }
 
                 mineTimer += _ma.mineCooldown;
@@ -37,6 +40,7 @@ using UnityEngine;
 
         public override void OnExit()
         {
-            
+         
+
         }
     }

@@ -200,7 +200,13 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
         agent.acceleration = _acceleration;
     }
 
-    public void MoveOrder(Vector3 pos, bool addWaypoint = false) {
+    public virtual void MoveAction(Vector3 pos, bool addWaypoint = false) {
+        if (!addWaypoint) { waypoints.Clear(); }
+        waypoints.Add(pos);
+        ennemiTarget = null;
+        attackMode = false; }
+
+    public virtual void MoveActionInSequence(Vector3 pos, bool addWaypoint = false) {
         if (!addWaypoint) { waypoints.Clear(); }
         waypoints.Add(pos);
         ennemiTarget = null;
@@ -242,4 +248,9 @@ public abstract class Unit : SyncedBehaviour, IWaitForGameSync
         return closestEnnemi;
     }
 
+    public virtual List<OrderRTS> GetAvailableOrder()
+    {
+        return null;
+
+    }
 }
