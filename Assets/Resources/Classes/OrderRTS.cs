@@ -9,8 +9,6 @@ using UnityEngine;
         public string name;
         public Vector3 pos;
         public GameObject target;
-
-
-          }
+    }
 
 
