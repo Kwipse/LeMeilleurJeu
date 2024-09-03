@@ -7,6 +7,11 @@ Ben c'est le meilleur jeu quoi
 
 Bienvenue dans le meilleur jeu.
 
+# Diagramme
+
+![Saucisson](Schema.odg "sauce")
+
+
 
 # RACCOURCIS/FONCTIONALITES
 
