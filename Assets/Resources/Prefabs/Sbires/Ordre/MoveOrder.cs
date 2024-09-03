@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-    public class MoveOrder :OrderRTS 
+public class MoveOrder : OrderRTS 
+{
+    //public Vector3 pos = Vector3.zero; //NdN : Ca lance des warnings/erreurs
+    void Start()
     {
-        public Vector3 pos=Vector3.zero;
-        void Start()
-        {
-            name = "MoveOrder";
-        }
-
-        
+        name = "MoveOrder";
     }
+}
 

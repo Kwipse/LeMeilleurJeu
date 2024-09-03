@@ -15,7 +15,6 @@ public class EffectManager : SyncedBehaviour
     { 
         EM = this; 
         LLR = new List<LineRenderer>();
-        Debug.Log($"zboub");
     }
 
 
@@ -45,7 +44,8 @@ public class EffectManager : SyncedBehaviour
         LR.SetPosition(0, startPos);
         LR.SetPosition(1, endPos);
         LR.material.color = color;
-        LR.SetWidth(size, size);
+        LR.startWidth = size;
+        LR.endWidth = size;
          
         IEnumerator coroutine = DestroyLine(LR, time);
         EM.StartCoroutine(coroutine);

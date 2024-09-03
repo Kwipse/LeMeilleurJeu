@@ -8,7 +8,7 @@ using UnityEngine;
 
         void Awake()
         {
-            Debug.Log($"Au secours");
+
         }
 
         // UI

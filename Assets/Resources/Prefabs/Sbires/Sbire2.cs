@@ -16,6 +16,7 @@ public class Sbire2 : Unit
 
     public override void Awake()
     {
+
         _ob=GetComponent<OrderBuffer>();
         health = GetComponent<HealthSystem>();
         if( _aisc == null)
@@ -33,13 +34,13 @@ public class Sbire2 : Unit
     {
         if(ordre.name == "MoveOrder")
         {
-            MoveAction(ordre.pos);
+            //MoveAction(ordre.pos); //NdN : Ca lance des warnings/erreurs
         }
          if(ordre.name == "SkillOrder")
          {
              //ceci est a changé
              Debug.Log("sbire2.ActionOrder Launching order");
-             SkillAction(Vector3.zero);
+             //SkillAction(Vector3.zero); //NdN : Ca lance des warnings/erreurs
 
          }
     }
