@@ -9,7 +9,8 @@ Bienvenue dans le meilleur jeu.
 
 # Diagramme
 
-![Saucisson](Schema.odg "sauce")
+![Schema.odg](Schema.odg "Il te faut libreoffice")
+![Saucisson](Schema.png "Magnifique, non ?")
 
 
 
