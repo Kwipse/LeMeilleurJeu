@@ -7,11 +7,6 @@ Ben c'est le meilleur jeu quoi
 
 Bienvenue dans le meilleur jeu.
 
-# Diagramme
-
-![Schema.odg](Schema.odg "Il te faut libreoffice")
-![Saucisson](Schema.png "Magnifique, non ?")
-
 
 
 # RACCOURCIS/FONCTIONALITES
@@ -93,6 +88,12 @@ string tag = go.tag;
 
 - TeamColor : Les objets avec ce tag seront colorés avec la couleur de l'équipe
 - PlayerColor : Les objets avec ce tag seront colorés avec la couleur de l'équipe
+
+
+# Diagrammes
+
+![Saucisson](Schema.png "Magnifique, non ?")
+![Schema.odg](Schema.odg "Il te faut libreoffice")
 
 
 # SYSTEMES
