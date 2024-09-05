@@ -92,8 +92,12 @@ string tag = go.tag;
 
 # Diagrammes
 
-![Saucisson](Schema.png "Magnifique, non ?")
-![Schema.odg](Schema.odg "Il te faut libreoffice")
+## Code
+![MagnifiqueSchema](Schema.png "Magnifique, non ?")
+![OrigineSchema.odg](Schema.odg "Il te faut libreoffice")
+
+## Animator
+![MagnifiqueAnimator](AnimatorGraph.png "Magnifique, non ?")
 
 
 # SYSTEMES
