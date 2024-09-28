@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8099749895713115615}
   - component: {fileID: 5276442980517517255}
-  - component: {fileID: -7617299965318541371}
   m_Layer: 0
   m_Name: navlink_roundtrip
   m_TagString: Untagged
@@ -53,28 +52,3 @@ MonoBehaviour:
   m_Bidirectional: 0
   m_AutoUpdatePosition: 0
   m_Area: 0
---- !u!114 &-7617299965318541371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5914618598932788521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc862ae8588a42a47a487f21f1865c54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  linkPrefab: {fileID: 8099749895713115615}
-  OnewayLinkPrefab: {fileID: 8099749895713115615, guid: 1528c351ed75835428aefca073e44dc1, type: 3}
-  tileWidth: 5
-  maxJumpHeight: 3
-  maxJumpDist: 5
-  raycastLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  sphereCastRadius: 1
-  cheatOffset: 0.25
-  wallCheckYOffset: 0.5
-  invertFacingNormal: 0
-  dontAllignYAxis: 0

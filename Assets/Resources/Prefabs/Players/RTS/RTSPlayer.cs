@@ -70,6 +70,7 @@ public class RTSPlayer : SyncedBehaviour, IWaitForGameSync
     {
         //Unsubscribe to selection mode events
         selection.RTSSwitchedSelectionModeEvent -= OnSwitchedSelectionMode;
+        if (builder.currentBlueprint) { builder.ClearBlueprint(); }
 
         base.OnDestroy();
     }

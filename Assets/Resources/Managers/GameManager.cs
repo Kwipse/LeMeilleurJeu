@@ -2,7 +2,6 @@ using Unity.Netcode;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.AI.Navigation;
 
 
 //Game Manager
@@ -72,7 +71,6 @@ public class GameManager : NetworkBehaviour
             //Debug.Log($"{b.GetType().Name} : Game is synced"); 
             b.StartAfterGameSync(); }
 
-      GameObject.Find("Sol").GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
 
@@ -84,10 +82,9 @@ public class GameManager : NetworkBehaviour
     //void OnApplicationQuit()
     public override void OnNetworkDespawn()
     {
-      GameObject sol = GameObject.Find("Sol");
-        sol.GetComponent<NavMeshSurface>().UpdateNavMesh(sol.GetComponent<NavMeshSurface>().navMeshData);
+        //GameObject sol = GameObject.Find("Sol");
+        //sol.GetComponent<NavMeshSurface>().UpdateNavMesh(sol.GetComponent<NavMeshSurface>().navMeshData);
         //sol.GetComponent<NavMeshSurface>().BuildNavMesh();
-        sol.GetComponent<NavMeshLinks_AutoPlacer>().ClearLinks();
-
+        //sol.GetComponent<NavMeshLinks_AutoPlacer>().ClearLinks();
     }
 }

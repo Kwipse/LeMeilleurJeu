@@ -66,24 +66,9 @@ public class Building : SyncedBehaviour, IWaitForGameSync
 
 
         //Update the navmesh
-        nms.UpdateNavMesh(nms.navMeshData);
-
-        //Bounds b = new Bounds(gameObject.transform.position, new Vector3(500,500,500));
-        //List<NavMeshBuildSource> sources = new List<NavMeshBuildSource>();
-        //NavMeshBuilder.CollectSources(null, 1, NavMeshCollectGeometry.PhysicsColliders, 0, true,  new List<NavMeshBuildMarkup>(), false, sources);
-        //NavMeshBuilder.UpdateNavMeshDataAsync(nms.navMeshData, nms.GetBuildSettings(), sources, b);
-
-        //Debug.Log($"{sources.Count}");
-        //foreach (var s in sources)
-        //{
-        //    if (s.sourceObject) {
-        //        Debug.Log($"{s.sourceObject.name}"); }
-        //}
+        NavmeshManager.UpdateNavmesh();
 
         Invoke("UpdateLinks",1);
-        //nmlinker.Generate();
-        
-        //gameObject.GetComponent<NavMeshLinks_AutoPlacer>().Generate();
     }
 
     //Send events on triggers (for blueprints)
@@ -95,8 +80,7 @@ public class Building : SyncedBehaviour, IWaitForGameSync
         nmm.ignoreFromBuild = true;
 
         //Destroy(nmm);
-        //nms.RemoveData();
-        nms.UpdateNavMesh(nms.navMeshData);
+        NavmeshManager.UpdateNavmesh();
         Invoke("UpdateLinks",1);
 
     }
